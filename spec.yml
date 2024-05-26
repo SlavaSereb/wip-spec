@@ -3855,7 +3855,15 @@ paths:
       operationId: getTransactions
     post:
       summary: Create a new transaction
-      description: Creates a new transaction.
+      description: |
+        Creates a new transaction. This endpoint can be used for regular Transfers, Contract Calls, Raw & Typed message signing.
+        - For Transfers, the required parameters are: `assetId`, `source`, `destination` and `amount`.
+
+        - For Contract Calls, the required parameters are: `operation.CONTRACT_CALL`, `assetId` (Base Asset), `source`, `destination`, `amount` (usually 0) and `extraParameters` object with `contractCallData` string.
+
+        - For RAW and Typed messages signing, the required parameters are: `operation.RAW/TYPED_MESSAGE`, `assetId` or `derivationPath`, `source` or `derivationPath`, `extraParameters` with [rawMessageData object](https://developers.fireblocks.com/reference/raw-signing-objects).
+
+        - Typed Message Signing is supported for the following asset IDs: 'ETH', 'BTC' and 'TRX'. [Typed Message Signing Guide](https://developers.fireblocks.com/docs/typed-message-signing-overview).
       tags:
         - Transactions
       parameters:
@@ -3865,11 +3873,36 @@ paths:
         code-samples:
           - language: python
             code: |
-              tx_result = client.create_transaction( asset_id="BTC", amount="50", source=TransferPeerPath(VAULT_ACCOUNT, from_vault_account_id), destination=DestinationTransferPeerPath(VAULT_ACCOUNT, to_vault_account_id) )
+              tx_result = client.create_transaction( 
+                asset_id="BTC", 
+                amount="50",
+                source=TransferPeerPath(
+                  VAULT_ACCOUNT, 
+                  from_vault_account_id
+                  ),
+              destination=DestinationTransferPeerPath(
+                VAULT_ACCOUNT,
+                to_vault_account_id
+                ) 
+              )
             name: Fireblocks SDK Python example
           - language: javascript
             code: |
-              const payload: TransactionArguments = { assetId: asset, source: { type: sourceType, id: sourceId || 0 }, destination: { type: destinationType, id: String(destinationId) }, amount: String(amount), fee: String(fee), note: "Created by fireblocks SDK" }; const result = await fireblocks.createTransaction(payload);
+              const payload: TransactionArguments = { 
+                assetId: asset, 
+                source: {
+                  type: sourceType, 
+                  id: sourceId || 0 
+                }, 
+                destination: { 
+                  type: destinationType, 
+                  id: String(destinationId) 
+                }, 
+                amount: String(amount),
+                note: "Created by fireblocks SDK" 
+              }; 
+
+              const result = await fireblocks.createTransaction(payload);
             name: Fireblocks SDK Javascript example
           - language: typescript
             code: 'const response: Promise<FireblocksResponse<CreateTransactionResponse>> = fireblocks.transactions.createTransaction(transactionsApiCreateTransactionRequest);'
@@ -3890,6 +3923,7 @@ paths:
         default:
           $ref: '#/components/responses/Error'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -3901,6 +3935,7 @@ paths:
       description: |
         Estimates the transaction fee for a specific transaction request.
         This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet.
+
 
         * Note: Supports all Fireblocks assets except ZCash (ZEC).
       tags:
@@ -12277,7 +12312,7 @@ components:
             An optional but highly recommended parameter. Fireblocks will reject future transactions with same ID. 
             You should set this to a unique ID representing the transaction, to avoid submitting the same transaction twice. This helps with cases where submitting the transaction responds with an error code due to Internet interruptions, but the transaction was actually sent and processed. To validate whether a transaction has been processed, [Find a specific transaction by external transaction ID](https://developers.fireblocks.com/reference/get_transactions-external-tx-id-externaltxid).
             There is no specific format required for this parameter.
-          example: 00000000-0000-0000-0000-000000000000
+          example: some_unique_external_tx_id
         assetId:
           type: string
           description: The ID of the asset to transfer, for `TRANSFER`, `MINT` or `BURN` operations. [See the list of supported assets and their IDs on Fireblocks.](https://developers.fireblocks.com/reference/get_supported-assets)
@@ -12409,7 +12444,7 @@ components:
       properties:
         id:
           type: string
-          description: The ID of the transaction.
+          description: Unique Fireblocks identifier of the transaction
         status:
           type: string
           description: The primary status of the transaction. For details, see [Primary transaction statuses.] (https://developers.fireblocks.com/reference/primary-transaction-statuses)

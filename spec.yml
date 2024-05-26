@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Fireblocks API
-  version: 1.6.2
+  version: 1.6.3
   contact:
     email: support@fireblocks.com
 servers:
@@ -3579,7 +3579,10 @@ paths:
   /supported_assets:
     get:
       summary: List all asset types supported by Fireblocks
-      description: Returns all asset types supported by Fireblocks.
+      description: |
+        Returns all asset types supported by Fireblocks.
+
+        The response includes all assets supported by Fireblocks globally in addition to assets added to the specific workspace.
       tags:
         - Blockchains & assets
       x-readme:
@@ -4304,16 +4307,16 @@ paths:
   /transactions/validate_address/{assetId}/{address}:
     get:
       summary: Validate destination address
-      description: Checks if an address is valid (for XRP, DOT, XLM, and EOS).
+      description: Checks if an address is valid and active (for XRP, DOT, XLM, and EOS).
       tags:
         - Transactions
       x-readme:
         code-samples:
           - language: python
-            code: result = fireblocks.(asset_id, address)
+            code: result = fireblocks.validate_address("XRP"", "rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn")
             name: Fireblocks SDK Python example
           - language: javascript
-            code: const result = await fireblocks.(assetId, address);
+            code: const result = await fireblocks.validateAddress("XRP", "rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn")
             name: Fireblocks SDK Javascript example
           - language: typescript
             code: 'const response: Promise<FireblocksResponse<ValidateAddressResponse>> = fireblocks.transactions.validateAddress(transactionsApiValidateAddressRequest);'
@@ -4329,15 +4332,17 @@ paths:
           schema:
             type: string
             x-fb-entity: asset
+            example: XRP
         - in: path
           name: address
           required: true
           description: The address to validate
           schema:
             type: string
+            example: rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn
       responses:
         '200':
-          description: An Transaction object
+          description: Validate Address Response Object
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
@@ -8845,6 +8850,54 @@ paths:
       operationId: createTicket
       summary: Create Ticket
       description: Creates new Smart Transfer ticket
+      x-readme:
+        code-samples:
+          - language: python
+            code: |
+              terms = [
+                {
+                  asset: "BTC",
+                  amount: "133.789161216184",
+                  fromNetworkId: "cf6c9e4b-916a-4dae-9421-8782b20a44ea",
+                  toNetworkId: "5d009697-c29b-48e0-aff8-1f4305d19dc2"
+                }
+              ]
+              result = fireblocks.create_smart_transfer_ticket(
+               "ASYNC",
+               "cf6c9e4b-916a-4dae-9421-8782b20a44ea",
+               terms,
+               24,
+               true,
+               "Smart Transfer Note",
+               "some-external-reference"             
+              )
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              const terms = [{
+                asset: "BTC",
+                amount: "133.789161216184",
+                fromNetworkId: "cf6c9e4b-916a-4dae-9421-8782b20a44ea",
+                toNetworkId: "5d009697-c29b-48e0-aff8-1f4305d19dc2"
+              }]
+
+              const data = {
+                createdByNetworkId: "cf6c9e4b-916a-4dae-9421-8782b20a44ea",
+                type: "ASYNC",
+                expiresIn: 24,
+                terms,
+                externalRefId: "some-external-reference",
+                note: "Smart Transfer Note",
+                submit: true
+              }
+              const result = await fireblocks.createSmartTransferTicket(data);
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.createTicket(smartTransferApiCreateTicketRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().createTicket(smartTransferCreateTicket, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -8874,18 +8927,26 @@ paths:
                 $ref: '#/components/schemas/SmartTransferBadRequestResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.createTicket(smartTransferApiCreateTicketRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().createTicket(smartTransferCreateTicket, idempotencyKey);
-            name: Fireblocks SDK Java example
     get:
       operationId: searchTickets
       summary: Find Ticket
       description: Finds Smart Transfer tickets that match the submitted criteria
+      x-readme:
+        code-samples:
+          - language: python
+            code: |
+              result = fireblocks.get_smart_transfer_tickets()
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              const result = await fireblocks.getSmartTransferTickets();
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketFilteredResponse>> = fireblocks.smartTransfer.searchTickets(smartTransferApiSearchTicketsRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>> response = fireblocks.smartTransfer().searchTickets(q, statuses, networkId, createdByMe, expiresAfter, expiresBefore, type, externalRefId, after, limit);
+            name: Fireblocks SDK Java example
       parameters:
         - name: q
           required: false
@@ -8894,6 +8955,7 @@ paths:
           schema:
             minLength: 1
             type: string
+            example: BTC
         - name: statuses
           required: false
           in: query
@@ -8920,6 +8982,7 @@ paths:
           description: "NetworkId that is used in the ticket\t. Optional"
           schema:
             type: string
+            example: cf6c9e4b-916a-4dae-9421-8782b20a44ea
         - name: createdByMe
           required: false
           in: query
@@ -8933,6 +8996,7 @@ paths:
           schema:
             format: date-time
             type: string
+            example: '2017-07-21T17:32:28Z'
         - name: expiresBefore
           required: false
           in: query
@@ -8940,6 +9004,7 @@ paths:
           schema:
             format: date-time
             type: string
+            example: '2017-07-21T17:32:28Z'
         - name: type
           required: false
           in: query
@@ -8956,12 +9021,14 @@ paths:
             minLength: 1
             maxLength: 64
             type: string
+            example: some-external-reference
         - name: after
           required: false
           in: query
           description: ID of the record after which to fetch $limit records
           schema:
             type: string
+            example: aeda4201-7ec5-4276-a198-f0c62a5a8619
         - name: limit
           required: false
           in: query
@@ -8969,6 +9036,7 @@ paths:
           schema:
             minimum: 1
             type: number
+            example: 20
       responses:
         '200':
           description: Smart Transfer tickets were returned successfully
@@ -8984,25 +9052,38 @@ paths:
                 $ref: '#/components/schemas/SmartTransferForbiddenResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketFilteredResponse>> = fireblocks.smartTransfer.searchTickets(smartTransferApiSearchTicketsRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>> response = fireblocks.smartTransfer().searchTickets(q, statuses, networkId, createdByMe, expiresAfter, expiresBefore, type, externalRefId, after, limit);
-            name: Fireblocks SDK Java example
   /smart-transfers/{ticketId}:
     get:
       operationId: findTicketById
-      summary: Search Tickets by ID
+      summary: Search Ticket by ID
       description: Find Smart Transfer ticket by id
+      x-readme:
+        code-samples:
+          - language: python
+            code: |
+              result = fireblocks.get_smart_transfer_ticket(
+                "118320d2-761f-46c7-96cf-65e71a370b36"
+              )
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              const result = await fireblocks.getSmartTransferTicket(
+                "118320d2-761f-46c7-96cf-65e71a370b36"
+              );
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.findTicketById(smartTransferApiFindTicketByIdRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().findTicketById(ticketId);
+            name: Fireblocks SDK Java example
       parameters:
         - name: ticketId
           required: true
           in: path
           schema:
             type: string
+            example: 118320d2-761f-46c7-96cf-65e71a370b36
       responses:
         '200':
           description: Smart Transfer ticket returned successfully
@@ -9024,19 +9105,25 @@ paths:
                 $ref: '#/components/schemas/SmartTransferNotFoundResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.findTicketById(smartTransferApiFindTicketByIdRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().findTicketById(ticketId);
-            name: Fireblocks SDK Java example
   /smart-transfers/{ticketId}/expires-in:
     put:
       operationId: setTicketExpiration
       summary: Set expiration
       description: Set expiration date on Smart Transfer ticket
+      x-readme:
+        code-samples:
+          - language: python
+            code: result = fireblocks.set_smart_transfer_ticket_expires_in("118320d2-761f-46c7-96cf-65e71a370b36", 24)
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: const result = await fireblocks.setSmartTransferTicketExpiresIn("118320d2-761f-46c7-96cf-65e71a370b36", 24);
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.setTicketExpiration(smartTransferApiSetTicketExpirationRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().setTicketExpiration(smartTransferSetTicketExpiration, ticketId, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - name: ticketId
           required: true
@@ -9077,19 +9164,25 @@ paths:
                 $ref: '#/components/schemas/SmartTransferBadRequestResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.setTicketExpiration(smartTransferApiSetTicketExpirationRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().setTicketExpiration(smartTransferSetTicketExpiration, ticketId, idempotencyKey);
-            name: Fireblocks SDK Java example
   /smart-transfers/{ticketId}/external-id:
     put:
       operationId: setExternalRefId
       summary: Add external ref. ID
       description: Set external id Smart Transfer ticket
+      x-readme:
+        code-samples:
+          - language: python
+            code: result = fireblocks.set_smart_transfer_ticket_external_ref_id("118320d2-761f-46c7-96cf-65e71a370b36", "abcdefg")
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: const result = await fireblocks.setSmartTransferTicketExternalId("118320d2-761f-46c7-96cf-65e71a370b36", "abcdefg");
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.setExternalRefId(smartTransferApiSetExternalRefIdRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().setExternalRefId(smartTransferSetTicketExternalId, ticketId, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - name: ticketId
           required: true
@@ -9130,19 +9223,25 @@ paths:
                 $ref: '#/components/schemas/SmartTransferBadRequestResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.setExternalRefId(smartTransferApiSetExternalRefIdRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().setExternalRefId(smartTransferSetTicketExternalId, ticketId, idempotencyKey);
-            name: Fireblocks SDK Java example
   /smart-transfers/{ticketId}/submit:
     put:
       operationId: submitTicket
       summary: Submit ticket
       description: Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on
+      x-readme:
+        code-samples:
+          - language: python
+            code: result = fireblocks.submit_smart_transfer_ticket("118320d2-761f-46c7-96cf-65e71a370b36", 24)
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: const result = await fireblocks.submitSmartTransferTicket("118320d2-761f-46c7-96cf-65e71a370b36", 24);
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.submitTicket(smartTransferApiSubmitTicketRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().submitTicket(smartTransferSubmitTicket, ticketId, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - name: ticketId
           required: true
@@ -9183,19 +9282,25 @@ paths:
                 $ref: '#/components/schemas/SmartTransferBadRequestResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.submitTicket(smartTransferApiSubmitTicketRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().submitTicket(smartTransferSubmitTicket, ticketId, idempotencyKey);
-            name: Fireblocks SDK Java example
   /smart-transfers/{ticketId}/fulfill:
     put:
       operationId: fulfillTicket
       summary: Fund ticket manually
       description: Manually fulfill ticket, in case when all terms (legs) are funded manually
+      x-readme:
+        code-samples:
+          - language: python
+            code: result = fireblocks.fulfill_smart_transfer_ticket("118320d2-761f-46c7-96cf-65e71a370b36")
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: const result = await fireblocks.fulfillSmartTransferTicket("118320d2-761f-46c7-96cf-65e71a370b36");
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.fulfillTicket(smartTransferApiFulfillTicketRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().fulfillTicket(ticketId, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - name: ticketId
           required: true
@@ -9230,25 +9335,32 @@ paths:
                 $ref: '#/components/schemas/SmartTransferBadRequestResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.fulfillTicket(smartTransferApiFulfillTicketRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().fulfillTicket(ticketId, idempotencyKey);
-            name: Fireblocks SDK Java example
   /smart-transfers/{ticketId}/cancel:
     put:
       operationId: cancelTicket
       summary: Cancel Ticket
       description: Cancel Smart Transfer ticket
+      x-readme:
+        code-samples:
+          - language: python
+            code: result = fireblocks.cancel_smart_transfer_ticket("118320d2-761f-46c7-96cf-65e71a370b36")
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: const policy = await fireblocks.cancelSmartTransferTicket("118320d2-761f-46c7-96cf-65e71a370b36");
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.cancelTicket(smartTransferApiCancelTicketRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().cancelTicket(ticketId, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - name: ticketId
           required: true
           in: path
           schema:
             type: string
+            example: deea0e4a-c64d-41b5-b3c5-f7112369a7d4
         - $ref: '#/components/parameters/X-Idempotency-Key'
       responses:
         '200':
@@ -9277,25 +9389,50 @@ paths:
                 $ref: '#/components/schemas/SmartTransferBadRequestResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.cancelTicket(smartTransferApiCancelTicketRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().cancelTicket(ticketId, idempotencyKey);
-            name: Fireblocks SDK Java example
   /smart-transfers/{ticketId}/terms:
     post:
       operationId: createTicketTerm
       summary: Create leg (term)
       description: Creates new smart transfer ticket term (when the ticket status is DRAFT)
+      x-readme:
+        code-samples:
+          - language: python
+            code: |
+              result = fireblocks.create_smart_transfer_ticket_term(
+                "118320d2-761f-46c7-96cf-65e71a370b36", 
+                "BTC",
+                "133.789161216184",
+                "0805153d-e77d-4f9b-8818-e507eeb2d122",
+                "2c540e66-b5b7-45fb-b3e5-935e34735836"
+              )
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              const ticketTerm = {
+                asset: "BTC",
+                amount: "133.789161216184",
+                fromNetworkId: "0805153d-e77d-4f9b-8818-e507eeb2d122",
+                toNetworkId: "2c540e66-b5b7-45fb-b3e5-935e34735836"
+              }
+
+              const result = await fireblocks.createSmartTransferTicketTerm(
+                "118320d2-761f-46c7-96cf-65e71a370b36", 
+                ticketTerm  
+              );
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>> = fireblocks.smartTransfer.createTicketTerm(smartTransferApiCreateTicketTermRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response = fireblocks.smartTransfer().createTicketTerm(smartTransferCreateTicketTerm, ticketId, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - name: ticketId
           required: true
           in: path
           schema:
             type: string
+            example: 900f04c3-83bc-428d-b681-aef682059637
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
         required: true
@@ -9324,30 +9461,46 @@ paths:
                 $ref: '#/components/schemas/SmartTransferBadRequestResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>> = fireblocks.smartTransfer.createTicketTerm(smartTransferApiCreateTicketTermRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response = fireblocks.smartTransfer().createTicketTerm(smartTransferCreateTicketTerm, ticketId, idempotencyKey);
-            name: Fireblocks SDK Java example
   /smart-transfers/{ticketId}/terms/{termId}:
     get:
       operationId: findTicketTermById
-      summary: Search ticket by leg (term) ID
-      description: Find Smart Transfer ticket term by id
+      summary: Get Smart Transfer ticket term
+      description: Find a specific term of a specific Smart Transfer ticket
+      x-readme:
+        code-samples:
+          - language: python
+            code: |
+              result = fireblocks.get_smart_transfer_ticket_term(
+                "118320d2-761f-46c7-96cf-65e71a370b36", 
+                "88587a11-5a3e-4d90-8a63-5008d7a40fb4"
+              )
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              const result = await fireblocks.getSmartTransferTicketTerms(
+                "118320d2-761f-46c7-96cf-65e71a370b36", 
+                "88587a11-5a3e-4d90-8a63-5008d7a40fb4"
+              );
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>> = fireblocks.smartTransfer.findTicketTermById(smartTransferApiFindTicketTermByIdRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response = fireblocks.smartTransfer().findTicketTermById(ticketId, termId);
+            name: Fireblocks SDK Java example
       parameters:
         - name: ticketId
           required: true
           in: path
           schema:
             type: string
+            example: 118320d2-761f-46c7-96cf-65e71a370b36
         - name: termId
           required: true
           in: path
           schema:
             type: string
+            example: 88587a11-5a3e-4d90-8a63-5008d7a40fb4
       responses:
         '200':
           description: Smart Transfer ticket term returned successfully
@@ -9369,14 +9522,6 @@ paths:
                 $ref: '#/components/schemas/SmartTransferNotFoundResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>> = fireblocks.smartTransfer.findTicketTermById(smartTransferApiFindTicketTermByIdRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response = fireblocks.smartTransfer().findTicketTermById(ticketId, termId);
-            name: Fireblocks SDK Java example
     put:
       operationId: updateTicketTerm
       summary: Update ticket leg (term)
@@ -9473,17 +9618,58 @@ paths:
       operationId: fundTicketTerm
       summary: Define funding source
       description: Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately)
+      x-readme:
+        code-samples:
+          - language: python
+            code: |
+              result = fireblocks.fund_smart_transfer_ticket_term(
+                "118320d2-761f-46c7-96cf-65e71a370b36", 
+                "88587a11-5a3e-4d90-8a63-5008d7a40fb4",
+                "BTC",
+                "133.789161216184",
+                "0805153d-e77d-4f9b-8818-e507eeb2d122",
+                "2",
+                "VAULT_ACCOUNT",
+                "0.001",
+                "MEDIUM"
+                )
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              const data = {
+                  asset: "BTC",
+                  amount: "133.789161216184",
+                  networkConnectionId: "0805153d-e77d-4f9b-8818-e507eeb2d122",
+                  srcId: "2",
+                  srcType: "VAULT_ACCOUNT",
+                  fee: "0.001",
+                  feeLevel: "MEDIUM"
+                }
+              const result = await fireblocks.fundSmartTransferTicketTerm(
+                "118320d2-761f-46c7-96cf-65e71a370b36", 
+                "88587a11-5a3e-4d90-8a63-5008d7a40fb4",
+                data              
+              );
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>> = fireblocks.smartTransfer.fundTicketTerm(smartTransferApiFundTicketTermRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response = fireblocks.smartTransfer().fundTicketTerm(smartTransferFundTerm, ticketId, termId, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - name: ticketId
           required: true
           in: path
           schema:
             type: string
+            example: 118320d2-761f-46c7-96cf-65e71a370b36
         - name: termId
           required: true
           in: path
           schema:
             type: string
+            example: 88587a11-5a3e-4d90-8a63-5008d7a40fb4
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
         required: true
@@ -9518,30 +9704,48 @@ paths:
                 $ref: '#/components/schemas/SmartTransferBadRequestResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>> = fireblocks.smartTransfer.fundTicketTerm(smartTransferApiFundTicketTermRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response = fireblocks.smartTransfer().fundTicketTerm(smartTransferFundTerm, ticketId, termId, idempotencyKey);
-            name: Fireblocks SDK Java example
   /smart-transfers/{ticketId}/terms/{termId}/manually-fund:
     put:
       operationId: manuallyFundTicketTerm
       summary: Manually add term transaction
       description: Manually set ticket term transaction
+      x-readme:
+        code-samples:
+          - language: python
+            code: |
+              result = fireblocks.submit_smart_transfer_ticket(
+                "118320d2-761f-46c7-96cf-65e71a370b36", 
+                "88587a11-5a3e-4d90-8a63-5008d7a40fb4", 
+                "23bd90f86b9c65716b3929440c03dc19e5da0981632391e20a24d3057e4fa5e9"
+              )
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              const result = await fireblocks.manuallyFundSmartTransferTicketTerms(
+                "118320d2-761f-46c7-96cf-65e71a370b36", 
+                "88587a11-5a3e-4d90-8a63-5008d7a40fb4", 
+                "23bd90f86b9c65716b3929440c03dc19e5da0981632391e20a24d3057e4fa5e9"
+              );
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>> = fireblocks.smartTransfer.manuallyFundTicketTerm(smartTransferApiManuallyFundTicketTermRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response = fireblocks.smartTransfer().manuallyFundTicketTerm(smartTransferManuallyFundTerm, ticketId, termId, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - name: ticketId
           required: true
           in: path
           schema:
             type: string
+            example: 118320d2-761f-46c7-96cf-65e71a370b36
         - name: termId
           required: true
           in: path
           schema:
             type: string
+            example: 88587a11-5a3e-4d90-8a63-5008d7a40fb4
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
         required: true
@@ -9576,19 +9780,31 @@ paths:
                 $ref: '#/components/schemas/SmartTransferBadRequestResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>> = fireblocks.smartTransfer.manuallyFundTicketTerm(smartTransferApiManuallyFundTicketTermRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response = fireblocks.smartTransfer().manuallyFundTicketTerm(smartTransferManuallyFundTerm, ticketId, termId, idempotencyKey);
-            name: Fireblocks SDK Java example
   /smart-transfers/settings/user-groups:
     post:
       operationId: setUserGroups
       summary: Set user group
-      description: Set Smart Transfer user group
+      description: Set Smart Transfers user group to receive email notifications for Smart Transfers
+      x-readme:
+        code-samples:
+          - language: python
+            code: |
+              result = fireblocks.set_smart_transfer_user_group_ids(
+               ["1ad4e96c-b59b-4224-84d1-ade6932cacc4"]
+              )
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              const result = await fireblocks.setSmartTransferTicketUserGroups(
+                ["1ad4e96c-b59b-4224-84d1-ade6932cacc4"]
+              );
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferUserGroupsResponse>> = fireblocks.smartTransfer.setUserGroups(smartTransferApiSetUserGroupsRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferUserGroupsResponse>> response = fireblocks.smartTransfer().setUserGroups(smartTransferSetUserGroups, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -9618,19 +9834,26 @@ paths:
                 $ref: '#/components/schemas/SmartTransferBadRequestResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferUserGroupsResponse>> = fireblocks.smartTransfer.setUserGroups(smartTransferApiSetUserGroupsRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferUserGroupsResponse>> response = fireblocks.smartTransfer().setUserGroups(smartTransferSetUserGroups, idempotencyKey);
-            name: Fireblocks SDK Java example
     get:
       operationId: getSmartTransferUserGroups
       summary: Get user group
       description: Get Smart Transfer user groups
-      parameters: []
+      x-readme:
+        code-samples:
+          - language: python
+            code: |
+              result = fireblocks.get_smart_transfer_user_group_ids()
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              const result = await fireblocks.getSmartTransferTicketUserGroups();
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SmartTransferUserGroupsResponse>> = fireblocks.smartTransfer.getSmartTransferUserGroups();'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SmartTransferUserGroupsResponse>> response = fireblocks.smartTransfer().getSmartTransferUserGroups();
+            name: Fireblocks SDK Java example
       responses:
         '200':
           description: User group settings were returned successfully
@@ -9652,14 +9875,6 @@ paths:
                 $ref: '#/components/schemas/SmartTransferBadRequestResponse'
       tags:
         - Smart Transfer
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SmartTransferUserGroupsResponse>> = fireblocks.smartTransfer.getSmartTransferUserGroups();'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferUserGroupsResponse>> response = fireblocks.smartTransfer().getSmartTransferUserGroups();
-            name: Fireblocks SDK Java example
   /batch/jobs:
     get:
       operationId: getJobs
@@ -11274,16 +11489,39 @@ components:
       properties:
         id:
           type: string
+          description: Unique asset identifier
+          example: BTC
         name:
           type: string
+          description: The name of the asset
+          example: Bitcoin
         type:
           type: string
+          description: Asset type
+          enum:
+            - BASE_ASSET
+            - ERC20
+            - BEP20
+            - COMPOUND
+            - TRON_TRC20
+            - NEAR_ASSET
+            - SOL_ASSET
+            - FIAT
+            - ALGO_ASSET
+            - XLM_ASSET
+            - XDB_ASSET
         contractAddress:
           type: string
+          description: Contract address of EVM based tokens
+          example: '0x97fB6Fc2AD532033Af97043B563131C5204F8A35'
         nativeAsset:
           type: string
+          description: The native asset ID
+          example: ETH
         decimals:
           type: number
+          description: Decimals of the asset
+          example: 18
       required:
         - id
         - name
@@ -17635,12 +17873,14 @@ components:
       properties:
         createdByNetworkId:
           type: string
+          example: cf6c9e4b-916a-4dae-9421-8782b20a44ea
         type:
           type: string
           enum:
             - ASYNC
         expiresIn:
           type: number
+          example: 24
           minimum: 1
           maximum: 48
           description: Number of hours after which an OPEN ticket will expire if no term is funded.
@@ -17651,9 +17891,11 @@ components:
         externalRefId:
           type: string
           maxLength: 64
+          example: abcdefg
         note:
           type: string
           maxLength: 1024
+          example: Some Note
         submit:
           type: boolean
       required:
@@ -17714,6 +17956,7 @@ components:
       properties:
         externalRefId:
           type: string
+          example: abcdefg
           minLength: 5
           maxLength: 64
           description: Each workspace can set their own external id they want to refer to this Ticket
@@ -17727,6 +17970,7 @@ components:
           description: Sets the ticket expiration time (in hours) after the ticket is submitted. If no funding source is set for any term, the ticket will automatically expire after given time. If expiresIn is not sent ticket will not expire.
           minimum: 1
           maximum: 48
+          example: 24
     SmartTransferTicketTermResponse:
       type: object
       properties:
@@ -17812,11 +18056,12 @@ components:
         txHash:
           type: string
           maxLength: 64
+          example: 23bd90f86b9c65716b3929440c03dc19e5da0981632391e20a24d3057e4fa5e9
       required:
         - txHash
     SmartTransferUserGroups:
       type: object
-      description: Data object with result data
+      description: Smart Transfers User Groups Object
       nullable: true
       properties:
         userGroupIds:
@@ -17825,6 +18070,7 @@ components:
           type: array
           items:
             type: string
+            example: 1ad4e96c-b59b-4224-84d1-ade6932cacc4
       required:
         - userGroupIds
     SmartTransferUserGroupsResponse:
@@ -17846,6 +18092,7 @@ components:
           type: array
           items:
             type: string
+            example: 1ad4e96c-b59b-4224-84d1-ade6932cacc4
       required:
         - userGroupIds
     Task:

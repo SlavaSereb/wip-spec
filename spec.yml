@@ -3714,18 +3714,21 @@ paths:
           required: false
           schema:
             type: string
+            example: '1716735252'
         - in: query
           name: after
           description: Unix timestamp in milliseconds. Returns only transactions created after the specified date
           required: false
           schema:
             type: string
+            example: '1716735250'
         - in: query
           name: status
           description: You can filter by one of the statuses.
           required: false
           schema:
             type: string
+            example: COMPLETED
         - in: query
           name: orderBy
           description: |-
@@ -3755,6 +3758,7 @@ paths:
             type: integer
             minimum: 1
             default: 200
+            example: 50
         - in: query
           name: sourceType
           description: The source type of the transaction
@@ -3779,6 +3783,7 @@ paths:
           required: false
           schema:
             type: string
+            example: '0'
         - in: query
           name: destType
           description: The destination type of the transaction
@@ -3802,30 +3807,35 @@ paths:
           required: false
           schema:
             type: string
+            example: '2'
         - in: query
           name: assets
           description: A list of assets to filter by, seperated by commas
           required: false
           schema:
             type: string
+            example: ETH,BTC
         - in: query
           name: txHash
           description: Returns only results with a specified txHash
           required: false
           schema:
             type: string
+            example: '0x578b26ea55c018ab2ae595a4a2e2b05d39a3e455ddf36b2d6adc1cbc01bed4d1'
         - in: query
           name: sourceWalletId
           description: Returns only results where the source is a specific end user wallet
           required: false
           schema:
             type: string
+            example: f01d8d3c-b1a3-4b33-8515-d99137117ace
         - in: query
           name: destWalletId
           description: Returns only results where the destination is a specific end user wallet
           required: false
           schema:
             type: string
+            example: bccab295-e1de-4768-85cc-a11fdb11218f
       responses:
         '200':
           description: A list of transactions

@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Fireblocks API
-  version: 1.6.2
+  version: 1.6.3
   contact:
     email: support@fireblocks.com
 servers:
@@ -1990,7 +1990,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Network connections
+        - Fireblocks Network
       x-readme:
         code-samples:
           - language: python
@@ -2000,10 +2000,10 @@ paths:
             code: const networkConnections = await fireblocks.getNetworkConnections();
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetNetworkConnectionsResponse>> = fireblocks.networkConnections.getNetworkConnections();'
+            code: 'const response: Promise<FireblocksResponse<GetNetworkConnectionsResponse>> = fireblocks.fireblocksNetwork.getNetworkConnections();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<List<NetworkConnectionResponse>>> response = fireblocks.networkConnections().getNetworkConnections();
+            code: CompletableFuture<ApiResponse<List<NetworkConnectionResponse>>> response = fireblocks.fireblocksNetwork().getNetworkConnections();
             name: Fireblocks SDK Java example
       responses:
         '200':
@@ -2041,7 +2041,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Network connections
+        - Fireblocks Network
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -2065,10 +2065,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<NetworkConnectionResponse>> = fireblocks.networkConnections.createNetworkConnection(networkConnectionsApiCreateNetworkConnectionRequest);'
+            code: 'const response: Promise<FireblocksResponse<NetworkConnectionResponse>> = fireblocks.fireblocksNetwork.createNetworkConnection(fireblocksNetworkApiCreateNetworkConnectionRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<NetworkConnectionResponse>> response = fireblocks.networkConnections().createNetworkConnection(networkConnection, idempotencyKey);
+            code: CompletableFuture<ApiResponse<NetworkConnectionResponse>> response = fireblocks.fireblocksNetwork().createNetworkConnection(networkConnection, idempotencyKey);
             name: Fireblocks SDK Java example
   /network_connections/{connectionId}/set_routing_policy:
     patch:
@@ -2094,7 +2094,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Network connections
+        - Fireblocks Network
       parameters:
         - in: path
           name: connectionId
@@ -2123,17 +2123,17 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SetRoutingPolicyResponse>> = fireblocks.networkConnections.setRoutingPolicy(networkConnectionsApiSetRoutingPolicyRequest);'
+            code: 'const response: Promise<FireblocksResponse<SetRoutingPolicyResponse>> = fireblocks.fireblocksNetwork.setRoutingPolicy(fireblocksNetworkApiSetRoutingPolicyRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<SetRoutingPolicyResponse>> response = fireblocks.networkConnections().setRoutingPolicy(connectionId, setRoutingPolicyRequest);
+            code: CompletableFuture<ApiResponse<SetRoutingPolicyResponse>> response = fireblocks.fireblocksNetwork().setRoutingPolicy(connectionId, setRoutingPolicyRequest);
             name: Fireblocks SDK Java example
   /network_connections/{connectionId}/is_third_party_routing/{assetType}:
     get:
       summary: Retrieve third-party network routing validation by asset type.
       description: The Fireblocks Network allows for flexibility around incoming deposits. A receiver can receive network deposits to locations other than Fireblocks. This endpoint validates whether future transactions are routed to the displayed recipient or to a 3rd party.
       tags:
-        - Network connections
+        - Fireblocks Network
       parameters:
         - in: path
           name: connectionId
@@ -2163,10 +2163,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ThirdPartyRouting>> = fireblocks.networkConnections.checkThirdPartyRouting(networkConnectionsApiCheckThirdPartyRoutingRequest);'
+            code: 'const response: Promise<FireblocksResponse<ThirdPartyRouting>> = fireblocks.fireblocksNetwork.checkThirdPartyRouting(fireblocksNetworkApiCheckThirdPartyRoutingRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<ThirdPartyRouting>> response = fireblocks.networkConnections().checkThirdPartyRouting(connectionId, assetType);
+            code: CompletableFuture<ApiResponse<ThirdPartyRouting>> response = fireblocks.fireblocksNetwork().checkThirdPartyRouting(connectionId, assetType);
             name: Fireblocks SDK Java example
   /network_connections/{connectionId}:
     get:
@@ -2190,7 +2190,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Network connections
+        - Fireblocks Network
       x-readme:
         code-samples:
           - language: python
@@ -2200,10 +2200,10 @@ paths:
             code: const network_connection = await fireblocks.getNetworkConnection(connectionId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<NetworkConnectionResponse>> = fireblocks.networkConnections.getNetwork(networkConnectionsApiGetNetworkRequest);'
+            code: 'const response: Promise<FireblocksResponse<NetworkConnectionResponse>> = fireblocks.fireblocksNetwork.getNetwork(fireblocksNetworkApiGetNetworkRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<NetworkConnectionResponse>> response = fireblocks.networkConnections().getNetwork(connectionId);
+            code: CompletableFuture<ApiResponse<NetworkConnectionResponse>> response = fireblocks.fireblocksNetwork().getNetwork(connectionId);
             name: Fireblocks SDK Java example
       parameters:
         - in: path
@@ -2246,7 +2246,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Network connections
+        - Fireblocks Network
       parameters:
         - in: path
           name: connectionId
@@ -2270,10 +2270,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<DeleteNetworkConnectionResponse>> = fireblocks.networkConnections.deleteNetworkConnection(networkConnectionsApiDeleteNetworkConnectionRequest);'
+            code: 'const response: Promise<FireblocksResponse<DeleteNetworkConnectionResponse>> = fireblocks.fireblocksNetwork.deleteNetworkConnection(fireblocksNetworkApiDeleteNetworkConnectionRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> response = fireblocks.networkConnections().deleteNetworkConnection(connectionId);
+            code: CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> response = fireblocks.fireblocksNetwork().deleteNetworkConnection(connectionId);
             name: Fireblocks SDK Java example
   /network_ids:
     get:
@@ -2297,7 +2297,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Network connections
+        - Fireblocks Network
       responses:
         '200':
           description: A list of network IDs
@@ -2314,10 +2314,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetNetworkIdsResponse>> = fireblocks.networkConnections.getNetworkIds();'
+            code: 'const response: Promise<FireblocksResponse<GetNetworkIdsResponse>> = fireblocks.fireblocksNetwork.getNetworkIds();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<List<Object>>> response = fireblocks.networkConnections().getNetworkIds();
+            code: CompletableFuture<ApiResponse<List<Object>>> response = fireblocks.fireblocksNetwork().getNetworkIds();
             name: Fireblocks SDK Java example
     post:
       summary: Creates a new Network ID
@@ -2342,7 +2342,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Network connections
+        - Fireblocks Network
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -2366,10 +2366,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<NetworkIdResponse>> = fireblocks.networkConnections.createNetworkId(networkConnectionsApiCreateNetworkIdRequest);'
+            code: 'const response: Promise<FireblocksResponse<NetworkIdResponse>> = fireblocks.fireblocksNetwork.createNetworkId(fireblocksNetworkApiCreateNetworkIdRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<NetworkIdResponse>> response = fireblocks.networkConnections().createNetworkId(createNetworkIdRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<NetworkIdResponse>> response = fireblocks.fireblocksNetwork().createNetworkId(createNetworkIdRequest, idempotencyKey);
             name: Fireblocks SDK Java example
   /network_ids/routing_policy_asset_groups:
     get:
@@ -2379,7 +2379,7 @@ paths:
         Your routing policy defines how your transactions are routed.
         You can use one or more enabled routing policy asset groups to describe connection or network id routing policy.
       tags:
-        - Network connections
+        - Fireblocks Network
       responses:
         '200':
           description: A list of enabled routing policy asset groups
@@ -2396,10 +2396,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetRoutingPolicyAssetGroupsResponse>> = fireblocks.networkConnections.getRoutingPolicyAssetGroups();'
+            code: 'const response: Promise<FireblocksResponse<GetRoutingPolicyAssetGroupsResponse>> = fireblocks.fireblocksNetwork.getRoutingPolicyAssetGroups();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<List<String>>> response = fireblocks.networkConnections().getRoutingPolicyAssetGroups();
+            code: CompletableFuture<ApiResponse<List<String>>> response = fireblocks.fireblocksNetwork().getRoutingPolicyAssetGroups();
             name: Fireblocks SDK Java example
   /network_ids/{networkId}:
     get:
@@ -2423,7 +2423,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Network connections
+        - Fireblocks Network
       parameters:
         - in: path
           name: networkId
@@ -2447,10 +2447,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<NetworkIdResponse>> = fireblocks.networkConnections.getNetworkId(networkConnectionsApiGetNetworkIdRequest);'
+            code: 'const response: Promise<FireblocksResponse<NetworkIdResponse>> = fireblocks.fireblocksNetwork.getNetworkId(fireblocksNetworkApiGetNetworkIdRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<NetworkIdResponse>> response = fireblocks.networkConnections().getNetworkId(networkId);
+            code: CompletableFuture<ApiResponse<NetworkIdResponse>> response = fireblocks.fireblocksNetwork().getNetworkId(networkId);
             name: Fireblocks SDK Java example
     delete:
       summary: Deletes specific network ID.
@@ -2473,7 +2473,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Network connections
+        - Fireblocks Network
       parameters:
         - in: path
           name: networkId
@@ -2481,6 +2481,7 @@ paths:
           description: The ID of the network
           schema:
             type: string
+            example: ebde71be-30d6-4498-95c4-a151effdb377
       responses:
         '200':
           description: Network ID
@@ -2494,10 +2495,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<DeleteNetworkIdResponse>> = fireblocks.networkConnections.deleteNetworkId(networkConnectionsApiDeleteNetworkIdRequest);'
+            code: 'const response: Promise<FireblocksResponse<DeleteNetworkIdResponse>> = fireblocks.fireblocksNetwork.deleteNetworkId(fireblocksNetworkApiDeleteNetworkIdRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> response = fireblocks.networkConnections().deleteNetworkId(networkId);
+            code: CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> response = fireblocks.fireblocksNetwork().deleteNetworkId(networkId);
             name: Fireblocks SDK Java example
   /network_ids/{networkId}/set_routing_policy:
     patch:
@@ -2523,7 +2524,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Network connections
+        - Fireblocks Network
       parameters:
         - in: path
           name: networkId
@@ -2531,6 +2532,7 @@ paths:
           description: The ID of the network
           schema:
             type: string
+            example: ebde71be-30d6-4498-95c4-a151effdb377
       requestBody:
         content:
           application/json:
@@ -2552,10 +2554,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SetNetworkIdResponse>> = fireblocks.networkConnections.setNetworkIdRoutingPolicy(networkConnectionsApiSetNetworkIdRoutingPolicyRequest);'
+            code: 'const response: Promise<FireblocksResponse<SetNetworkIdResponse>> = fireblocks.fireblocksNetwork.setNetworkIdRoutingPolicy(fireblocksNetworkApiSetNetworkIdRoutingPolicyRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = fireblocks.networkConnections().setNetworkIdRoutingPolicy(networkId, setNetworkIdRoutingPolicyRequest);
+            code: CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = fireblocks.fireblocksNetwork().setNetworkIdRoutingPolicy(networkId, setNetworkIdRoutingPolicyRequest);
             name: Fireblocks SDK Java example
   /network_ids/{networkId}/set_discoverability:
     patch:
@@ -2579,7 +2581,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Network connections
+        - Fireblocks Network
       parameters:
         - in: path
           name: networkId
@@ -2587,6 +2589,7 @@ paths:
           description: The ID of the network
           schema:
             type: string
+            example: ebde71be-30d6-4498-95c4-a151effdb377
       requestBody:
         required: true
         content:
@@ -2609,10 +2612,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SetNetworkIdResponse>> = fireblocks.networkConnections.setNetworkIdDiscoverability(networkConnectionsApiSetNetworkIdDiscoverabilityRequest);'
+            code: 'const response: Promise<FireblocksResponse<SetNetworkIdResponse>> = fireblocks.fireblocksNetwork.setNetworkIdDiscoverability(fireblocksNetworkApiSetNetworkIdDiscoverabilityRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = fireblocks.networkConnections().setNetworkIdDiscoverability(setNetworkIdDiscoverabilityRequest, networkId);
+            code: CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = fireblocks.fireblocksNetwork().setNetworkIdDiscoverability(setNetworkIdDiscoverabilityRequest, networkId);
             name: Fireblocks SDK Java example
   /network_ids/{networkId}/set_name:
     patch:
@@ -2636,7 +2639,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Network connections
+        - Fireblocks Network
       parameters:
         - in: path
           name: networkId
@@ -2644,6 +2647,7 @@ paths:
           description: The ID of the network
           schema:
             type: string
+            example: ebde71be-30d6-4498-95c4-a151effdb377
       requestBody:
         required: true
         content:
@@ -2666,10 +2670,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SetNetworkIdResponse>> = fireblocks.networkConnections.setNetworkIdName(networkConnectionsApiSetNetworkIdNameRequest);'
+            code: 'const response: Promise<FireblocksResponse<SetNetworkIdResponse>> = fireblocks.fireblocksNetwork.setNetworkIdName(fireblocksNetworkApiSetNetworkIdNameRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = fireblocks.networkConnections().setNetworkIdName(setNetworkIdNameRequest, networkId);
+            code: CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = fireblocks.fireblocksNetwork().setNetworkIdName(setNetworkIdNameRequest, networkId);
             name: Fireblocks SDK Java example
   /internal_wallets:
     get:
@@ -3585,7 +3589,7 @@ paths:
 
         The response includes all assets supported by Fireblocks globally in addition to assets added to the specific workspace.
       tags:
-        - Blockchains & assets
+        - Blockchains & Assets
       x-readme:
         code-samples:
           - language: python
@@ -3619,7 +3623,7 @@ paths:
       summary: Register an asset
       description: Register a new asset to a workspace and return the newly created asset's details. Currently supported for EVM based chains only.
       tags:
-        - Blockchains & assets
+        - Blockchains & Assets
       x-readme:
         code-samples:
           - language: python
@@ -3645,11 +3649,14 @@ paths:
                 $ref: '#/components/schemas/AssetResponse'
         '400':
           description: |
+            description: |
             - Listing an asset on the requested blockchain is not supported. Error code: 1000
 
             - The asset address is invalid. Error code: 1003
 
             - Self serve listing an asset on the requested blockchain is currently not supported, please contact support. Error code: 1004
+
+            - Blockchain is deprecated. Error code: 1006
           content:
             application/json:
               schema:
@@ -4309,7 +4316,7 @@ paths:
       summary: Validate destination address
       description: Checks if an address is valid and active (for XRP, DOT, XLM, and EOS).
       tags:
-        - Transactions
+        - Blockchains & Assets
       x-readme:
         code-samples:
           - language: python
@@ -4319,10 +4326,10 @@ paths:
             code: const result = await fireblocks.validateAddress("XRP", "rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn")
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ValidateAddressResponse>> = fireblocks.transactions.validateAddress(transactionsApiValidateAddressRequest);'
+            code: 'const response: Promise<FireblocksResponse<ValidateAddressResponse>> = fireblocks.blockchainsAssets.validateAddress(blockchainsAssetsApiValidateAddressRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<ValidateAddressResponse>> response = fireblocks.transactions().validateAddress(assetId, address);
+            code: CompletableFuture<ApiResponse<ValidateAddressResponse>> response = fireblocks.blockchainsAssets().validateAddress(assetId, address);
             name: Fireblocks SDK Java example
       parameters:
         - in: path
@@ -4405,7 +4412,7 @@ paths:
       summary: Estimate the required fee for an asset
       description: Gets the estimated required fee for an asset. For UTXO based assets, the response will contain the suggested fee per byte, for ETH/ETC based assets, the suggested gas price, and for XRP/XLM, the transaction fee.
       tags:
-        - Transactions
+        - Blockchains & Assets
       x-readme:
         code-samples:
           - language: python
@@ -4415,10 +4422,10 @@ paths:
             code: const feeResult = await fireblocks.getFeeForAsset(assetId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<EstimatedNetworkFeeResponse>> = fireblocks.transactions.estimateNetworkFee(transactionsApiEstimateNetworkFeeRequest);'
+            code: 'const response: Promise<FireblocksResponse<EstimatedNetworkFeeResponse>> = fireblocks.blockchainsAssets.estimateNetworkFee(blockchainsAssetsApiEstimateNetworkFeeRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<EstimatedNetworkFeeResponse>> response = fireblocks.transactions().estimateNetworkFee(assetId);
+            code: CompletableFuture<ApiResponse<EstimatedNetworkFeeResponse>> response = fireblocks.blockchainsAssets().estimateNetworkFee(assetId);
             name: Fireblocks SDK Java example
       parameters:
         - in: query
@@ -4897,7 +4904,7 @@ paths:
       summary: Get gas station settings
       description: Returns gas station settings and ETH balance.
       tags:
-        - Gas stations
+        - Gas Station
       x-readme:
         code-samples:
           - language: python
@@ -4907,10 +4914,10 @@ paths:
             code: const gasStationInfo = await fireblocks.gasStationInfo();
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GasStationPropertiesResponse>> = fireblocks.gasStations.getGasStationInfo();'
+            code: 'const response: Promise<FireblocksResponse<GasStationPropertiesResponse>> = fireblocks.gasStation.getGasStationInfo();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response = fireblocks.gasStations().getGasStationInfo();
+            code: CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response = fireblocks.gasStation().getGasStationInfo();
             name: Fireblocks SDK Java example
       responses:
         '200':
@@ -4930,7 +4937,7 @@ paths:
       summary: Get gas station settings by asset
       description: Returns gas station settings and balances for a requested asset.
       tags:
-        - Gas stations
+        - Gas Station
       x-readme:
         code-samples:
           - language: python
@@ -4940,10 +4947,10 @@ paths:
             code: const gasStationInfo = await fireblocks.gasStationInfo(assetId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GasStationPropertiesResponse>> = fireblocks.gasStations.getGasStationByAssetId(gasStationsApiGetGasStationByAssetIdRequest);'
+            code: 'const response: Promise<FireblocksResponse<GasStationPropertiesResponse>> = fireblocks.gasStation.getGasStationByAssetId(gasStationApiGetGasStationByAssetIdRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response = fireblocks.gasStations().getGasStationByAssetId(assetId);
+            code: CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response = fireblocks.gasStation().getGasStationByAssetId(assetId);
             name: Fireblocks SDK Java example
       parameters:
         - in: path
@@ -4971,7 +4978,7 @@ paths:
       summary: Edit gas station settings
       description: Configures gas station settings for ETH.
       tags:
-        - Gas stations
+        - Gas Station
       x-readme:
         code-samples:
           - language: python
@@ -4981,10 +4988,10 @@ paths:
             code: const gasStation = await fireblocks.setGasStationConfiguration(gasThreshold, gasCap, maxGasPrice)
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<EditGasStationConfigurationResponse>> = fireblocks.gasStations.updateGasStationConfiguration(gasStationsApiUpdateGasStationConfigurationRequest);'
+            code: 'const response: Promise<FireblocksResponse<EditGasStationConfigurationResponse>> = fireblocks.gasStation.updateGasStationConfiguration(gasStationApiUpdateGasStationConfigurationRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> response = fireblocks.gasStations().updateGasStationConfiguration(gasStationConfiguration, idempotencyKey);
+            code: CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> response = fireblocks.gasStation().updateGasStationConfiguration(gasStationConfiguration, idempotencyKey);
             name: Fireblocks SDK Java example
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
@@ -5013,7 +5020,7 @@ paths:
       summary: Edit gas station settings for an asset
       description: Configures gas station settings for a requested asset.
       tags:
-        - Gas stations
+        - Gas Station
       parameters:
         - in: path
           required: true
@@ -5044,23 +5051,27 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<EditGasStationConfigurationResponse>> = fireblocks.gasStations.updateGasStationConfigurationByAssetId(gasStationsApiUpdateGasStationConfigurationByAssetIdRequest);'
+            code: 'const response: Promise<FireblocksResponse<EditGasStationConfigurationResponse>> = fireblocks.gasStation.updateGasStationConfigurationByAssetId(gasStationApiUpdateGasStationConfigurationByAssetIdRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> response = fireblocks.gasStations().updateGasStationConfigurationByAssetId(gasStationConfiguration, assetId, idempotencyKey);
+            code: CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> response = fireblocks.gasStation().updateGasStationConfigurationByAssetId(gasStationConfiguration, assetId, idempotencyKey);
             name: Fireblocks SDK Java example
   /management/user_groups:
     get:
       operationId: getUserGroups
       summary: List user groups
       description: |
-        Get all user groups in your workspace. </br>
+        Get all user groups in your workspace
+
 
         **Note**:
-        - This endpoint is now in Beta, disabled for general availability at this time.
-        - Please note that this endpoint is available only for API keys with Admin permissions.
+
+        - This endpoint is now in Beta, disabled for general availability at this
+        time.
+
+        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
       tags:
-        - User groups (Beta)
+        - Workspace Management
       responses:
         '200':
           description: List of the user groups in your workspace
@@ -5076,10 +5087,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<UserGroupsResponse>> = fireblocks.userGroupsBeta.getUserGroups();'
+            code: 'const response: Promise<FireblocksResponse<UserGroupsResponse>> = fireblocks.workspaceManagement.getUserGroups();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<List<UserGroupResponse>>> response = fireblocks.userGroupsBeta().getUserGroups();
+            code: CompletableFuture<ApiResponse<List<UserGroupResponse>>> response = fireblocks.workspaceManagement().getUserGroups();
             name: Fireblocks SDK Java example
     post:
       operationId: createUserGroup
@@ -5125,13 +5136,17 @@ paths:
       operationId: getUserGroup
       summary: Get user group
       description: |
-        Get a user group by ID.</br>
+        Get a user group by ID
+
 
         **Note**:
-        - This endpoint is now in Beta, disabled for general availability at this time.
-        - Please note that this endpoint is available only for API keys with Admin permissions.
+
+        - This endpoint is now in Beta, disabled for general availability at this
+        time.
+
+        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
       tags:
-        - User groups (Beta)
+        - Workspace Management
       parameters:
         - in: path
           required: true
@@ -5154,10 +5169,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<UserGroupResponse>> = fireblocks.userGroupsBeta.getUserGroup(userGroupsBetaApiGetUserGroupRequest);'
+            code: 'const response: Promise<FireblocksResponse<UserGroupResponse>> = fireblocks.workspaceManagement.getUserGroup(workspaceManagementApiGetUserGroupRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<UserGroupResponse>> response = fireblocks.userGroupsBeta().getUserGroup(groupId);
+            code: CompletableFuture<ApiResponse<UserGroupResponse>> response = fireblocks.workspaceManagement().getUserGroup(groupId);
             name: Fireblocks SDK Java example
     put:
       operationId: updateUserGroup
@@ -5278,6 +5293,20 @@ paths:
       summary: Get audit logs
       tags:
         - Audit Logs
+      x-readme:
+        code-samples:
+          - language: python
+            code: audits = fireblocks.get_audit_logs(TimePeriod.DAY)
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: const audits = await fireblocks.getAuditsLogs(TimePeriod.DAY);
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<GetAuditLogsResponseDTO>> = fireblocks.auditLogs.getAudits(auditLogsApiGetAuditsRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<GetAuditLogsResponseDTO>> response = fireblocks.auditLogs().getAudits(timePeriod);
+            name: Fireblocks SDK Java example
       parameters:
         - in: query
           name: timePeriod
@@ -5302,19 +5331,27 @@ paths:
           $ref: '#/components/responses/Error'
       description: Get all audits
       operationId: getAudits
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetAuditLogsResponseDTO>> = fireblocks.auditLogs.getAudits(auditLogsApiGetAuditsRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<GetAuditLogsResponseDTO>> response = fireblocks.auditLogs().getAudits(timePeriod);
-            name: Fireblocks SDK Java example
   /management/audit_logs:
     get:
       summary: Get audit logs
+      description: |
+        Get Audit logs for the last Day/Week.
+
+        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
       tags:
-        - Audit Logs
+        - Workspace Management
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: |
+              const res = await fireblocks.getPaginatedAuditLogs()
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<GetAuditLogsResponse>> = fireblocks.workspaceManagement.getAuditLogs(workspaceManagementApiGetAuditLogsRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<GetAuditLogsResponse>> response = fireblocks.workspaceManagement().getAuditLogs(timePeriod, cursor);
+            name: Fireblocks SDK Java example
       parameters:
         - in: query
           name: timePeriod
@@ -5331,6 +5368,7 @@ paths:
           description: The next id to start fetch audit logs from
           schema:
             type: string
+            example: next_page_cursor
       responses:
         '200':
           description: Audit logs from requested time period
@@ -5343,22 +5381,13 @@ paths:
                 $ref: '#/components/schemas/GetAuditLogsResponse'
         default:
           $ref: '#/components/responses/Error'
-      description: Get all audits
       operationId: getAuditLogs
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetAuditLogsResponse>> = fireblocks.auditLogs.getAuditLogs(auditLogsApiGetAuditLogsRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<GetAuditLogsResponse>> response = fireblocks.auditLogs().getAuditLogs(timePeriod, cursor);
-            name: Fireblocks SDK Java example
   /off_exchange/add:
     post:
       summary: add collateral
       description: add collateral, create deposit request
       tags:
-        - Off exchanges
+        - Off Exchange
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -5379,17 +5408,17 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<CreateTransactionResponse>> = fireblocks.offExchanges.addOffExchange(offExchangesApiAddOffExchangeRequest);'
+            code: 'const response: Promise<FireblocksResponse<CreateTransactionResponse>> = fireblocks.offExchange.addOffExchange(offExchangeApiAddOffExchangeRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<CreateTransactionResponse>> response = fireblocks.offExchanges().addOffExchange(addCollateralRequestBody, idempotencyKey);
+            code: CompletableFuture<ApiResponse<CreateTransactionResponse>> response = fireblocks.offExchange().addOffExchange(addCollateralRequestBody, idempotencyKey);
             name: Fireblocks SDK Java example
   /off_exchange/remove:
     post:
       summary: remove collateral
       description: remove collateral, create withdraw request
       tags:
-        - Off exchanges
+        - Off Exchange
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -5410,17 +5439,17 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<CreateTransactionResponse>> = fireblocks.offExchanges.removeOffExchange(offExchangesApiRemoveOffExchangeRequest);'
+            code: 'const response: Promise<FireblocksResponse<CreateTransactionResponse>> = fireblocks.offExchange.removeOffExchange(offExchangeApiRemoveOffExchangeRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<CreateTransactionResponse>> response = fireblocks.offExchanges().removeOffExchange(removeCollateralRequestBody, idempotencyKey);
+            code: CompletableFuture<ApiResponse<CreateTransactionResponse>> response = fireblocks.offExchange().removeOffExchange(removeCollateralRequestBody, idempotencyKey);
             name: Fireblocks SDK Java example
   /off_exchange/settlements/trader:
     post:
       summary: create settlement for a trader
       description: create settlement for a trader
       tags:
-        - Off exchanges
+        - Off Exchange
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -5441,17 +5470,17 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SettlementResponse>> = fireblocks.offExchanges.settleOffExchangeTrades(offExchangesApiSettleOffExchangeTradesRequest);'
+            code: 'const response: Promise<FireblocksResponse<SettlementResponse>> = fireblocks.offExchange.settleOffExchangeTrades(offExchangeApiSettleOffExchangeTradesRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<SettlementResponse>> response = fireblocks.offExchanges().settleOffExchangeTrades(settlementRequestBody, idempotencyKey);
+            code: CompletableFuture<ApiResponse<SettlementResponse>> response = fireblocks.offExchange().settleOffExchangeTrades(settlementRequestBody, idempotencyKey);
             name: Fireblocks SDK Java example
   /off_exchange/settlements/transactions:
     get:
       summary: get settlements transactions from exchange
       description: get settlements transactions from exchange
       tags:
-        - Off exchanges
+        - Off Exchange
       parameters:
         - in: query
           name: mainExchangeAccountId
@@ -5471,17 +5500,17 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetSettlementResponse>> = fireblocks.offExchanges.getOffExchangeSettlementTransactions(offExchangesApiGetOffExchangeSettlementTransactionsRequest);'
+            code: 'const response: Promise<FireblocksResponse<GetSettlementResponse>> = fireblocks.offExchange.getOffExchangeSettlementTransactions(offExchangeApiGetOffExchangeSettlementTransactionsRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<GetSettlementResponse>> response = fireblocks.offExchanges().getOffExchangeSettlementTransactions(mainExchangeAccountId);
+            code: CompletableFuture<ApiResponse<GetSettlementResponse>> response = fireblocks.offExchange().getOffExchangeSettlementTransactions(mainExchangeAccountId);
             name: Fireblocks SDK Java example
   /off_exchange/collateral_accounts/{mainExchangeAccountId}:
     get:
       summary: Find a specific collateral exchange account
       description: Returns a collateral account by mainExchangeAccountId.
       tags:
-        - Off exchanges
+        - Off Exchange
       parameters:
         - in: path
           name: mainExchangeAccountId
@@ -5505,10 +5534,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ExchangeAccount>> = fireblocks.offExchanges.getOffExchangeCollateralAccounts(offExchangesApiGetOffExchangeCollateralAccountsRequest);'
+            code: 'const response: Promise<FireblocksResponse<ExchangeAccount>> = fireblocks.offExchange.getOffExchangeCollateralAccounts(offExchangeApiGetOffExchangeCollateralAccountsRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<ExchangeAccount>> response = fireblocks.offExchanges().getOffExchangeCollateralAccounts(mainExchangeAccountId);
+            code: CompletableFuture<ApiResponse<ExchangeAccount>> response = fireblocks.offExchange().getOffExchangeCollateralAccounts(mainExchangeAccountId);
             name: Fireblocks SDK Java example
   /webhooks/resend:
     post:
@@ -5851,6 +5880,18 @@ paths:
       operationId: getFunctionAbiByContractTemplateId
       summary: Return contract template's function
       description: Return contract template`s function ABI by signature
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: |
+              const contractTemplate = await fireblocks.getContractAbiFunction(contractId: string, functionSignature: string);
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<AbiFunction>> = fireblocks.contractTemplates.getFunctionAbiByContractTemplateId(contractTemplatesApiGetFunctionAbiByContractTemplateIdRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<AbiFunction>> response = fireblocks.contractTemplates().getFunctionAbiByContractTemplateId(contractTemplateId, functionSignature);
+            name: Fireblocks SDK Java example
       parameters:
         - name: contractTemplateId
           required: true
@@ -5881,14 +5922,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
         - Contract Templates
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<AbiFunction>> = fireblocks.contractTemplates.getFunctionAbiByContractTemplateId(contractTemplatesApiGetFunctionAbiByContractTemplateIdRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<AbiFunction>> response = fireblocks.contractTemplates().getFunctionAbiByContractTemplateId(contractTemplateId, functionSignature);
-            name: Fireblocks SDK Java example
   /tokenization/templates/{contractTemplateId}/deploy:
     post:
       operationId: deployContract
@@ -6488,7 +6521,6 @@ paths:
               example:
                 - ETH
                 - SOL
-                - MATIC
           description: Supported Chains for Fireblocks Staking
       tags:
         - Staking
@@ -6520,6 +6552,7 @@ paths:
           description: The protocol identifier (e.g. "ETH"/"SOL"/"MATIC") to use
           schema:
             type: string
+            example: ETH
             enum:
               - ETH
               - SOL
@@ -6539,8 +6572,55 @@ paths:
   /staking/chains/{chainDescriptor}/{actionId}:
     post:
       operationId: executeAction
-      summary: ''
+      summary: Execute a staking action
       description: Perform a chain-specific staking action (e.g. stake, unstake, withdraw).
+      x-readme:
+        code-samples:
+          - language: python
+            code: stake_request = fireblocks.execute_staking_stake(chain_descriptor, request_body)
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              // Stake:
+              const res = await fireblocks.executeStakingStake(
+                "ETH", 
+                {
+                  vaultAccountId: "0",
+                  providerId: "kiln",
+                  stakeAmount: "100"
+                }
+              )
+
+              // Unstake:
+              const res = await fireblocks.executeStakingUnstake(
+                "ETH", 
+                {
+                  id: "b70701f4-d7b1-4795-a8ee-b09cdb5b850d"
+                }
+              )
+
+              // Withdraw:
+              const res = await fireblocks.executeStakingWithdraw(
+                "ETH", 
+                {
+                  id: "b70701f4-d7b1-4795-a8ee-b09cdb5b850d"
+                }
+              )
+
+              //Claim Rewards:
+              const res = await fireblocks.executeStakingWithdraw(
+                "ETH", 
+                {
+                  id: "b70701f4-d7b1-4795-a8ee-b09cdb5b850d"
+                }
+              )
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<ExecuteActionResponse>> = fireblocks.staking.executeAction(stakingApiExecuteActionRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<ExecuteActionResponse>> response = fireblocks.staking().executeAction(executeActionRequest, chainDescriptor, actionId, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - name: chainDescriptor
           required: true
@@ -6551,8 +6631,10 @@ paths:
             enum:
               - ETH
               - SOL
-              - ETH_TEST3
+              - ETH_TEST3 (Deprecated)
               - SOL_TEST
+              - ETH_TEST6
+              - MATIC
         - name: actionId
           required: true
           in: path
@@ -6563,6 +6645,7 @@ paths:
               - stake
               - unstake
               - withdraw
+              - claimRewards
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
         required: true
@@ -6596,24 +6679,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExecuteActionResponse'
-              examples:
-                stake:
-                  value:
-                    id: afedfd2e4-e3c9-4b70-90d6-eb0f74bfd4sd8
-                unstake:
-                  value: {}
-                withdraw:
-                  value: {}
       tags:
         - Staking
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ExecuteActionResponse>> = fireblocks.staking.executeAction(stakingApiExecuteActionRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<ExecuteActionResponse>> response = fireblocks.staking().executeAction(executeActionRequest, chainDescriptor, actionId, idempotencyKey);
-            name: Fireblocks SDK Java example
   /staking/positions:
     get:
       operationId: getAllDelegations
@@ -6626,12 +6693,12 @@ paths:
           - language: python
             code: |
               positions = fireblocks.get_staking_positions()
-              eth_positions = fireblocks.get_staking_positions(chainDescriptor="ETH")
+              eth_positions = fireblocks.get_staking_positions("SOL")
             name: Fireblocks SDK Python example
           - language: javascript
             code: |
               const positions = await fireblocks.getStakingPositions();
-              const ethPositions = await fireblocks.getStakingPositions(StakingChain.ETHEREUM);
+              const ethPositions = await fireblocks.getStakingPositions("SOL");
             name: Fireblocks SDK Javascript example
           - language: typescript
             code: 'const response: Promise<FireblocksResponse<StakingGetAllDelegationsResponse>> = fireblocks.staking.getAllDelegations(stakingApiGetAllDelegationsRequest);'
@@ -6659,9 +6726,24 @@ paths:
   /staking/positions/summary:
     get:
       operationId: getSummary
-      summary: ''
+      summary: Get staking summary details
+      x-readme:
+        code-samples:
+          - language: python
+            code: |
+              positions_summary = fireblocks.get_staking_positions_summary()
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              const positionsSummary = await fireblocks.getPositionsSummary();
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<DelegationSummaryDto>> = fireblocks.staking.getSummary();'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<DelegationSummaryDto>> response = fireblocks.staking().getSummary();
+            name: Fireblocks SDK Java example
       description: Return a summary of all vaults, categorized by their status (active, inactive), the total amounts staked and total rewards per-chain.
-      parameters: []
       responses:
         '200':
           description: A summary for all vaults were returned successfully
@@ -6692,20 +6774,27 @@ paths:
                     amount: '0.077345939'
       tags:
         - Staking
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<DelegationSummaryDto>> = fireblocks.staking.getSummary();'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<DelegationSummaryDto>> response = fireblocks.staking().getSummary();
-            name: Fireblocks SDK Java example
   /staking/positions/summary/vaults:
     get:
       operationId: getSummaryByVault
-      summary: ''
+      summary: Get staking summary details by vault
       description: Return a summary for each vault, categorized by their status (active, inactive), the total amounts staked and total rewards per-chain.
-      parameters: []
+      x-readme:
+        code-samples:
+          - language: python
+            code: |
+              positions_summary_by_vault = fireblocks.get_staking_positions_summary_by_vault()
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              const positionsSummary = await fireblocks.getPositionsSummaryByVault();
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<StakingGetSummaryByVaultResponse>> = fireblocks.staking.getSummaryByVault();'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<StakingGetSummaryByVaultResponse>> response = fireblocks.staking().getSummaryByVault();
+            name: Fireblocks SDK Java example
       responses:
         '200':
           description: A summary for each vault were returned successfully
@@ -6750,19 +6839,25 @@ paths:
                       amount: '0.011191566'
       tags:
         - Staking
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<StakingGetSummaryByVaultResponse>> = fireblocks.staking.getSummaryByVault();'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<StakingGetSummaryByVaultResponse>> response = fireblocks.staking().getSummaryByVault();
-            name: Fireblocks SDK Java example
   /staking/positions/{id}:
     get:
       operationId: getDelegationById
-      summary: ''
+      summary: Get staking position details
       description: Return detailed information on a staking position, including the staked amount, rewards, status and more.
+      x-readme:
+        code-samples:
+          - language: python
+            code: position = fireblocks.get_staking_position("b70701f4-d7b1-4795-a8ee-b09cdb5b850d")
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: const position = await fireblocks.getPosition("b70701f4-d7b1-4795-a8ee-b09cdb5b850d");
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<DelegationDto>> = fireblocks.staking.getDelegationById(stakingApiGetDelegationByIdRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<DelegationDto>> response = fireblocks.staking().getDelegationById(id);
+            name: Fireblocks SDK Java example
       parameters:
         - name: id
           required: true
@@ -6770,6 +6865,7 @@ paths:
           description: The unique identifier of the staking position
           schema:
             type: string
+            example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
       responses:
         '200':
           description: Position data was returned successfully
@@ -6779,20 +6875,25 @@ paths:
                 $ref: '#/components/schemas/DelegationDto'
       tags:
         - Staking
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<DelegationDto>> = fireblocks.staking.getDelegationById(stakingApiGetDelegationByIdRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<DelegationDto>> response = fireblocks.staking().getDelegationById(id);
-            name: Fireblocks SDK Java example
   /staking/providers:
     get:
       operationId: getProviders
-      summary: ''
+      summary: List staking providers details
       description: Return information on all the available staking providers.
-      parameters: []
+      x-readme:
+        code-samples:
+          - language: python
+            code: providers = fireblocks.get_staking_providers()
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: const providers = await fireblocks.getStakingProviders()
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<StakingGetProvidersResponse>> = fireblocks.staking.getProviders();'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<List<ProviderDto>>> response = fireblocks.staking().getProviders();
+            name: Fireblocks SDK Java example
       responses:
         '200':
           description: An array of supported providers was returned successfully
@@ -6802,21 +6903,27 @@ paths:
                 $ref: '#/components/schemas/StakingGetProvidersResponse'
       tags:
         - Staking
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<StakingGetProvidersResponse>> = fireblocks.staking.getProviders();'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<List<ProviderDto>>> response = fireblocks.staking().getProviders();
-            name: Fireblocks SDK Java example
   /staking/providers/{providerId}/approveTermsOfService:
     post:
       operationId: approveTermsOfServiceByProviderId
-      summary: ''
+      summary: Approve staking terms of service
       description: |-
         Approve the terms of service of the staking provider.
         This must be called before performing a staking action for the first time with this provider.
+      x-readme:
+        code-samples:
+          - language: python
+            code: approve_request = fireblocks.approve_staking_provider_terms_of_service("kiln")
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: const approveRequest = await fireblocks.approveStakingProviderTermsOfService("kiln");
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<ProvidersResponseDto>> = fireblocks.staking.approveTermsOfServiceByProviderId(stakingApiApproveTermsOfServiceByProviderIdRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<ProvidersResponseDto>> response = fireblocks.staking().approveTermsOfServiceByProviderId(providerId, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - name: providerId
           required: true
@@ -6837,14 +6944,6 @@ paths:
                 $ref: '#/components/schemas/ProvidersResponseDto'
       tags:
         - Staking
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ProvidersResponseDto>> = fireblocks.staking.approveTermsOfServiceByProviderId(stakingApiApproveTermsOfServiceByProviderIdRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<ProvidersResponseDto>> response = fireblocks.staking().approveTermsOfServiceByProviderId(providerId, idempotencyKey);
-            name: Fireblocks SDK Java example
   /admin_quorum:
     put:
       x-internal: true
@@ -6887,6 +6986,23 @@ paths:
       summary: Refresh vault account tokens
       description: |
         Updates all tokens and balances per blockchain and vault account.
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: |
+              const res = await fireblocks.updateNFTOwnershipsStatus([
+                {
+                  "NFT-cb6db032c00fcc483ae0dea333a7f6b2279aa757", 
+                  "ARCHIVED"
+                }
+              ])
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateOwnershipTokens(nFTsApiUpdateOwnershipTokensRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateOwnershipTokens(blockchainDescriptor, vaultAccountId, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - name: blockchainDescriptor
           required: true
@@ -6909,6 +7025,7 @@ paths:
           description: Vault account filter
           schema:
             type: string
+            example: '0'
         - $ref: '#/components/parameters/X-Idempotency-Key'
       responses:
         '202':
@@ -6918,14 +7035,6 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       tags:
         - NFTs
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateOwnershipTokens(nFTsApiUpdateOwnershipTokensRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateOwnershipTokens(blockchainDescriptor, vaultAccountId, idempotencyKey);
-            name: Fireblocks SDK Java example
     get:
       operationId: getOwnershipTokens
       summary: List all owned tokens (paginated)
@@ -6955,18 +7064,21 @@ paths:
           description: A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType=END_USER_WALLET or ncwId is provided.
           schema:
             type: string
+            example: '0'
         - name: ncwId
           required: false
           in: query
           description: Tenant's Non-Custodial Wallet ID
           schema:
             type: string
+            example: 523ea95a-93a7-43c8-8dbc-ed31f53e6539
         - name: ncwAccountIds
           required: false
           in: query
           description: A comma separated list of Non-Custodial account IDs. Up to 100 are allowed in a single request. This field will be ignored when walletType=VAULT_ACCOUNT or ncwId is not provided.
           schema:
             type: string
+            example: 0,1,2
         - name: walletType
           required: false
           in: query
@@ -6983,18 +7095,21 @@ paths:
           description: A comma separated list of NFT IDs. Up to 100 are allowed in a single request.
           schema:
             type: string
+            example: NFT-ad1bd7bf6b0ecb3495beb17d8540a513c9664e0f, NFT-aaabdababb0ecb3495beb17d8540a513c966bbb
         - name: collectionIds
           required: false
           in: query
           description: A comma separated list of collection IDs. Up to 100 are allowed in a single request.
           schema:
             type: string
+            example: 0x2953399124F0cBB46d2CbACD8A89cF0599974963, 0xababab9124F0cBB46d2CbACD8A89cF0599ababab
         - name: pageCursor
           required: false
           in: query
           description: Page cursor to fetch
           schema:
             type: string
+            example: MjAyNC0wNS0yNiAxMDowNTowMy4zNjggKzAwOjAw:NjkxNDI3Mw==
         - name: pageSize
           required: false
           in: query
@@ -7003,6 +7118,7 @@ paths:
             minimum: 1
             maximum: 100
             type: number
+            example: 20
         - name: sort
           required: false
           in: query
@@ -7043,6 +7159,7 @@ paths:
           schema:
             maximum: 100
             type: string
+            example: MyNFTName
         - name: spam
           required: false
           in: query
@@ -7079,6 +7196,17 @@ paths:
       summary: List all distinct owned tokens (paginated)
       description: |
         Returns all owned distinct tokens (for your tenant) and their data in your workspace.
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: const res = await fireblocks.listOwnedAssets();
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<ListOwnedTokensResponse>> = fireblocks.nFTs.listOwnedTokens(nFTsApiListOwnedTokensRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<ListOwnedTokensResponse>> response = fireblocks.nFTs().listOwnedTokens(ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam);
+            name: Fireblocks SDK Java example
       parameters:
         - name: ncwId
           required: false
@@ -7086,6 +7214,7 @@ paths:
           description: Tenant's Non-Custodial Wallet ID
           schema:
             type: string
+            example: 523ea95a-93a7-43c8-8dbc-ed31f53e6539
         - name: walletType
           required: false
           in: query
@@ -7102,6 +7231,7 @@ paths:
           description: Page cursor to fetch
           schema:
             type: string
+            example: MTcyNzg3Nw==
         - name: pageSize
           required: false
           in: query
@@ -7147,6 +7277,7 @@ paths:
           schema:
             maximum: 100
             type: string
+            example: MyTokenName
         - name: spam
           required: false
           in: query
@@ -7169,20 +7300,23 @@ paths:
                 $ref: '#/components/schemas/ListOwnedTokensResponse'
       tags:
         - NFTs
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ListOwnedTokensResponse>> = fireblocks.nFTs.listOwnedTokens(nFTsApiListOwnedTokensRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<ListOwnedTokensResponse>> response = fireblocks.nFTs().listOwnedTokens(ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam);
-            name: Fireblocks SDK Java example
   /nfts/ownership/collections:
     get:
       operationId: listOwnedCollections
       summary: List owned collections (paginated)
       description: |
         Returns all collections in your workspace
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: const res = await fireblocks.listOwnedCollections()
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<ListOwnedCollectionsResponse>> = fireblocks.nFTs.listOwnedCollections(nFTsApiListOwnedCollectionsRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<ListOwnedCollectionsResponse>> response = fireblocks.nFTs().listOwnedCollections(ncwId, walletType, search, pageCursor, pageSize, sort, order, status);
+            name: Fireblocks SDK Java example
       parameters:
         - name: ncwId
           required: false
@@ -7190,6 +7324,7 @@ paths:
           description: Tenant's Non-Custodial Wallet ID
           schema:
             type: string
+            example: 523ea95a-93a7-43c8-8dbc-ed31f53e6539
         - name: walletType
           required: false
           in: query
@@ -7207,12 +7342,14 @@ paths:
           schema:
             maximum: 100
             type: string
+            example: MyTokenName
         - name: pageCursor
           required: false
           in: query
           description: Page cursor to fetch
           schema:
             type: string
+            example: MTcyNzg3Nw==
         - name: pageSize
           required: false
           in: query
@@ -7221,6 +7358,7 @@ paths:
             minimum: 1
             maximum: 100
             type: number
+            example: 10
         - name: sort
           required: false
           in: query
@@ -7263,28 +7401,32 @@ paths:
                 $ref: '#/components/schemas/ListOwnedCollectionsResponse'
       tags:
         - NFTs
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ListOwnedCollectionsResponse>> = fireblocks.nFTs.listOwnedCollections(nFTsApiListOwnedCollectionsRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<ListOwnedCollectionsResponse>> response = fireblocks.nFTs().listOwnedCollections(ncwId, walletType, search, pageCursor, pageSize, sort, order, status);
-            name: Fireblocks SDK Java example
   /nfts/tokens/{id}:
     put:
       operationId: refreshNFTMetadata
       summary: Refresh token metadata
       description: |
         Updates the latest token metadata.
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: |
+              const res = await fireblocks.refreshNFTMetadata("NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd")
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.refreshNFTMetadata(nFTsApiRefreshNFTMetadataRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().refreshNFTMetadata(id, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - name: id
           required: true
           in: path
           description: NFT ID
-          example: NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd
           schema:
             type: string
+            example: NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd
         - $ref: '#/components/parameters/X-Idempotency-Key'
       responses:
         '202':
@@ -7294,27 +7436,31 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       tags:
         - NFTs
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.refreshNFTMetadata(nFTsApiRefreshNFTMetadataRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().refreshNFTMetadata(id, idempotencyKey);
-            name: Fireblocks SDK Java example
     get:
       operationId: getNFT
       summary: List token data by ID
       description: |
         Returns the requested token data.
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: |
+              const res = await fireblocks.getNFT("NFT-ad1bd7bf6b0ecb3495beb17d8540a513c9664e0f")
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<TokenResponse>> = fireblocks.nFTs.getNFT(nFTsApiGetNFTRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<TokenResponse>> response = fireblocks.nFTs().getNFT(id);
+            name: Fireblocks SDK Java example
       parameters:
         - name: id
           required: true
           in: path
           description: NFT ID
-          example: NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd
           schema:
             type: string
+            example: NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd
       responses:
         '200':
           description: ''
@@ -7327,20 +7473,29 @@ paths:
                 $ref: '#/components/schemas/TokenResponse'
       tags:
         - NFTs
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<TokenResponse>> = fireblocks.nFTs.getNFT(nFTsApiGetNFTRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<TokenResponse>> response = fireblocks.nFTs().getNFT(id);
-            name: Fireblocks SDK Java example
   /nfts/tokens:
     get:
       operationId: getNFTs
       summary: List tokens by IDs
       description: |
         Returns the requested tokens data.
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: |
+              const res = await fireblocks.getNFTs({
+                ids: [
+                  "NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd",
+                  "NFT-cbcbcbcbcbcbabcdefabcdefabcdefabcdefabab"
+                ]
+              })
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<GetNFTsResponse>> = fireblocks.nFTs.getNFTs(nFTsApiGetNFTsRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<GetNFTsResponse>> response = fireblocks.nFTs().getNFTs(ids, pageCursor, pageSize, sort, order);
+            name: Fireblocks SDK Java example
       parameters:
         - name: ids
           required: true
@@ -7348,12 +7503,14 @@ paths:
           description: A comma separated list of NFT IDs. Up to 100 are allowed in a single request.
           schema:
             type: string
+            example: NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd, NFT-cbcbcbcbcbcbabcdefabcdefabcdefabcdefabab
         - name: pageCursor
           required: false
           in: query
           description: Page cursor to fetch
           schema:
             type: string
+            example: MjAyNC0wNS0yNiAxMDowNTowMy4zNjggKzAwOjAw:NjkxNDI3Mw==
         - name: pageSize
           required: false
           in: query
@@ -7362,6 +7519,7 @@ paths:
             minimum: 1
             maximum: 100
             type: number
+            example: 20
         - name: sort
           required: false
           in: query
@@ -7396,28 +7554,35 @@ paths:
                 $ref: '#/components/schemas/GetNFTsResponse'
       tags:
         - NFTs
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetNFTsResponse>> = fireblocks.nFTs.getNFTs(nFTsApiGetNFTsRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<GetNFTsResponse>> response = fireblocks.nFTs().getNFTs(ids, pageCursor, pageSize, sort, order);
-            name: Fireblocks SDK Java example
   /nfts/ownership/tokens/{id}/status:
     put:
       operationId: updateTokenOwnershipStatus
       summary: Update token ownership status
       description: |
-        Updates token status for a tenant, in all tenant vaults.
+        Updates token status for a workspace, in all workspace vaults.
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: |
+              const res = await fireblocks.updateNFTOwnershipStatus(
+                "NFT-cb6db032c00fcc483ae0dea333a7f6b2279aa757", 
+                "ARCHIVED"
+              )
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokenOwnershipStatus(nFTsApiUpdateTokenOwnershipStatusRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - name: id
           required: true
           in: path
           description: NFT ID
-          example: NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd
           schema:
             type: string
+            example: NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
         required: true
@@ -7433,19 +7598,28 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       tags:
         - NFTs
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokenOwnershipStatus(nFTsApiUpdateTokenOwnershipStatusRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, idempotencyKey);
-            name: Fireblocks SDK Java example
   /nfts/ownership/tokens/status:
     put:
       operationId: updateTokensOwnershipStatus
       summary: Update tokens ownership status
       description: Updates tokens status for a tenant, in all tenant vaults.
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: |
+              const res = await fireblocks.updateNFTOwnershipsStatus([
+                {
+                  "NFT-cb6db032c00fcc483ae0dea333a7f6b2279aa757", 
+                  "ARCHIVED"
+                }
+              ])
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokensOwnershipStatus(nFTsApiUpdateTokensOwnershipStatusRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -7466,25 +7640,43 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
         '404':
-          description: When ownership for token ID is not found
+          description: Ownership for token ID is not found
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       tags:
         - NFTs
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokensOwnershipStatus(nFTsApiUpdateTokensOwnershipStatusRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload, idempotencyKey);
-            name: Fireblocks SDK Java example
   /nfts/ownership/tokens/spam:
     put:
       operationId: updateTokensOwnershipSpam
       summary: Update tokens ownership spam property
       description: Updates tokens spam property for a tenant's token ownerships, in all tenant vaults.
+      x-readme:
+        code-samples:
+          - language: python
+            code: |
+              res = fireblocks.update_nft_token_ownerships_spam_status([
+                { 
+                  assetId: "NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd", 
+                  spam: true 
+                }
+              ]);
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              const res = await fireblocks.updateNFTTokenOwnershipSpamStatus([
+                { 
+                  assetId: "NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd", 
+                  spam: true 
+                }
+              ]);
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokensOwnershipSpam(nFTsApiUpdateTokensOwnershipSpamRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -7505,20 +7697,12 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
         '404':
-          description: When ownership for token ID is not found
+          description: Ownership for token ID is not found
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       tags:
         - NFTs
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokensOwnershipSpam(nFTsApiUpdateTokensOwnershipSpamRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload, idempotencyKey);
-            name: Fireblocks SDK Java example
   /connections:
     get:
       operationId: get
@@ -7637,9 +7821,9 @@ paths:
   /connections/wc:
     post:
       operationId: create
-      summary: Create a new Web3 connection.
+      summary: Create a new dApp connection.
       description: |-
-        Initiate a new Web3 connection.
+        Initiate a new dApp connection.
 
         * Note: After this succeeds, make a request to `PUT /v1/connections/wc/{id}` (below) to approve or reject the new Web3 connection.
       parameters:
@@ -8204,8 +8388,25 @@ paths:
   /management/ota:
     put:
       operationId: setOtaStatus
-      summary: Enable or disable transactions to OTA
-      description: Enable or disable transactions to OTA
+      summary: Enable or disable transactions to One Time Addresses
+      description: |
+        Enable or disable transactions to One Time Addresses (Non Whitelisted addresses)
+
+        Learn more about [One Time Addresses](https://support.fireblocks.io/hc/en-us/articles/4409104568338-One-Time-Address-OTA-feature)
+
+        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: |
+              const res = await fireblocks.updateOtaConfiguration(true)
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SetOtaStatusResponse>> = fireblocks.oTABeta.setOtaStatus(oTABetaApiSetOtaStatusRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SetOtaStatusResponse>> response = fireblocks.oTABeta().setOtaStatus(setOtaStatusRequest, idempotencyKey);
+            name: Fireblocks SDK Java example
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -8232,18 +8433,22 @@ paths:
           description: Internal server error
       tags:
         - OTA (Beta)
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SetOtaStatusResponse>> = fireblocks.oTABeta.setOtaStatus(oTABetaApiSetOtaStatusRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<SetOtaStatusResponse>> response = fireblocks.oTABeta().setOtaStatus(setOtaStatusRequest, idempotencyKey);
-            name: Fireblocks SDK Java example
     get:
       operationId: getOtaStatus
       summary: Returns current OTA status
       description: Returns current OTA status
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: |
+              const res = await fireblocks.getOtaConfiguration(true)
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<GetOtaStatusResponse>> = fireblocks.workspaceManagement.getOtaStatus();'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<GetOtaStatusResponse>> response = fireblocks.workspaceManagement().getOtaStatus();
+            name: Fireblocks SDK Java example
       responses:
         '200':
           content:
@@ -8254,20 +8459,19 @@ paths:
         '404':
           description: Configuration not found for tenant
       tags:
-        - OTA (Beta)
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetOtaStatusResponse>> = fireblocks.oTABeta.getOtaStatus();'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<GetOtaStatusResponse>> response = fireblocks.oTABeta().getOtaStatus();
-            name: Fireblocks SDK Java example
+        - Workspace Management
   /management/workspace_status:
     get:
       operationId: getWorkspaceStatus
       summary: Returns current workspace status
-      description: Returns current workspace status
+      description: |
+        Returns current workspace status (Beta)
+
+        **Note**:
+
+        - This endpoint is now in Beta, disabled for general availability at this time.
+
+        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
       responses:
         '200':
           content:
@@ -8278,14 +8482,14 @@ paths:
         '404':
           description: Workspace not found
       tags:
-        - Workspace Status (Beta)
+        - Workspace Management
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetWorkspaceStatusResponse>> = fireblocks.workspaceStatusBeta.getWorkspaceStatus();'
+            code: 'const response: Promise<FireblocksResponse<GetWorkspaceStatusResponse>> = fireblocks.workspaceManagement.getWorkspaceStatus();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<GetWorkspaceStatusResponse>> response = fireblocks.workspaceStatusBeta().getWorkspaceStatus();
+            code: CompletableFuture<ApiResponse<GetWorkspaceStatusResponse>> response = fireblocks.workspaceManagement().getWorkspaceStatus();
             name: Fireblocks SDK Java example
   /tap/active_policy:
     get:
@@ -8493,9 +8697,12 @@ paths:
     get:
       operationId: getConsoleUsers
       summary: Get console users
-      description: Get console users for your tenant
+      description: |
+        Get console users for your tenant.
+
+        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
       tags:
-        - Console User
+        - Workspace Management
       x-readme:
         code-samples:
           - language: javascript
@@ -8505,10 +8712,10 @@ paths:
             code: consoleUsers = fireblocks.get_console_users()
             name: Fireblocks SDK Python example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetConsoleUsersResponse>> = fireblocks.consoleUser.getConsoleUsers();'
+            code: 'const response: Promise<FireblocksResponse<GetConsoleUsersResponse>> = fireblocks.workspaceManagement.getConsoleUsers();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<GetConsoleUsersResponse>> response = fireblocks.consoleUser().getConsoleUsers();
+            code: CompletableFuture<ApiResponse<GetConsoleUsersResponse>> response = fireblocks.workspaceManagement().getConsoleUsers();
             name: Fireblocks SDK Java example
       responses:
         '200':
@@ -8619,10 +8826,13 @@ paths:
   /management/api_users:
     get:
       operationId: getApiUsers
-      summary: Get Api users
-      description: Get Api users of your tenant
+      summary: Get API Keys
+      description: |
+        List all API keys in your workspace.
+
+        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
       tags:
-        - Api User
+        - Workspace Management
       x-readme:
         code-samples:
           - language: javascript
@@ -8632,14 +8842,14 @@ paths:
             code: apiUsers = fireblocks.get_api_users()
             name: Fireblocks SDK Python example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetAPIUsersResponse>> = fireblocks.apiUser.getApiUsers();'
+            code: 'const response: Promise<FireblocksResponse<GetAPIUsersResponse>> = fireblocks.workspaceManagement.getApiUsers();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<GetAPIUsersResponse>> response = fireblocks.apiUser().getApiUsers();
+            code: CompletableFuture<ApiResponse<GetAPIUsersResponse>> response = fireblocks.workspaceManagement().getApiUsers();
             name: Fireblocks SDK Java example
       responses:
         '200':
-          description: got api users
+          description: Successfully returned all API Keys
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
@@ -8678,10 +8888,10 @@ paths:
           $ref: '#/components/responses/Error'
     post:
       operationId: createApiUser
-      summary: Create Api user
-      description: Creates Api user in your tenant
+      summary: Create API Key
+      description: Create a new API key in your workspace
       tags:
-        - Api User
+        - Workspace Management
       x-readme:
         code-samples:
           - language: javascript
@@ -8691,10 +8901,10 @@ paths:
             code: res = fireblocks.create_api_user(name, role, csr_pem, co_signer_setup, co_signer_setup_is_first_user)
             name: Fireblocks SDK Python example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.apiUser.createApiUser(apiUserApiCreateApiUserRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.workspaceManagement.createApiUser(workspaceManagementApiCreateApiUserRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.apiUser().createApiUser(createAPIUser, idempotencyKey);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.workspaceManagement().createApiUser(createAPIUser, idempotencyKey);
             name: Fireblocks SDK Java example
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
@@ -8747,9 +8957,12 @@ paths:
     post:
       operationId: resetDevice
       summary: Resets device
-      description: Resets mobile device for given console user, that user will need to do mobile onboarding again.
+      description: |
+        Resets mobile device for given console user, that user will need to do mobile onboarding again.
+
+        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
       tags:
-        - Reset device
+        - Workspace Management
       x-readme:
         code-samples:
           - language: javascript
@@ -8759,10 +8972,10 @@ paths:
             code: res = fireblocks.reset_device_request(console_user_id)
             name: Fireblocks SDK Python example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.resetDevice.resetDevice(resetDeviceApiResetDeviceRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.workspaceManagement.resetDevice(workspaceManagementApiResetDeviceRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.resetDevice().resetDevice(id, idempotencyKey);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.workspaceManagement().resetDevice(id, idempotencyKey);
             name: Fireblocks SDK Java example
       parameters:
         - in: path
@@ -8810,10 +9023,13 @@ paths:
   /management/api_users/{userId}/whitelist_ip_addresses:
     get:
       operationId: getWhitelistIpAddresses
-      summary: Gets whitelisted ip addresses
-      description: Gets whitelisted ip addresses for given Api user.
+      summary: Get whitelisted ip addresses for an API Key
+      description: |
+        Get a list of the whitelisted IP addresses for a specific API Key
+
+        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
       tags:
-        - whitelist ip addresses
+        - Workspace Management
       x-readme:
         code-samples:
           - language: javascript
@@ -8823,10 +9039,10 @@ paths:
             code: whitelisted_addresses = fireblocks.get_whitelisted_ip_addresses(api_user_id)
             name: Fireblocks SDK Python example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetWhitelistIpAddressesResponse>> = fireblocks.whitelistIpAddresses.getWhitelistIpAddresses(whitelistIpAddressesApiGetWhitelistIpAddressesRequest);'
+            code: 'const response: Promise<FireblocksResponse<GetWhitelistIpAddressesResponse>> = fireblocks.workspaceManagement.getWhitelistIpAddresses(workspaceManagementApiGetWhitelistIpAddressesRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<GetWhitelistIpAddressesResponse>> response = fireblocks.whitelistIpAddresses().getWhitelistIpAddresses(userId);
+            code: CompletableFuture<ApiResponse<GetWhitelistIpAddressesResponse>> response = fireblocks.workspaceManagement().getWhitelistIpAddresses(userId);
             name: Fireblocks SDK Java example
       parameters:
         - in: path
@@ -8835,6 +9051,7 @@ paths:
           description: The ID of the api user
           schema:
             type: string
+            example: ceb990eb-838d-4de0-accf-924e8132dd67
       responses:
         '200':
           description: successfully got whitelisted ip addresses
@@ -9151,7 +9368,7 @@ paths:
             code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.setTicketExpiration(smartTransferApiSetTicketExpirationRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().setTicketExpiration(ticketId, smartTransferSetTicketExpiration, idempotencyKey);
+            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().setTicketExpiration(smartTransferSetTicketExpiration, ticketId, idempotencyKey);
             name: Fireblocks SDK Java example
       parameters:
         - name: ticketId
@@ -9161,6 +9378,7 @@ paths:
             type: string
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -11074,8 +11292,12 @@ components:
       properties:
         id:
           type: string
+          description: Network Connection ID
+          example: 494ae5f7-7807-4bc5-863b-2963aa94398f
         name:
           type: string
+          description: Network Connection Name
+          example: My Network Connection Name
       required:
         - id
         - name
@@ -11097,6 +11319,7 @@ components:
         dstId:
           type: string
           description: The ID of the account the funds are being sent to.
+          example: 29a425f4-f621-4c01-a888-27adec7d1dfa
       required:
         - scheme
         - dstType
@@ -11167,9 +11390,11 @@ components:
         localNetworkId:
           type: string
           description: The network ID of the profile trying to create the connection.
+          example: 494ae5f7-7807-4bc5-863b-2963aa94398f
         remoteNetworkId:
           type: string
           description: The network ID the profile is attempting to connect to.
+          example: ebde71be-30d6-4498-95c4-a151effdb377
         routingPolicy:
           $ref: '#/components/schemas/NetworkConnectionRoutingPolicy'
       required:
@@ -11229,6 +11454,8 @@ components:
       properties:
         name:
           type: string
+          description: Network ID Name
+          example: My Network ID name
         routingPolicy:
           $ref: '#/components/schemas/NetworkIdRoutingPolicy'
       required:
@@ -11270,6 +11497,8 @@ components:
       properties:
         name:
           type: string
+          description: Network ID name
+          example: My Network ID name
       required:
         - name
     ConfigChangeRequestStatus:
@@ -14267,15 +14496,26 @@ components:
       type: object
       properties:
         id:
+          description: User Group ID
           type: string
+          example: f04402d0-00f1-48cb-acd0-352010f2e62f
         name:
           type: string
+          description: User Group Name
+          example: My Group Name
         status:
           type: string
+          description: Group Approval Status
+          enum:
+            - PENDING_APPROVAL
+            - ACTIVE
         memberIds:
           type: array
           items:
             type: string
+            example:
+              - 1d8b04f3-f90b-406b-a4d8-71d5d16f6862
+              - 30e8a73a-6300-4b35-a11a-9c69341805fc
     UserGroupsResponse:
       type: array
       items:
@@ -14294,23 +14534,40 @@ components:
       properties:
         id:
           type: string
+          description: User group unique identifier
+          example: 4a7e7b16-c863-4b41-876f-c64f05c087d6
         name:
           type: string
+          description: User group name
+          example: My User Group
         memberIds:
           type: array
+          description: IDs of the users in the group
           items:
             type: string
+            example:
+              - 30e8a73a-6300-4b35-a11a-9c69341805fc
+              - 1d8b04f3-f90b-406b-a4d8-71d5d16f6862
         status:
           type: string
+          description: User group status
+          enum:
+            - PENDING_APPROVAL
+            - ACTIVE
     UserGroupUpdateRequest:
       type: object
       properties:
         groupName:
           type: string
+          description: User Group Name
+          example: My User Group
         memberIds:
           type: array
           items:
             type: string
+          example:
+            - 1d8b04f3-f90b-406b-a4d8-71d5d16f6862
+            - 30e8a73a-6300-4b35-a11a-9c69341805fc
     UserGroupCreateResponse:
       type: object
       properties:
@@ -14361,27 +14618,39 @@ components:
         id:
           type: string
           description: The unique identifier of the audit log
+          example: e7fd158f-2e95-4ce7-a094-ad0fcc72aa46
         timestamp:
           type: string
           description: The timestamp of the audit log
+          example: 1716923925218
         createdAt:
           type: string
           description: The timestamp of the audit log creation
+          example: 1716923925253
         user:
           type: string
-          description: The user who performed the action
+          description: The user name of the user that performed the action
+          example: Some User Name
         subject:
           type: string
           description: The subject of the action
+          example: NFT
         event:
           type: string
           description: The event that was performed
+          example: Marked as spam
         tenantId:
           type: string
-          description: The tenant ID of the audit log
+          description: The workspace ID of the audit log
+          example: be5fec76-e6e3-5ae5-9d74-ada52a4e39a5
         userId:
           type: string
-          description: The user ID of the audit log
+          description: The user ID of the user that performed the action
+          example: 9be4e59d-3a18-4da1-b927-16b3d76b0083
+        workspace:
+          type: string
+          description: Workspace Name
+          example: My Workspace Name
     AuditLogsData:
       type: array
       items:
@@ -14395,9 +14664,11 @@ components:
           nullable: true
           type: string
           description: The next id to start fetch audit logs from
+          example: next-page-cursor
         total:
           type: number
           description: The total number of audit logs
+          example: 32
     AddCollateralRequestBody:
       type: object
       properties:
@@ -15591,6 +15862,12 @@ components:
       type: array
       items:
         type: string
+        enum:
+          - ETH
+          - ETH_TEST6
+          - SOL
+          - SOL_TEST
+          - MATIC
     AdditionalInfoDto:
       type: object
       properties:
@@ -15629,12 +15906,17 @@ components:
           type: number
           example: 172800000
           description: The total duration in milliseconds of a single epoch.
+        lastUpdated:
+          type: number
+          example: 1716905806289
+          description: Last update timestamp in milliseconds
         additionalInfo:
           description: Additional information related to the blockchain. This may include extra details about the blockchain network.
           allOf:
             - $ref: '#/components/schemas/AdditionalInfoDto'
       required:
         - chainDescriptor
+        - lastUpdated
         - currentEpoch
         - epochElapsed
         - epochDuration
@@ -15676,7 +15958,7 @@ components:
         id:
           type: string
           example: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
-          description: id of position to unstake
+          description: ID of the position to unstake
         fee:
           type: string
           example: '7'
@@ -15687,8 +15969,8 @@ components:
           description: Represents the fee level for a transaction, which can be set as slow, medium, or fast. Only one of fee/feeLevel is required.
         txNote:
           type: string
-          example: 'unstake request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d #ETH'
-          description: The note to associate with the transactions.
+          example: 'Unstake request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d #ETH'
+          description: The tranasction note to associate with the transactions.
       required:
         - id
     WithdrawRequestDto:
@@ -15712,11 +15994,33 @@ components:
           description: The note to associate with the transactions.
       required:
         - id
+    ClaimRewardsRequestDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          description: id of position to withdraw rewards from
+        fee:
+          type: string
+          example: '7'
+          description: Represents the fee for a transaction, which can be specified as a percentage value. Only one of fee/feeLevel is required.
+        feeLevel:
+          type: string
+          example: MEDIUM
+          description: Represents the fee level for a transaction, which can be set as slow, medium, or fast. Only one of fee/feeLevel is required.
+        txNote:
+          type: string
+          example: claim rewards request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          description: The note to associate with the transactions.
+      required:
+        - id
     ExecuteActionRequest:
       oneOf:
         - $ref: '#/components/schemas/StakeRequestDto'
         - $ref: '#/components/schemas/UnstakeRequestDto'
         - $ref: '#/components/schemas/WithdrawRequestDto'
+        - $ref: '#/components/schemas/ClaimRewardsRequestDto'
     StakeResponseDto:
       type: object
       properties:
@@ -15732,11 +16036,15 @@ components:
     WithdrawResponseDto:
       type: object
       properties: {}
+    ClaimRewardsResponseDto:
+      type: object
+      properties: {}
     ExecuteActionResponse:
       oneOf:
         - $ref: '#/components/schemas/StakeResponseDto'
         - $ref: '#/components/schemas/UnstakeResponseDto'
         - $ref: '#/components/schemas/WithdrawResponseDto'
+        - $ref: '#/components/schemas/ClaimRewardsResponseDto'
     RelatedTransactionDto:
       type: object
       properties:
@@ -15830,12 +16138,12 @@ components:
           example: kiln
           description: The unique identifier of the staking provider
         availableActions:
-          example:
-            - unstake
           description: An array of available actions that can be performed. for example, actions like "unstake" or "withdraw".
           type: array
           items:
             type: string
+            example:
+              - unstake
         inProgress:
           type: boolean
           example: true
@@ -16006,6 +16314,7 @@ components:
         url:
           type: string
           description: Cached accessible URL
+          example: https://static.fireblocks.io/nft/media/aHR0cHM6Ly9pLnNlYWRuLmlvL2djcy9maWxlcy9kYjg4NDIyMDYxODUyZWE2YTZkZWVkMDY2NjI5ODY4Ny5wbmc_dz0
         contentType:
           type: string
           enum:
@@ -16041,11 +16350,17 @@ components:
       type: object
       properties:
         id:
+          description: Collection's ID
           type: string
+          example: '0x2953399124F0cBB46d2CbACD8A89cF0599974963'
         name:
+          description: Collection's Name
           type: string
+          example: OpenSea Collections
         symbol:
+          description: Collection's Symbol
           type: string
+          example: OPENSTORE
       required:
         - id
     TokenOwnershipResponse:
@@ -16054,18 +16369,23 @@ components:
         id:
           type: string
           description: The Fireblocks NFT asset id
+          example: NFT-ad1bd7bf6b0ecb3495beb17d8540a513c9664e0f
         tokenId:
           type: string
           description: Token id within the contract/collection
+          example: '59254621688950848715672884047857802075662195255933291242201099097856995753985'
         standard:
           type: string
-          description: ERC721 / ERC1155
+          description: Token's standard
+          example: ERC721
         metadataURI:
           type: string
           description: URL of the original token JSON metadata
+          example: https://api.opensea.io/api/v2/metadata/matic/0x2953399124F0cBB46d2CbACD8A89cF0599974963/592546216889508487156728840478578020756621952
         cachedMetadataURI:
           type: string
           description: URL of the cached token JSON metadata
+          example: https://static.fireblocks.io/nft/cb6db032c00fcc483ae0dea333a7f6b2279/metadata.json
         media:
           description: Media items extracted from metadata JSON
           type: array
@@ -16080,14 +16400,23 @@ components:
           allOf:
             - $ref: '#/components/schemas/TokenCollectionResponse'
         balance:
+          description: Token's balance
           type: string
+          example: '1'
         vaultAccountId:
+          description: Fireblocks Vault Account ID
           type: string
+          example: '0'
         ownershipStartTime:
+          description: Ownership start timestamp (epoch)
           type: number
+          example: 1687865341
         ownershipLastUpdateTime:
+          description: Ownership start last update time (epoch)
           type: number
+          example: 1687865341
         blockchainDescriptor:
+          description: Token's blockchain
           enum:
             - ETH
             - ETH_TEST3
@@ -16101,15 +16430,21 @@ components:
             - BASECHAIN_ETH
           type: string
         description:
+          description: Token's metadata description
           type: string
+          example: MyNFT Description from the metada
         name:
+          description: Token's name
           type: string
+          example: MyNFTName
         ncwId:
           type: string
           description: Ownership Non-Custodial Wallet ID
+          example: 523ea95a-93a7-43c8-8dbc-ed31f53e6539
         ncwAccountId:
           type: string
           description: Ownership Non-Custodial Wallet's account ID
+          example: '0'
         status:
           type: string
           description: Owned Token's status
@@ -16140,6 +16475,7 @@ components:
         result:
           type: boolean
           description: Token spam result
+          example: true
       required:
         - result
     TokenResponse:
@@ -16148,18 +16484,23 @@ components:
         id:
           type: string
           description: The Fireblocks NFT asset id
+          example: NFT-ad1bd7bf6b0ecb3495beb17d8540a513c9664e0f
         tokenId:
           type: string
           description: Token id within the contract/collection
+          example: '592546216889508487156728840478578020756621952559332912422010991022550422'
         standard:
           type: string
           description: ERC721 / ERC1155
+          example: ERC1155
         metadataURI:
           type: string
           description: URL of the original token JSON metadata
+          example: https://api.opensea.io/api/v2/metadata/matic/0x2953399124F0cBB46d2CbACD8A89cF0599974963/592546216889508487156728840478578020756621952559332912422010991022550422
         cachedMetadataURI:
           type: string
           description: URL of the cached token JSON metadata
+          example: https://static.fireblocks.io/nft/ad1bd7bf6b0ecb3495beb17d8540a513c96/metadata.json
         media:
           description: Media items extracted from metadata JSON
           type: array
@@ -16187,9 +16528,13 @@ components:
             - XTZ_TEST
             - BASECHAIN_ETH
         description:
+          description: Token's metadata description
           type: string
+          example: This is MyNFT's description fetched from the metadata
         name:
           type: string
+          description: Token's metadata name
+          example: MyNFTName
       required:
         - id
         - tokenId
@@ -16210,15 +16555,19 @@ components:
         id:
           type: string
           description: Fireblocks collection id
+          example: 0b7baa6a62b00c565fd027e91927d610872e0bd5
         name:
           type: string
           description: Collection name
+          example: OpenSea Collections
         symbol:
           type: string
           description: Collection symbol
+          example: OPENSTORE
         standard:
           type: string
           description: Collection contract standard
+          example: ERC1155
         blockchainDescriptor:
           enum:
             - ETH
@@ -16236,6 +16585,7 @@ components:
         contractAddress:
           type: string
           description: Collection contract standard
+          example: '0x2953399124F0cBB46d2CbACD8A89cF0599974963'
       required:
         - id
         - blockchainDescriptor
@@ -16261,6 +16611,7 @@ components:
       type: object
       properties:
         status:
+          description: Token's status in Fireblocks
           type: string
           enum:
             - LISTED
@@ -16281,7 +16632,6 @@ components:
           enum:
             - LISTED
             - ARCHIVED
-          example: ARCHIVED
       required:
         - assetId
         - status
@@ -17005,7 +17355,7 @@ components:
       properties:
         enabled:
           type: boolean
-          description: Current OTA status
+          description: Current One Time Address feature status
     SetOtaStatusRequest:
       type: object
       properties:
@@ -17603,7 +17953,7 @@ components:
         - NCW_SIGNER
     UserEnabled:
       type: boolean
-      description: Whether the user is enabled
+      description: Whether the user is enabled or not
     UserStatus:
       type: string
       description: The status of the user
@@ -17626,12 +17976,15 @@ components:
         firstName:
           type: string
           description: The first name of the user
+          example: Some First Name
         lastName:
           type: string
           description: The last name of the user
+          example: Some Last Name
         email:
           type: string
           description: The email address of the user
+          example: user@example.com
         role:
           $ref: '#/components/schemas/UserRole'
         enabled:
@@ -17656,21 +18009,37 @@ components:
       properties:
         firstName:
           type: string
-          description: users firstName
+          description: User's first name
+          example: Some First Name
         lastName:
           type: string
-          description: users lastName
+          description: User' last name
+          example: Some Last Name
         role:
-          type: string
-          description: users role
+          $ref: '#/components/schemas/UserRole'
         email:
           type: string
-          description: valid email address
+          description: User's valid email address
+          example: user@example.com
       required:
         - firstName
         - lastName
         - role
         - email
+    APIUserRole:
+      type: string
+      description: The role of the API Key
+      enum:
+        - ADMIN
+        - SIGNER
+        - COLLATERALS_SIGNER
+        - EDITOR
+        - APPROVER
+        - VIEWER
+        - NON_SIGNING_ADMIN
+        - AUDITOR
+        - NCW_ADMIN
+        - NCW_SIGNER
     APIUser:
       type: object
       properties:
@@ -17678,9 +18047,10 @@ components:
           $ref: '#/components/schemas/UserId'
         name:
           type: string
-          description: The name of the user
+          description: The name of the API Key
+          example: My API Key
         role:
-          $ref: '#/components/schemas/UserRole'
+          $ref: '#/components/schemas/APIUserRole'
         enabled:
           $ref: '#/components/schemas/UserEnabled'
         status:
@@ -17702,22 +18072,40 @@ components:
       type: object
       properties:
         role:
-          type: string
-          description: Users role
+          $ref: '#/components/schemas/APIUserRole'
         name:
           type: string
-          description: Users name
+          description: User Name
+          example: MyAPIEditor
         csrPem:
           type: string
-          description: CSR file that is used to verify API requests. read more https://developers.fireblocks.com/docs/quickstart
+          description: |
+            API requests are authenticated by providing in each request:
+              a. API Key in the `X-API-Key` header
+              b. Auth header - `Authorization: Bearer <JWT>` while the JWT is signed with an RSA 4096 private key.
+
+            When creating a new API Key, you need to generate an RSA 4096 private key and a CSR file. 
+            The CSR file is uploaded to Fireblocks upon the user creation and used later on for signature validation (Auth JWT signature validation).
+
+            For more info read the following [article](https://developers.fireblocks.com/docs/quickstart)
           example: '-----BEGIN CERTIFICATE REQUEST-----aaa-----END CERTIFICATE REQUEST-----'
         coSignerSetupType:
           type: string
-          description: Different environments allow for different setup options, field is required for management/signer role
-          example: SGX_MACHINE
+          description: |
+            Required for Signer/Admin API users that planned to be paired with an API Co-Signer Machine.
+
+            - SGX_MACHINE: For SGX enabled servers
+            - FIREBLOCKS_CCMT: Fireblocks Communal Co-Signer (for Testnet workspaces only)
+            - NITRO_MACHINE: For AWS Nitro Enclave enabled servers
+
+            For more information about Fireblocks Co-Signer setup please read the following [article](https://support.fireblocks.io/hc/en-us/articles/12006018592156-API-Co-Signer-Overview).
+          enum:
+            - SGX_MACHINE
+            - FIREBLOCKS_CCMT
+            - NITRO_MACHINE
         coSignerSetupIsFirstUser:
           type: boolean
-          description: pass as true if this is the first user on the coSigner machine
+          description: Pass as `true`` if this is the first user on the your Co-Signer machine
       required:
         - role
         - name
@@ -17728,11 +18116,15 @@ components:
         userId:
           type: string
           description: The ID of the user
+          example: ceb990eb-838d-4de0-accf-924e8132dd67
         whitelistedIps:
           nullable: true
           type: array
           items:
             type: string
+            example:
+              - 246.59.202.145
+              - 170.198.11.101
           description: List of whitelisted ip addresses
     SmartTransferTicketTerm:
       type: object

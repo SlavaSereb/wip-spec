@@ -9151,7 +9151,7 @@ paths:
             code: 'const response: Promise<FireblocksResponse<SmartTransferTicketResponse>> = fireblocks.smartTransfer.setTicketExpiration(smartTransferApiSetTicketExpirationRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().setTicketExpiration(smartTransferSetTicketExpiration, ticketId, idempotencyKey);
+            code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().setTicketExpiration(ticketId, smartTransferSetTicketExpiration, idempotencyKey);
             name: Fireblocks SDK Java example
       parameters:
         - name: ticketId
@@ -9161,7 +9161,6 @@ paths:
             type: string
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
-        required: true
         content:
           application/json:
             schema:

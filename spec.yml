@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Fireblocks API
-  version: 1.6.3
+  version: 1.6.4
   contact:
     email: support@fireblocks.com
 servers:
@@ -5102,7 +5102,7 @@ paths:
         - This endpoint is now in Beta, disabled for general availability at this time.
         - Please note that this endpoint is available only for API keys with Admin permissions.
       tags:
-        - User groups (Beta)
+        - Workspace Management
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -5126,10 +5126,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<CreateUserGroupResponse>> = fireblocks.userGroupsBeta.createUserGroup(userGroupsBetaApiCreateUserGroupRequest);'
+            code: 'const response: Promise<FireblocksResponse<CreateUserGroupResponse>> = fireblocks.workspaceManagement.createUserGroup(workspaceManagementApiCreateUserGroupRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<CreateUserGroupResponse>> response = fireblocks.userGroupsBeta().createUserGroup(userGroupCreateRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<CreateUserGroupResponse>> response = fireblocks.workspaceManagement().createUserGroup(userGroupCreateRequest, idempotencyKey);
             name: Fireblocks SDK Java example
   /management/user_groups/{groupId}:
     get:
@@ -7987,14 +7987,14 @@ paths:
         '500':
           description: Internal server error
       tags:
-        - Travel Rule (Beta)
+        - Compliance
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<TravelRuleValidateTransactionResponse>> = fireblocks.travelRuleBeta.validateTravelRuleTransaction(travelRuleBetaApiValidateTravelRuleTransactionRequest);'
+            code: 'const response: Promise<FireblocksResponse<TravelRuleValidateTransactionResponse>> = fireblocks.compliance.validateTravelRuleTransaction(complianceApiValidateTravelRuleTransactionRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>> response = fireblocks.travelRuleBeta().validateTravelRuleTransaction(travelRuleValidateTransactionRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>> response = fireblocks.compliance().validateTravelRuleTransaction(travelRuleValidateTransactionRequest, idempotencyKey);
             name: Fireblocks SDK Java example
   /screening/travel_rule/transaction/validate/full:
     post:
@@ -8028,14 +8028,14 @@ paths:
         '500':
           description: Internal server error
       tags:
-        - Travel Rule (Beta)
+        - Compliance
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<TravelRuleValidateTransactionResponse>> = fireblocks.travelRuleBeta.validateFullTravelRuleTransaction(travelRuleBetaApiValidateFullTravelRuleTransactionRequest);'
+            code: 'const response: Promise<FireblocksResponse<TravelRuleValidateTransactionResponse>> = fireblocks.compliance.validateFullTravelRuleTransaction(complianceApiValidateFullTravelRuleTransactionRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>> response = fireblocks.travelRuleBeta().validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>> response = fireblocks.compliance().validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest, idempotencyKey);
             name: Fireblocks SDK Java example
   /screening/travel_rule/vasp/{did}:
     get:
@@ -8073,14 +8073,14 @@ paths:
         '500':
           description: Internal server error
       tags:
-        - Travel Rule (Beta)
+        - Compliance
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<TravelRuleVASP>> = fireblocks.travelRuleBeta.getVASPByDID(travelRuleBetaApiGetVASPByDIDRequest);'
+            code: 'const response: Promise<FireblocksResponse<TravelRuleVASP>> = fireblocks.compliance.getVASPByDID(complianceApiGetVASPByDIDRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<TravelRuleVASP>> response = fireblocks.travelRuleBeta().getVASPByDID(did, fields);
+            code: CompletableFuture<ApiResponse<TravelRuleVASP>> response = fireblocks.compliance().getVASPByDID(did, fields);
             name: Fireblocks SDK Java example
   /screening/travel_rule/vasp:
     get:
@@ -8127,14 +8127,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/TravelRuleGetAllVASPsResponse'
       tags:
-        - Travel Rule (Beta)
+        - Compliance
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<TravelRuleGetAllVASPsResponse>> = fireblocks.travelRuleBeta.getVASPs(travelRuleBetaApiGetVASPsRequest);'
+            code: 'const response: Promise<FireblocksResponse<TravelRuleGetAllVASPsResponse>> = fireblocks.compliance.getVASPs(complianceApiGetVASPsRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<TravelRuleGetAllVASPsResponse>> response = fireblocks.travelRuleBeta().getVASPs(order, perPage, page, fields);
+            code: CompletableFuture<ApiResponse<TravelRuleGetAllVASPsResponse>> response = fireblocks.compliance().getVASPs(order, perPage, page, fields);
             name: Fireblocks SDK Java example
   /screening/travel_rule/vasp/update:
     put:
@@ -8168,14 +8168,14 @@ paths:
         '500':
           description: Internal server error
       tags:
-        - Travel Rule (Beta)
+        - Compliance
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<TravelRuleUpdateVASPDetails>> = fireblocks.travelRuleBeta.updateVasp(travelRuleBetaApiUpdateVaspRequest);'
+            code: 'const response: Promise<FireblocksResponse<TravelRuleUpdateVASPDetails>> = fireblocks.compliance.updateVasp(complianceApiUpdateVaspRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<TravelRuleUpdateVASPDetails>> response = fireblocks.travelRuleBeta().updateVasp(travelRuleUpdateVASPDetails, idempotencyKey);
+            code: CompletableFuture<ApiResponse<TravelRuleUpdateVASPDetails>> response = fireblocks.compliance().updateVasp(travelRuleUpdateVASPDetails, idempotencyKey);
             name: Fireblocks SDK Java example
   /screening/travel_rule/post_screening_policy:
     get:
@@ -8237,14 +8237,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScreeningConfigurationsRequest'
       tags:
-        - Compliance Screening Configuration
+        - Compliance
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ScreeningConfigurationsRequest>> = fireblocks.complianceScreeningConfiguration.getScreeningConfiguration();'
+            code: 'const response: Promise<FireblocksResponse<ScreeningConfigurationsRequest>> = fireblocks.compliance.getScreeningConfiguration();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response = fireblocks.complianceScreeningConfiguration().getScreeningConfiguration();
+            code: CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response = fireblocks.compliance().getScreeningConfiguration();
             name: Fireblocks SDK Java example
     put:
       operationId: updateTravelRuleConfig
@@ -8283,14 +8283,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScreeningConfigurationsRequest'
       tags:
-        - Compliance Screening Configuration
+        - Compliance
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ScreeningConfigurationsRequest>> = fireblocks.complianceScreeningConfiguration.getAmlScreeningConfiguration();'
+            code: 'const response: Promise<FireblocksResponse<ScreeningConfigurationsRequest>> = fireblocks.compliance.getAmlScreeningConfiguration();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response = fireblocks.complianceScreeningConfiguration().getAmlScreeningConfiguration();
+            code: CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response = fireblocks.compliance().getAmlScreeningConfiguration();
             name: Fireblocks SDK Java example
     put:
       operationId: updateAmlScreeningConfiguration
@@ -8402,10 +8402,10 @@ paths:
               const res = await fireblocks.updateOtaConfiguration(true)
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<SetOtaStatusResponse>> = fireblocks.oTABeta.setOtaStatus(oTABetaApiSetOtaStatusRequest);'
+            code: 'const response: Promise<FireblocksResponse<SetOtaStatusResponse>> = fireblocks.workspaceManagement.setOtaStatus(workspaceManagementApiSetOtaStatusRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<SetOtaStatusResponse>> response = fireblocks.oTABeta().setOtaStatus(setOtaStatusRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<SetOtaStatusResponse>> response = fireblocks.workspaceManagement().setOtaStatus(setOtaStatusRequest, idempotencyKey);
             name: Fireblocks SDK Java example
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
@@ -8432,7 +8432,7 @@ paths:
         '500':
           description: Internal server error
       tags:
-        - OTA (Beta)
+        - Workspace Management
     get:
       operationId: getOtaStatus
       summary: Returns current OTA status
@@ -8761,7 +8761,7 @@ paths:
       summary: Create console user
       description: Creates console user in your tenant
       tags:
-        - Console User
+        - Workspace Management
       x-readme:
         code-samples:
           - language: javascript
@@ -8771,10 +8771,10 @@ paths:
             code: res = fireblocks.create_console_user(first_name, last_name, email, role)
             name: Fireblocks SDK Python example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.consoleUser.createConsoleUser(consoleUserApiCreateConsoleUserRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.workspaceManagement.createConsoleUser(workspaceManagementApiCreateConsoleUserRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.consoleUser().createConsoleUser(createConsoleUser, idempotencyKey);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.workspaceManagement().createConsoleUser(createConsoleUser, idempotencyKey);
             name: Fireblocks SDK Java example
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
@@ -10575,6 +10575,7 @@ components:
     X-Request-ID:
       schema:
         type: string
+        example: 8a11a1e2-0d23-408c-b39a-e2a5e201991b
       description: Unique ID correlated to the API request. Please provide it in any support ticket you create or on Github issues related to Fireblocks SDKs
     next-page:
       schema:
@@ -18808,6 +18809,7 @@ components:
       required: false
       schema:
         type: string
+        example: some-unique-id
     X-End-User-Wallet-Id:
       name: X-End-User-Wallet-Id
       in: header
@@ -18816,6 +18818,7 @@ components:
       schema:
         type: string
         format: uuid
+        example: bd53b580-f69d-4ff9-ba9b-71ef02aaee13
 x-readme:
   explorer-enabled: false
   samples-languages:

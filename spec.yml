@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Fireblocks API
-  version: 1.6.3
+  version: 1.6.2
   contact:
     email: support@fireblocks.com
 servers:
@@ -3582,6 +3582,7 @@ paths:
       description: |
         Returns all asset types supported by Fireblocks.
 
+
         The response includes all assets supported by Fireblocks globally in addition to assets added to the specific workspace.
       tags:
         - Blockchains & assets
@@ -3730,8 +3731,7 @@ paths:
           description: You can filter by one of the statuses.
           required: false
           schema:
-            type: string
-            example: COMPLETED
+            $ref: '#/components/schemas/TransactionStatus'
         - in: query
           name: orderBy
           description: |-
@@ -6463,9 +6463,22 @@ paths:
   /staking/chains:
     get:
       operationId: getChains
-      summary: ''
+      summary: List supported chains for Fireblocks Staking
       description: Return an alphabetical list of supported chains.
-      parameters: []
+      x-readme:
+        code-samples:
+          - language: python
+            code: chains = fireblocks.get_staking_chains()
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: const chains = await fireblocks.getStakingChains();
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<StakingGetChainsResponse>> = fireblocks.staking.getChains();'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<List<String>>> response = fireblocks.staking().getChains();
+            name: Fireblocks SDK Java example
       responses:
         '200':
           content:
@@ -6475,34 +6488,45 @@ paths:
               example:
                 - ETH
                 - SOL
-          description: ''
+                - MATIC
+          description: Supported Chains for Fireblocks Staking
       tags:
-        - Staking (Beta)
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<StakingGetChainsResponse>> = fireblocks.stakingBeta.getChains();'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<List<String>>> response = fireblocks.stakingBeta().getChains();
-            name: Fireblocks SDK Java example
+        - Staking
   /staking/chains/{chainDescriptor}/chainInfo:
     get:
       operationId: getChainInfo
-      summary: ''
-      description: Return chain-specific, staking-related information summary (e.g. epoch details, lockup durations, estimated rewards, etc.)
+      summary: Get chain-specific staking summary
+      description: |-
+        Return chain-specific, staking-related information summary (e.g. epoch
+        details, lockup durations, estimated rewards, etc.).
+      x-readme:
+        code-samples:
+          - language: python
+            code: chain_info = fireblocks.get_staking_chain_info("ETH")
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: const chainInfo = await fireblocks.getStakingChainInfo("ETH");
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<ChainInfoResponseDto>> = fireblocks.staking.getChainInfo(stakingApiGetChainInfoRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<ChainInfoResponseDto>> response = fireblocks.staking().getChainInfo(chainDescriptor);
+            name: Fireblocks SDK Java example
       parameters:
         - name: chainDescriptor
           required: true
           in: path
-          description: The protocol identifier (e.g. "ETH"/"SOL") to use
+          description: The protocol identifier (e.g. "ETH"/"SOL"/"MATIC") to use
           schema:
             type: string
             enum:
               - ETH
               - SOL
-              - ETH_TEST3
+              - ETH_TEST3 (Deprecated)
               - SOL_TEST
+              - ETH_TEST6
+              - MATIC
       responses:
         '200':
           description: Chain specific info summary was returned successfully
@@ -6511,15 +6535,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ChainInfoResponseDto'
       tags:
-        - Staking (Beta)
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ChainInfoResponseDto>> = fireblocks.stakingBeta.getChainInfo(stakingBetaApiGetChainInfoRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<ChainInfoResponseDto>> response = fireblocks.stakingBeta().getChainInfo(chainDescriptor);
-            name: Fireblocks SDK Java example
+        - Staking
   /staking/chains/{chainDescriptor}/{actionId}:
     post:
       operationId: executeAction
@@ -6589,27 +6605,48 @@ paths:
                 withdraw:
                   value: {}
       tags:
-        - Staking (Beta)
+        - Staking
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ExecuteActionResponse>> = fireblocks.stakingBeta.executeAction(stakingBetaApiExecuteActionRequest);'
+            code: 'const response: Promise<FireblocksResponse<ExecuteActionResponse>> = fireblocks.staking.executeAction(stakingApiExecuteActionRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<ExecuteActionResponse>> response = fireblocks.stakingBeta().executeAction(executeActionRequest, chainDescriptor, actionId, idempotencyKey);
+            code: CompletableFuture<ApiResponse<ExecuteActionResponse>> response = fireblocks.staking().executeAction(executeActionRequest, chainDescriptor, actionId, idempotencyKey);
             name: Fireblocks SDK Java example
   /staking/positions:
     get:
       operationId: getAllDelegations
-      summary: ''
-      description: Return detailed information on all staking positions, including the staked amount, rewards, status and more.
+      summary: List staking positions details
+      description: |-
+        Return detailed information on all staking positions, including the
+        staked amount, rewards, status and more.
+      x-readme:
+        code-samples:
+          - language: python
+            code: |
+              positions = fireblocks.get_staking_positions()
+              eth_positions = fireblocks.get_staking_positions(chainDescriptor="ETH")
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: |
+              const positions = await fireblocks.getStakingPositions();
+              const ethPositions = await fireblocks.getStakingPositions(StakingChain.ETHEREUM);
+            name: Fireblocks SDK Javascript example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<StakingGetAllDelegationsResponse>> = fireblocks.staking.getAllDelegations(stakingApiGetAllDelegationsRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<List<DelegationDto>>> response = fireblocks.staking().getAllDelegations(chainDescriptor);
+            name: Fireblocks SDK Java example
       parameters:
         - name: chainDescriptor
           required: false
           in: query
-          description: Use "ETH" / "SOL" in order to obtain information related to the specific blockchain network or retrieve information about all chains that have data available by providing no argument.
+          description: Use "ETH" / "SOL"/ "MATIC" in order to obtain information related to the specific blockchain network or retrieve information about all chains that have data available by providing no argument.
           schema:
             type: string
+            example: SOL
       responses:
         '200':
           description: An array of position data was returned successfully
@@ -6618,15 +6655,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/StakingGetAllDelegationsResponse'
       tags:
-        - Staking (Beta)
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<StakingGetAllDelegationsResponse>> = fireblocks.stakingBeta.getAllDelegations(stakingBetaApiGetAllDelegationsRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<List<DelegationDto>>> response = fireblocks.stakingBeta().getAllDelegations(chainDescriptor);
-            name: Fireblocks SDK Java example
+        - Staking
   /staking/positions/summary:
     get:
       operationId: getSummary
@@ -6662,14 +6691,14 @@ paths:
                   - chainDescriptor: SOL
                     amount: '0.077345939'
       tags:
-        - Staking (Beta)
+        - Staking
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<DelegationSummaryDto>> = fireblocks.stakingBeta.getSummary();'
+            code: 'const response: Promise<FireblocksResponse<DelegationSummaryDto>> = fireblocks.staking.getSummary();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<DelegationSummaryDto>> response = fireblocks.stakingBeta().getSummary();
+            code: CompletableFuture<ApiResponse<DelegationSummaryDto>> response = fireblocks.staking().getSummary();
             name: Fireblocks SDK Java example
   /staking/positions/summary/vaults:
     get:
@@ -6720,14 +6749,14 @@ paths:
                     - chainDescriptor: SOL
                       amount: '0.011191566'
       tags:
-        - Staking (Beta)
+        - Staking
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<StakingGetSummaryByVaultResponse>> = fireblocks.stakingBeta.getSummaryByVault();'
+            code: 'const response: Promise<FireblocksResponse<StakingGetSummaryByVaultResponse>> = fireblocks.staking.getSummaryByVault();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<StakingGetSummaryByVaultResponse>> response = fireblocks.stakingBeta().getSummaryByVault();
+            code: CompletableFuture<ApiResponse<StakingGetSummaryByVaultResponse>> response = fireblocks.staking().getSummaryByVault();
             name: Fireblocks SDK Java example
   /staking/positions/{id}:
     get:
@@ -6749,14 +6778,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/DelegationDto'
       tags:
-        - Staking (Beta)
+        - Staking
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<DelegationDto>> = fireblocks.stakingBeta.getDelegationById(stakingBetaApiGetDelegationByIdRequest);'
+            code: 'const response: Promise<FireblocksResponse<DelegationDto>> = fireblocks.staking.getDelegationById(stakingApiGetDelegationByIdRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<DelegationDto>> response = fireblocks.stakingBeta().getDelegationById(id);
+            code: CompletableFuture<ApiResponse<DelegationDto>> response = fireblocks.staking().getDelegationById(id);
             name: Fireblocks SDK Java example
   /staking/providers:
     get:
@@ -6772,14 +6801,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/StakingGetProvidersResponse'
       tags:
-        - Staking (Beta)
+        - Staking
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<StakingGetProvidersResponse>> = fireblocks.stakingBeta.getProviders();'
+            code: 'const response: Promise<FireblocksResponse<StakingGetProvidersResponse>> = fireblocks.staking.getProviders();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<List<ProviderDto>>> response = fireblocks.stakingBeta().getProviders();
+            code: CompletableFuture<ApiResponse<List<ProviderDto>>> response = fireblocks.staking().getProviders();
             name: Fireblocks SDK Java example
   /staking/providers/{providerId}/approveTermsOfService:
     post:
@@ -6807,14 +6836,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProvidersResponseDto'
       tags:
-        - Staking (Beta)
+        - Staking
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ProvidersResponseDto>> = fireblocks.stakingBeta.approveTermsOfServiceByProviderId(stakingBetaApiApproveTermsOfServiceByProviderIdRequest);'
+            code: 'const response: Promise<FireblocksResponse<ProvidersResponseDto>> = fireblocks.staking.approveTermsOfServiceByProviderId(stakingApiApproveTermsOfServiceByProviderIdRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<ProvidersResponseDto>> response = fireblocks.stakingBeta().approveTermsOfServiceByProviderId(providerId, idempotencyKey);
+            code: CompletableFuture<ApiResponse<ProvidersResponseDto>> response = fireblocks.staking().approveTermsOfServiceByProviderId(providerId, idempotencyKey);
             name: Fireblocks SDK Java example
   /admin_quorum:
     put:
@@ -11682,6 +11711,147 @@ components:
       required:
         - message
         - code
+    TransactionStatus:
+      type: string
+      description: |
+        The primary status of the transaction. 
+        For details, see [Primary transaction statuses](https://developers.fireblocks.com/reference/primary-transaction-statuses)
+      enum:
+        - SUBMITTED
+        - PENDING_AML_SCREENING
+        - PENDING_ENRICHMENT
+        - PENDING_AUTHORIZATION
+        - QUEUED
+        - PENDING_SIGNATURE
+        - PENDING_3RD_PARTY_MANUAL_APPROVAL
+        - PENDING_3RD_PARTY
+        - BROADCASTING
+        - COMPLETED
+        - CONFIRMING
+        - CANCELLING
+        - CANCELLED
+        - BLOCKED
+        - REJECTED
+        - FAILED
+    TransactionSubStatus:
+      type: string
+      description: |
+        See [Transaction substatuses](https://developers.fireblocks.com/reference/transaction-substatuses) for the list of transaction sub statuses
+      enum:
+        - 3RD_PARTY_PROCESSING
+        - 3RD_PARTY_PENDING_SERVICE_MANUAL_APPROVAL
+        - PENDING_3RD_PARTY_MANUAL_APPROVAL
+        - 3RD_PARTY_CONFIRMING
+        - PENDING_BLOCKCHAIN_CONFIRMATIONS
+        - 3RD_PARTY_COMPLETED
+        - COMPLETED_BUT_3RD_PARTY_FAILED
+        - COMPLETED_BUT_3RD_PARTY_REJECTED
+        - CONFIRMED
+        - BLOCKED_BY_POLICY
+        - 3RD_PARTY_CANCELLED
+        - 3RD_PARTY_REJECTED
+        - CANCELLED_BY_USER
+        - CANCELLED_BY_USER_REQUEST
+        - REJECTED_BY_USER
+        - AUTO_FREEZE
+        - FROZEN_MANUALLY
+        - REJECTED_AML_SCREENING
+        - ACTUAL_FEE_TOO_HIGH
+        - ADDRESS_WHITELISTING_SUSPENDED
+        - AMOUNT_TOO_SMALL
+        - AUTHORIZATION_FAILED
+        - AUTHORIZER_NOT_FOUND
+        - ENV_UNSUPPORTED_ASSET
+        - ERROR_UNSUPPORTED_TRANSACTION_TYPE
+        - FAIL_ON_LOW_FEE
+        - GAS_LIMIT_TOO_LOW
+        - GAS_PRICE_TOO_LOW_FOR_RBF
+        - INCOMPLETE_USER_SETUP
+        - INSUFFICIENT_FUNDS
+        - INSUFFICIENT_FUNDS_FOR_FEE
+        - INTEGRATION_SUSPENDED
+        - INVALID_ADDRESS
+        - INVALID_CONTRACT_CALL_DATA
+        - INVALID_FEE_PARAMS
+        - INVALID_NONCE_FOR_RBF
+        - INVALID_TAG_OR_MEMO
+        - INVALID_UNMANAGED_WALLET
+        - MAX_FEE_EXCEEDED
+        - MISSING_TAG_OR_MEMO
+        - NEED_MORE_TO_CREATE_DESTINATION
+        - NO_MORE_PREPROCESSED_INDEXES
+        - NON_EXISTING_ACCOUNT_NAME
+        - RAW_MSG_EMPTY_OR_INVALID
+        - RAW_MSG_LEN_INVALID
+        - TOO_MANY_INPUTS
+        - TX_SIZE_EXCEEDED_MAX
+        - UNAUTHORISED_DEVICE
+        - UNAUTHORISED_USER
+        - UNALLOWED_RAW_PARAM_COMBINATION
+        - UNSUPPORTED_OPERATION
+        - UNSUPPORTED_TRANSACTION_TYPE
+        - ZERO_BALANCE_IN_PERMANENT_ADDRESS
+        - OUT_OF_DATE_SIGNING_KEYS
+        - CONNECTIVITY_ERROR
+        - ERROR_ASYNC_TX_IN_FLIGHT
+        - INTERNAL_ERROR
+        - INVALID_NONCE_TOO_HIGH
+        - INVALID_NONCE_TOO_LOW
+        - INVALID_ROUTING_DESTINATION
+        - LOCKING_NONCE_ACCOUNT_TIMEOUT
+        - NETWORK_ROUTING_MISMATCH
+        - NONCE_ALLOCATION_FAILED
+        - RESOURCE_ALREADY_EXISTS
+        - SIGNER_NOT_FOUND
+        - SIGNING_ERROR
+        - TIMEOUT
+        - TX_OUTDATED
+        - UNKNOWN_ERROR
+        - VAULT_WALLET_NOT_READY
+        - UNSUPPORTED_MEDIA_TYPE
+        - ADDRESS_NOT_WHITELISTED
+        - API_KEY_MISMATCH
+        - ASSET_NOT_ENABLED_ON_DESTINATION
+        - DEST_TYPE_NOT_SUPPORTED
+        - EXCEEDED_DECIMAL_PRECISION
+        - EXCHANGE_CONFIGURATION_MISMATCH
+        - EXCHANGE_VERSION_INCOMPATIBLE
+        - INVALID_EXCHANGE_ACCOUNT
+        - METHOD_NOT_ALLOWED
+        - NON_EXISTENT_AUTO_ACCOUNT
+        - ON_PREMISE_CONNECTIVITY_ERROR
+        - PEER_ACCOUNT_DOES_NOT_EXIST
+        - THIRD_PARTY_MISSING_ACCOUNT
+        - UNAUTHORISED_IP_WHITELISTING
+        - UNAUTHORISED_MISSING_CREDENTIALS
+        - UNAUTHORISED_MISSING_PERMISSION
+        - UNAUTHORISED_OTP_FAILED
+        - WITHDRAW_LIMIT
+        - 3RD_PARTY_FAILED
+        - API_CALL_LIMIT
+        - API_INVALID_SIGNATURE
+        - CANCELLED_EXTERNALLY
+        - FAILED_AML_SCREENING
+        - INVALID_FEE
+        - INVALID_THIRD_PARTY_RESPONSE
+        - MANUAL_DEPOSIT_ADDRESS_REQUIRED
+        - MISSING_DEPOSIT_ADDRESS
+        - NO_DEPOSIT_ADDRESS
+        - SUB_ACCOUNTS_NOT_SUPPORTED
+        - SPEND_COINBASE_TOO_EARLY
+        - THIRD_PARTY_INTERNAL_ERROR
+        - TX_ID_NOT_ACCEPTED_BY_THIRD_PARTY
+        - UNSUPPORTED_ASSET
+        - DOUBLE_SPENDING
+        - DROPPED_BY_BLOCKCHAIN
+        - INSUFFICIENT_RESERVED_FUNDING
+        - INVALID_SIGNATURE
+        - PARTIALLY_FAILED
+        - POWERUP_SUGGESTION_FAILURE
+        - REACHED_MEMPOOL_LIMIT_FOR_ACCOUNT
+        - REJECTED_BY_BLOCKCHAIN
+        - SMART_CONTRACT_EXECUTION_FAILED
+        - TOO_LONG_MEMPOOL_CHAIN
     GetTransactionOperation:
       type: string
       enum:
@@ -11817,15 +11987,19 @@ components:
         destinationAddress:
           description: Address where the asset was transferred.
           type: string
+          example: '0x4a527d8fc13C5203AB24BA0944F4Cb14658D1Db6'
         destinationAddressDescription:
           description: Description of the address.
           type: string
+          example: Some Dest address description
         amount:
           type: string
           description: The amount to be sent to this destination.
+          example: '0.2'
         amountUSD:
           type: string
           description: The USD value of the requested amount.
+          example: '158'
         amlScreeningResult:
           $ref: '#/components/schemas/AmlScreeningResult'
         destination:
@@ -12140,11 +12314,9 @@ components:
           description: Unique externbal transaction identifier provided by the user. Fireblocks highly recommends setting an `externalTxId` for every transaction created, to avoid submitting the same transaction twice.
           example: my_unique_external_tx_id
         status:
-          type: string
-          description: The primary status of the transaction. For details, see [Primary transaction statuses](https://developers.fireblocks.com/reference/primary-transaction-statuses).
+          $ref: '#/components/schemas/TransactionStatus'
         subStatus:
-          type: string
-          description: See [Transaction substatuses](https://developers.fireblocks.com/reference/transaction-substatuses) for the list of transaction sub statuses.
+          $ref: '#/components/schemas/TransactionSubStatus'
         txHash:
           type: string
           example: 0f47094cde3fcc168ed97365a7cb3996ad5706fff03e7403e74ffd7a922025d4
@@ -15626,6 +15798,18 @@ components:
           description: When was the request made (ISO Date).
         status:
           type: string
+          enum:
+            - error
+            - failed
+            - creating
+            - canceled
+            - pending
+            - activating
+            - active
+            - deactivating
+            - deactivated
+            - withdrawing
+            - withdrawn
           example: active
           description: The current status.
         relatedTransactions:

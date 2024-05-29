@@ -1,11 +1,19 @@
 openapi: 3.0.0
 info:
   title: Fireblocks API
-  version: 1.6.4
+  description: |
+    Fireblocks provides a suite of applications to manage digital asset operations and a complete development platform to build your business on the blockchain.
+
+    - Visit our website for more information: [Fireblocks Website](https://fireblocks.com)
+    - Visit our developer docs: [Fireblocks DevPortal](https://developers.fireblocks.com)
+  version: 1.8.0
   contact:
     email: support@fireblocks.com
 servers:
   - url: https://api.fireblocks.io/v1
+    description: Fireblocks Production Environment Base URL
+  - url: https://sandbox-api.fireblocks.io/v1
+    description: Fireblocks Sandbox Environment Base URL
 paths:
   /vault/accounts:
     get:
@@ -180,7 +188,7 @@ paths:
   /vault/accounts/{vaultAccountId}:
     get:
       summary: Get a vault account by ID
-      description: Get a vault account by ID
+      description: Get a vault account by its unique ID
       tags:
         - Vaults
       x-readme:
@@ -5070,6 +5078,20 @@ paths:
         time.
 
         - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: const res = const res = await fireblocks.getUserGroups();
+            name: Fireblocks SDK Javascript example
+          - language: python
+            code: res = fireblocks.get_user_groups()
+            name: Fireblocks SDK Python example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<UserGroupsResponse>> = fireblocks.workspaceManagement.getUserGroups();'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<List<UserGroupResponse>>> response = fireblocks.workspaceManagement().getUserGroups();
+            name: Fireblocks SDK Java example
       tags:
         - Workspace Management
       responses:
@@ -5084,23 +5106,34 @@ paths:
                 $ref: '#/components/schemas/UserGroupsResponse'
         default:
           $ref: '#/components/responses/Error'
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<UserGroupsResponse>> = fireblocks.workspaceManagement.getUserGroups();'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<List<UserGroupResponse>>> response = fireblocks.workspaceManagement().getUserGroups();
-            name: Fireblocks SDK Java example
     post:
       operationId: createUserGroup
       summary: Create user group
       description: |
-        Create a new user group.</br>
+        Create a new user group.
+
 
         **Note**:
-        - This endpoint is now in Beta, disabled for general availability at this time.
-        - Please note that this endpoint is available only for API keys with Admin permissions.
+
+        - This endpoint is now in Beta, disabled for general availability at this
+        time.
+
+        - Please note that this endpoint is available only for API keys with Admin
+        permissions.
+      x-readme:
+        code-samples:
+          - language: javascript
+            code: const res = await fireblocks.createUserGroup( "MyUserGroup", [ "1d8b04f3-f90b-406b-a4d8-71d5d16f6862", "30e8a73a-6300-4b35-a11a-9c69341805fc" ] )
+            name: Fireblocks SDK Javascript example
+          - language: python
+            code: res = fireblocks.create_user_group( "MyUserGroup", [ "1d8b04f3-f90b-406b-a4d8-71d5d16f6862", "30e8a73a-6300-4b35-a11a-9c69341805fc" ] )
+            name: Fireblocks SDK Python example
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<CreateUserGroupResponse>> = fireblocks.workspaceManagement.createUserGroup(workspaceManagementApiCreateUserGroupRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<CreateUserGroupResponse>> response = fireblocks.workspaceManagement().createUserGroup(userGroupCreateRequest, idempotencyKey);
+            name: Fireblocks SDK Java example
       tags:
         - Workspace Management
       parameters:
@@ -5123,14 +5156,6 @@ paths:
                 $ref: '#/components/schemas/CreateUserGroupResponse'
         default:
           $ref: '#/components/responses/Error'
-      x-readme:
-        code-samples:
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<CreateUserGroupResponse>> = fireblocks.workspaceManagement.createUserGroup(workspaceManagementApiCreateUserGroupRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<CreateUserGroupResponse>> response = fireblocks.workspaceManagement().createUserGroup(userGroupCreateRequest, idempotencyKey);
-            name: Fireblocks SDK Java example
   /management/user_groups/{groupId}:
     get:
       operationId: getUserGroup
@@ -10599,6 +10624,7 @@ components:
         pendingRewards:
           description: Amount that is pending for rewards
           type: string
+          example: '12'
     VaultAsset:
       type: object
       required:
@@ -10690,20 +10716,26 @@ components:
         id:
           type: string
           example: '0'
+          description: Vault Account unique identifier
         name:
           type: string
           example: MyVaultAccount
+          description: Vault Account name
         assets:
           type: array
+          description: An array of vault assets
           minItems: 0
           items:
             $ref: '#/components/schemas/VaultAsset'
         hiddenOnUI:
+          description: Whether the Vault Account is visible in the UI or not
           type: boolean
         customerRefId:
           type: string
+          description: Customer reference ID for AML integrations
           example: some-reference
         autoFuel:
+          description: Whether the Vault Account is monitored by the Fireblocks Gas Station or not
           type: boolean
     GetVaultAccountsResponse:
       type: array
@@ -11008,6 +11040,7 @@ components:
           example: 4780
         status:
           type: string
+          description: UTXO Status
           enum:
             - AVAILABLE
             - PENDING
@@ -11021,6 +11054,7 @@ components:
       properties:
         algorithm:
           type: string
+          description: Elliptic Curve
           enum:
             - MPC_ECDSA_SECP256K1
             - MPC_ECDSA_SECP256R1
@@ -11032,12 +11066,14 @@ components:
             - 0
             - 0
             - 0
+          description: BIP44 derivation path
           type: array
           items:
             type: integer
             minItems: 5
             maxItems: 5
         publicKey:
+          description: Compressed/Uncompressed public key value in hex representation
           example: 1044c36403c1802818b472398f546a43a0d91569d5583a6e807c3825b155c7bd
           type: string
     GetVaultAssetsResponse:
@@ -14526,10 +14562,15 @@ components:
       properties:
         groupName:
           type: string
+          description: User Group Name
+          example: My User Group
         memberIds:
           type: array
           items:
             type: string
+            example:
+              - 1d8b04f3-f90b-406b-a4d8-71d5d16f6862
+              - 30e8a73a-6300-4b35-a11a-9c69341805fc
     CreateUserGroupResponse:
       type: object
       properties:
@@ -14574,14 +14615,26 @@ components:
       properties:
         name:
           type: string
+          description: User Group Name
+          example: My User Group
         id:
           type: string
+          description: User Group ID
+          example: f04402d0-00f1-48cb-acd0-352010f2e62f
         memberIds:
           type: array
+          description: User Group members (User IDs)
           items:
             type: string
+            example:
+              - 1d8b04f3-f90b-406b-a4d8-71d5d16f6862
+              - 30e8a73a-6300-4b35-a11a-9c69341805fc
         status:
           type: string
+          description: Group Approval Status
+          enum:
+            - PENDING_APPROVAL
+            - ACTIVE
     UserResponse:
       type: object
       properties:
@@ -17965,7 +18018,7 @@ components:
         - READY
     UserType:
       type: string
-      description: The type of the user
+      description: The type of the user (API or Console)
       enum:
         - API
         - CONSOLE

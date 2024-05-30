@@ -6,7 +6,7 @@ info:
 
     - Visit our website for more information: [Fireblocks Website](https://fireblocks.com)
     - Visit our developer docs: [Fireblocks DevPortal](https://developers.fireblocks.com)
-  version: 1.8.0
+  version: 1.6.2
   contact:
     email: support@fireblocks.com
 servers:
@@ -3629,9 +3629,15 @@ paths:
     post:
       operationId: registerNewAsset
       summary: Register an asset
-      description: Register a new asset to a workspace and return the newly created asset's details. Currently supported for EVM based chains only.
+      description: |
+        Register a new asset to a workspace and return the newly created asset's details. Currently supported chains are:
+        - EVM based chains
+        - Stellar
+        - Algorand
+        - TRON
+        - NEAR    
       tags:
-        - Blockchains & Assets
+        - Blockchains & assets
       x-readme:
         code-samples:
           - language: python
@@ -3644,9 +3650,30 @@ paths:
             code: 'const response: Promise<FireblocksResponse<AssetResponse>> = fireblocks.blockchainsAssets.registerNewAsset(blockchainsAssetsApiRegisterNewAssetRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<AssetResponse>> response = fireblocks.blockchainsAssets().registerNewAsset(registerNewAssetRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<AssetResponse>> response = fireblocks.blockchainsAssets().registerNewAsset(blockchainId, address, symbol, registerNewAssetRequest, idempotencyKey);
             name: Fireblocks SDK Java example
       parameters:
+        - in: path
+          name: blockchainId
+          required: true
+          description: Native asset of blockchain
+          schema:
+            type: string
+            example: ETH
+        - in: path
+          name: address
+          required: true
+          description: Asset address
+          schema:
+            type: string
+            example: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
+        - in: path
+          name: symbol
+          required: true
+          description: Asset symbol
+          example: TST3
+          schema:
+            type: string
         - $ref: '#/components/parameters/X-Idempotency-Key'
       responses:
         '200':
@@ -3657,14 +3684,11 @@ paths:
                 $ref: '#/components/schemas/AssetResponse'
         '400':
           description: |
-            description: |
             - Listing an asset on the requested blockchain is not supported. Error code: 1000
 
             - The asset address is invalid. Error code: 1003
 
             - Self serve listing an asset on the requested blockchain is currently not supported, please contact support. Error code: 1004
-
-            - Blockchain is deprecated. Error code: 1006
           content:
             application/json:
               schema:
@@ -4968,6 +4992,7 @@ paths:
           schema:
             type: string
             x-fb-entity: asset
+            example: ETH
       responses:
         '200':
           description: Gas Station properties
@@ -5037,6 +5062,7 @@ paths:
           schema:
             type: string
             x-fb-entity: asset
+            example: ETH
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
         required: true
@@ -5254,7 +5280,7 @@ paths:
         - This endpoint is now in Beta, disabled for general availability at this time.
         - Please note that this endpoint is available only for API keys with Admin permissions.
       tags:
-        - User groups (Beta)
+        - Workspace Management
       parameters:
         - in: path
           required: true
@@ -5273,10 +5299,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.userGroupsBeta.deleteUserGroup(userGroupsBetaApiDeleteUserGroupRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.workspaceManagement.deleteUserGroup(workspaceManagementApiDeleteUserGroupRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.userGroupsBeta().deleteUserGroup(groupId);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.workspaceManagement().deleteUserGroup(groupId);
             name: Fireblocks SDK Java example
   /users:
     get:
@@ -5316,6 +5342,8 @@ paths:
   /audits:
     get:
       summary: Get audit logs
+      deprecated: true
+      description: Deprecated. Please use the following [endpoint](https://developers.fireblocks.com/reference/getaudits) instead.
       tags:
         - Audit Logs
       x-readme:
@@ -5354,7 +5382,6 @@ paths:
                 $ref: '#/components/schemas/GetAuditLogsResponseDTO'
         default:
           $ref: '#/components/responses/Error'
-      description: Get all audits
       operationId: getAudits
   /management/audit_logs:
     get:
@@ -5601,8 +5628,8 @@ paths:
       operationId: resendWebhooks
   /webhooks/resend/{txId}:
     post:
-      summary: Resend failed webhooks for a transaction by ID
-      description: Resends failed webhook notifications for a transaction by ID.
+      summary: Resend webhooks for a transaction by ID
+      description: Resends webhook notifications for a transaction by its unique identifier
       tags:
         - Webhooks
       x-readme:
@@ -6986,6 +7013,13 @@ paths:
             code: const result = await fireblocks.setAdminQuorumThreshold(adminQuorumThreshold)
             name: Fireblocks SDK Javascript example
       parameters:
+        - in: path
+          name: adminQuorumThreshold
+          required: true
+          description: The number of admins that will requires to approve an operation
+          schema:
+            type: number
+            example: 1
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
         required: true
@@ -12427,17 +12461,36 @@ components:
       type: object
       properties:
         content:
+          description: Content to sign
           type: string
+          example: ababababababababababababababababababbababababababbababababababab
         bip44addressIndex:
+          description: BIP44 address index
           type: integer
+          example: 0
         bip44change:
+          description: BIP44 change index
           type: number
+          example: 0
         derivationPath:
           type: array
+          description: BIP44 full derivation path
           items:
             type: number
+            example:
+              - 44
+              - 60
+              - 0
+              - 0
+              - 0
         type:
           type: string
+          description: |
+            Typed Message Signing - message type.
+
+            - EIP191 & EIP712: for ETH and all EVM based assets typed message signing
+            - TIP191: For Tron (TRX) typed message signing
+            - BTC_MESSAGE: For Bitcoin (BTC) typed message signing
           enum:
             - EIP191
             - EIP712
@@ -12465,6 +12518,7 @@ components:
         contractCallData:
           type: string
           description: Hex encoded contract call data as a string.
+          example: '0xa9059cbb000000000000000000000000c7f14c1161a5427137b232c077ecdbd1f881c02900000000000000000000000000000000000000000000000000000000a05e0722'
         inputsSelection:
           type: object
           properties:
@@ -14499,12 +14553,21 @@ components:
       type: object
       properties:
         gasThreshold:
+          description: The Gas Station will initiate a fueling transaction when the vault account's balance falls below the gasThreshold value
           type: string
+          default: '0.005'
+          example: '0.005'
         gasCap:
+          description: The Gas Station will top up the vault account with gas until the balance reaches the gasCap value
+          example: '0.01'
+          default: '0.01'
           type: string
         maxGasPrice:
-          type: string
+          description: Maximum gas price for the fueling transaction (in gwei)
           nullable: true
+          example: '20'
+          default: null
+          type: string
     GasStationPropertiesResponse:
       type: object
       properties:
@@ -14516,10 +14579,20 @@ components:
       type: object
       properties:
         gasThreshold:
+          description: The Gas Station will initiate a fueling transaction when the vault account's balance falls below the gasThreshold value
           type: string
+          default: '0.005'
+          example: '0.005'
         gasCap:
+          description: The Gas Station will top up the vault account with gas until the balance reaches the gasCap value
+          example: '0.01'
+          default: '0.01'
           type: string
         maxGasPrice:
+          description: Maximum gas price for the fueling transaction (in gwei)
+          nullable: true
+          example: '20'
+          default: null
           type: string
     EditGasStationConfigurationResponse:
       type: object
@@ -16345,6 +16418,7 @@ components:
         adminQuorumThreshold:
           type: number
           description: The number of admins that will requires to approve an operation
+          example: 1
     SetAdminQuorumThresholdResponse:
       type: object
       properties:

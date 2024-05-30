@@ -6990,7 +6990,7 @@ paths:
       summary: Update admin quorum threshold
       description: Update admin quorum threshold
       tags:
-        - Admin Quorum
+        - Workspace Management
       x-readme:
         code-samples:
           - language: python

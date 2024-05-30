@@ -3635,9 +3635,9 @@ paths:
         - Stellar
         - Algorand
         - TRON
-        - NEAR    
+        - NEAR
       tags:
-        - Blockchains & assets
+        - Blockchains & Assets
       x-readme:
         code-samples:
           - language: python
@@ -3650,31 +3650,8 @@ paths:
             code: 'const response: Promise<FireblocksResponse<AssetResponse>> = fireblocks.blockchainsAssets.registerNewAsset(blockchainsAssetsApiRegisterNewAssetRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<AssetResponse>> response = fireblocks.blockchainsAssets().registerNewAsset(blockchainId, address, symbol, registerNewAssetRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<AssetResponse>> response = fireblocks.blockchainsAssets().registerNewAsset(registerNewAssetRequest);
             name: Fireblocks SDK Java example
-      parameters:
-        - in: path
-          name: blockchainId
-          required: true
-          description: Native asset of blockchain
-          schema:
-            type: string
-            example: ETH
-        - in: path
-          name: address
-          required: true
-          description: Asset address
-          schema:
-            type: string
-            example: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
-        - in: path
-          name: symbol
-          required: true
-          description: Asset symbol
-          example: TST3
-          schema:
-            type: string
-        - $ref: '#/components/parameters/X-Idempotency-Key'
       responses:
         '200':
           description: A new asset has been created successfully
@@ -3689,6 +3666,8 @@ paths:
             - The asset address is invalid. Error code: 1003
 
             - Self serve listing an asset on the requested blockchain is currently not supported, please contact support. Error code: 1004
+
+            - Blockchain is deprecated. Error code: 1006
           content:
             application/json:
               schema:
@@ -4442,7 +4421,14 @@ paths:
   /estimate_network_fee:
     get:
       summary: Estimate the required fee for an asset
-      description: Gets the estimated required fee for an asset. For UTXO based assets, the response will contain the suggested fee per byte, for ETH/ETC based assets, the suggested gas price, and for XRP/XLM, the transaction fee.
+      description: |
+        Gets the estimated required fee for an asset.
+        Fireblocks fetches, calculates and caches the result every 5 minutes.
+        Customers should query this API while taking the caching interval into consideration.
+
+        - For UTXO based assets, the response will contain the suggested fee per byte
+        - For ETH (and all EVM) based assets, the suggested gas price
+        - For XRP/XLM, the transaction fee 
       tags:
         - Blockchains & Assets
       x-readme:
@@ -4467,6 +4453,7 @@ paths:
           schema:
             type: string
             x-fb-entity: asset
+            example: ETH
       responses:
         '200':
           description: Estimated fees response
@@ -7010,16 +6997,10 @@ paths:
             code: result = fireblocks.set_admin_quorum_threshold(adminQuorumThreshold)
             name: Fireblocks SDK Python example
           - language: javascript
-            code: const result = await fireblocks.setAdminQuorumThreshold(adminQuorumThreshold)
+            code: |
+              const result = await fireblocks.setAdminQuorumThreshold(adminQuorumThreshold)
             name: Fireblocks SDK Javascript example
       parameters:
-        - in: path
-          name: adminQuorumThreshold
-          required: true
-          description: The number of admins that will requires to approve an operation
-          schema:
-            type: number
-            example: 1
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
         required: true
@@ -11864,7 +11845,7 @@ components:
         blockchainId:
           type: string
           description: Native asset of blockchain
-          example: (ETH, ETH_TEST5, MATIC_POLYGON)
+          example: ETH
         address:
           type: string
           description: Asset address
@@ -11895,15 +11876,15 @@ components:
           properties:
             symbol:
               type: string
-              description: The asset symbol
+              description: The asset's symbol
               example: TST3
             name:
               type: string
-              description: The asset name
+              description: The asset's name
               example: Test 3
             address:
               type: string
-              description: The asset address
+              description: The asset's address
               example: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
             decimals:
               type: number
@@ -11911,7 +11892,7 @@ components:
               example: 18
             standard:
               type: string
-              description: The asset standard
+              description: The asset's standard
               example: ERC20
           required:
             - symbol
@@ -11923,7 +11904,7 @@ components:
           properties:
             scope:
               type: string
-              description: The scope of the asset
+              description: The scope of the asset (Supported in all Fireblocks workspaces or in a specific workspace)
               example: Global
               enum:
                 - Global
@@ -13182,26 +13163,38 @@ components:
     TransactionFee:
       type: object
       properties:
-        feePerByte:
-          type: string
-        gasPrice:
-          type: number
         gasLimit:
+          example: '21000'
+          description: Gas limit value for EVM based networks
           type: string
+        feePerByte:
+          description: The fee per byte value for UTXO based assets
+          type: string
+          example: '21.6'
+        gasPrice:
+          description: Gas price in gwei units for EVM based networks
+          type: string
+          example: '32'
         networkFee:
+          description: The full network fee price
           type: string
+          example: '0.0001'
         baseFee:
           description: (optional) Base Fee according to EIP-1559 (ETH assets)
-          type: number
+          type: string
+          example: '10'
         priorityFee:
           description: (optional) Priority Fee according to EIP-1559 (ETH assets)
-          type: number
+          type: string
+          example: '22'
         maxFeePerGasDelta:
           description: Max Fee Per Gas Delta added only for EIP-1559 (ETH assets)
           type: string
+          example: '31'
         l1Fee:
           description: Layer 1 fee for Layer 2 chains
           type: string
+          example: '0'
     EstimatedTransactionFeeResponse:
       type: object
       properties:
@@ -13287,17 +13280,25 @@ components:
       type: object
       properties:
         feePerByte:
+          description: The fee per byte value for UTXO based assets
           type: string
+          example: '21.6'
         gasPrice:
+          description: Gas price in gwei units for EVM based networks
           type: string
+          example: '32'
         networkFee:
+          description: The full network fee for non EVM and UTXO based assets (in the base asset units)
           type: string
+          example: '0.0001'
         baseFee:
           description: (optional) Base Fee according to EIP-1559 (ETH assets)
           type: string
+          example: '10'
         priorityFee:
           description: (optional) Priority Fee according to EIP-1559 (ETH assets)
           type: string
+          example: '22'
     EstimatedNetworkFeeResponse:
       type: object
       properties:

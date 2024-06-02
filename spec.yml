@@ -3611,7 +3611,7 @@ paths:
       summary: Find a whitelisted contract's asset
       description: Returns a whitelisted contract's asset by ID.
       tags:
-        - Contracts
+        - Whitelisted Contracts
       parameters:
         - in: path
           name: contractId
@@ -3644,10 +3644,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ExternalWalletAsset>> = fireblocks.contracts.getContractAsset(contractsApiGetContractAssetRequest);'
+            code: 'const response: Promise<FireblocksResponse<ExternalWalletAsset>> = fireblocks.whitelistedContracts.getContractAsset(whitelistedContractsApiGetContractAssetRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.contracts().getContractAsset(contractId, assetId);
+            code: CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.whitelistedContracts().getContractAsset(contractId, assetId);
             name: Fireblocks SDK Java example
     post:
       summary: Add an Asset to a Whitelisted Contract

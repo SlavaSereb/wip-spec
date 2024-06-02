@@ -8,7 +8,7 @@ info:
     - Visit our developer docs: [Fireblocks DevPortal](https://developers.fireblocks.com)
   version: 1.8.0
   contact:
-    email: support@fireblocks.com
+    email: developers@fireblocks.com
 servers:
   - url: https://api.fireblocks.io/v1
     description: Fireblocks Production Environment Base URL

@@ -5460,7 +5460,7 @@ paths:
     get:
       summary: Get audit logs
       deprecated: true
-      description: Deprecated. Please use the following [endpoint](https://developers.fireblocks.com/reference/getaudits) instead.
+      description: Deprecated. Please use the `GET /management/audit_logs` endpoint instead.
       tags:
         - Workspace Management
       x-readme:

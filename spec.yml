@@ -6,7 +6,7 @@ info:
 
     - Visit our website for more information: [Fireblocks Website](https://fireblocks.com)
     - Visit our developer docs: [Fireblocks DevPortal](https://developers.fireblocks.com)
-  version: 1.6.4
+  version: 1.8.0
   contact:
     email: support@fireblocks.com
 servers:
@@ -1449,10 +1449,10 @@ paths:
             code: const assetsBalance = await fireblocks.getVaultAssetsBalance(accountNamePrefix, accountNameSuffix);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetVaultAssetsResponse>> = fireblocks.vaults.getVaultAssets(vaultsApiGetVaultAssetsRequest);'
+            code: 'const response: Promise<FireblocksResponse<GetVaultAssetsNumberResponse>> = fireblocks.vaults.getVaultAssets(vaultsApiGetVaultAssetsRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<List<VaultAsset>>> response = fireblocks.vaults().getVaultAssets(accountNamePrefix, accountNameSuffix);
+            code: CompletableFuture<ApiResponse<List<VaultAssetNumber>>> response = fireblocks.vaults().getVaultAssets(accountNamePrefix, accountNameSuffix);
             name: Fireblocks SDK Java example
       parameters:
         - in: query
@@ -1476,7 +1476,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetVaultAssetsResponse'
+                $ref: '#/components/schemas/GetVaultAssetsNumberResponse'
         default:
           $ref: '#/components/responses/Error'
       operationId: getVaultAssets
@@ -1495,10 +1495,10 @@ paths:
             code: const assetsBalance = await fireblocks.getVaultBalanceByAsset(assetId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<VaultAsset>> = fireblocks.vaults.getVaultBalanceByAsset(vaultsApiGetVaultBalanceByAssetRequest);'
+            code: 'const response: Promise<FireblocksResponse<VaultAssetNumber>> = fireblocks.vaults.getVaultBalanceByAsset(vaultsApiGetVaultBalanceByAssetRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<VaultAsset>> response = fireblocks.vaults().getVaultBalanceByAsset(assetId);
+            code: CompletableFuture<ApiResponse<VaultAssetNumber>> response = fireblocks.vaults().getVaultBalanceByAsset(assetId);
             name: Fireblocks SDK Java example
       parameters:
         - in: path
@@ -1517,7 +1517,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VaultAsset'
+                $ref: '#/components/schemas/VaultAssetNumber'
         default:
           $ref: '#/components/responses/Error'
       operationId: getVaultBalanceByAsset
@@ -2110,6 +2110,7 @@ paths:
           description: The ID of the network connection
           schema:
             type: string
+            example: 9100f41b-f31a-4fd1-b9bf-bb4d2cd88e1f
       requestBody:
         content:
           application/json:
@@ -2149,12 +2150,14 @@ paths:
           description: The ID of the network connection
           schema:
             type: string
+            example: 9100f41b-f31a-4fd1-b9bf-bb4d2cd88e1f
         - in: path
           name: assetType
           required: true
           description: The destination asset type
           schema:
             type: string
+            example: ETH
       responses:
         '200':
           description: result for the validation
@@ -2220,6 +2223,7 @@ paths:
           description: The ID of the connection
           schema:
             type: string
+            example: 9100f41b-f31a-4fd1-b9bf-bb4d2cd88e1f
       responses:
         '200':
           description: A network connection
@@ -2262,6 +2266,7 @@ paths:
           description: The ID of the network connection to delete
           schema:
             type: string
+            example: 9100f41b-f31a-4fd1-b9bf-bb4d2cd88e1f
       responses:
         '200':
           description: Network ID
@@ -2439,6 +2444,7 @@ paths:
           description: The ID of the network
           schema:
             type: string
+            example: ebde71be-30d6-4498-95c4-a151effdb377
       responses:
         '200':
           description: Network ID
@@ -2691,7 +2697,15 @@ paths:
       description: |
         Gets a list of internal wallets.
 
-        **Note**: BTC-based assets belonging to whitelisted addresses cannot be retrieved between 00:00 UTC and 00:01 UTC daily due to third-party provider, Blockchair, being unavailable for this 60 second period. Please wait until the next minute to retrieve BTC-based assets.
+
+        **Note**: BTC-based assets belonging to whitelisted addresses cannot be retrieved between 00:00 UTC and 00:01 UTC daily due to third-party provider, Blockchair, being unavailable for this 60 second period. 
+        Please wait until
+        the next minute to retrieve BTC-based assets.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+        - You can see the balance of the Internal Wallet via Fireblocks
+        - You cannot initiate transactions from Internal Wallets through Fireblocks
       responses:
         '200':
           description: A list of internal wallets
@@ -2771,7 +2785,13 @@ paths:
           - language: java
             code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.internalWallets().getInternalWallet(walletId);
             name: Fireblocks SDK Java example
-      description: Returns all assets in an internal wallet by ID.
+      description: |
+        Returns all assets in an internal wallet by ID.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
       parameters:
         - in: path
           name: walletId
@@ -2810,7 +2830,13 @@ paths:
           - language: java
             code: CompletableFuture<ApiResponse<Void>> response = fireblocks.internalWallets().deleteInternalWallet(walletId);
             name: Fireblocks SDK Java example
-      description: Deletes an internal wallet by ID.
+      description: |
+        Deletes an internal wallet by ID.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
       parameters:
         - in: path
           name: walletId
@@ -2846,7 +2872,13 @@ paths:
           - language: java
             code: CompletableFuture<ApiResponse<Void>> response = fireblocks.internalWallets().setCustomerRefIdForInternalWallet(setCustomerRefIdRequest, walletId, idempotencyKey);
             name: Fireblocks SDK Java example
-      description: Sets an AML/KYT customer reference ID for the specific internal wallet.
+      description: |
+        Sets an AML/KYT customer reference ID for the specific internal wallet.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
       parameters:
         - in: path
           name: walletId
@@ -2889,7 +2921,13 @@ paths:
           - language: java
             code: CompletableFuture<ApiResponse<WalletAsset>> response = fireblocks.internalWallets().getInternalWalletAsset(walletId, assetId);
             name: Fireblocks SDK Java example
-      description: Returns information for an asset in an internal wallet.
+      description: |
+        Returns information for an asset in an internal wallet.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
       parameters:
         - in: path
           name: walletId
@@ -2935,7 +2973,13 @@ paths:
           - language: java
             code: CompletableFuture<ApiResponse<WalletAsset>> response = fireblocks.internalWallets().createInternalWalletAsset(walletId, assetId, createInternalWalletAssetRequest, idempotencyKey);
             name: Fireblocks SDK Java example
-      description: Adds an asset to an existing internal wallet.
+      description: |
+        Adds an asset to an existing internal wallet.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
       parameters:
         - in: path
           name: walletId
@@ -2987,7 +3031,13 @@ paths:
           - language: java
             code: CompletableFuture<ApiResponse<Void>> response = fireblocks.internalWallets().deleteInternalWalletAsset(walletId, assetId);
             name: Fireblocks SDK Java example
-      description: Deletes a whitelisted address (for an asset) from an internal wallet.
+      description: |
+        Deletes a whitelisted address (for an asset) from an internal wallet.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
       parameters:
         - in: path
           name: walletId
@@ -3014,7 +3064,13 @@ paths:
   /external_wallets:
     get:
       summary: List external wallets
-      description: Gets a list of external wallets under the workspace.
+      description: |
+        Gets a list of external wallets under the workspace.
+
+        External Wallet is a whitelisted address of a wallet that belongs to your users/counterparties.
+
+        - You cannot see the balance of the external wallet.
+        - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
         - External wallets
       x-readme:
@@ -3046,7 +3102,13 @@ paths:
       operationId: getExternalWallets
     post:
       summary: Create an external wallet
-      description: Creates a new external wallet with the requested name.
+      description: |
+        Creates a new external wallet with the requested name.
+
+        External Wallet is a whitelisted address of a wallet that belongs to your users/counterparties.
+
+        - You cannot see the balance of the external wallet.
+        - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
         - External wallets
       x-readme:
@@ -3086,7 +3148,13 @@ paths:
   /external_wallets/{walletId}:
     get:
       summary: Find an external wallet
-      description: Returns an external wallet by ID.
+      description: |
+        Returns an external wallet by ID.
+
+        External Wallet is a whitelisted address of a wallet that belongs to your users/counterparties.
+
+        - You cannot see the balance of the external wallet.
+        - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
         - External wallets
       x-readme:
@@ -3125,7 +3193,13 @@ paths:
       operationId: getExternalWallet
     delete:
       summary: Delete an external wallet
-      description: Deletes an external wallet by ID.
+      description: |
+        Deletes an external wallet by ID.
+
+        External Wallet is a whitelisted address of a wallet that belongs to your users/counterparties.
+
+        - You cannot see the balance of the external wallet.
+        - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
         - External wallets
       x-readme:
@@ -3161,7 +3235,13 @@ paths:
   /external_wallets/{walletId}/set_customer_ref_id:
     post:
       summary: Set an AML customer reference ID for an external wallet
-      description: Sets an AML/KYT customer reference ID for the specific external wallet.
+      description: |
+        Sets an AML/KYT customer reference ID for the specific external wallet.
+
+        External Wallet is a whitelisted address of a wallet that belongs to your users/counterparties.
+
+        - You cannot see the balance of the external wallet.
+        - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
         - External wallets
       x-readme:
@@ -3204,7 +3284,13 @@ paths:
   /external_wallets/{walletId}/{assetId}:
     get:
       summary: Get an asset from an external wallet
-      description: Returns an external wallet by wallet ID and asset ID.
+      description: |
+        Returns an external wallet by wallet ID and asset ID.
+
+        External Wallet is a whitelisted address of a wallet that belongs to your users/counterparties.
+
+        - You cannot see the balance of the external wallet.
+        - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
         - External wallets
       x-readme:
@@ -3344,13 +3430,13 @@ paths:
       operationId: removeAssetFromExternalWallet
   /contracts:
     get:
-      summary: List contracts
-      description: Gets a list of contracts.
+      summary: List Whitelisted Contracts
+      description: Gets a list of whitelisted contracts.
       tags:
         - Contracts
       responses:
         '200':
-          description: A list of contracts
+          description: A list of whitelisted contracts
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
@@ -3370,8 +3456,8 @@ paths:
             code: CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = fireblocks.contracts().getContracts();
             name: Fireblocks SDK Java example
     post:
-      summary: Create a contract
-      description: Creates a new contract.
+      summary: Create a Whitelisted Contract
+      description: Creates a new whitelisted contract.
       tags:
         - Contracts
       parameters:
@@ -3404,8 +3490,8 @@ paths:
             name: Fireblocks SDK Java example
   /contracts/{contractId}:
     get:
-      summary: Find a specific contract
-      description: Returns a contract by ID.
+      summary: Find a Specific Whitelisted Contract
+      description: Returns a whitelisted contract by Fireblocks Contract ID
       tags:
         - Contracts
       parameters:
@@ -3415,6 +3501,7 @@ paths:
           description: The ID of the contract to return
           schema:
             type: string
+            example: 908a8cd0-d41b-4a11-b90c-3493a1060929
       responses:
         '200':
           description: A Wallet object
@@ -3437,8 +3524,8 @@ paths:
             code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.contracts().getContract(contractId);
             name: Fireblocks SDK Java example
     delete:
-      summary: Delete a contract
-      description: Deletes a contract by ID.
+      summary: Delete a Whitelisted Contract
+      description: Deletes a whitelisted contract by Fireblocks Contract ID
       tags:
         - Contracts
       parameters:
@@ -3448,6 +3535,7 @@ paths:
           description: The ID of the contract to delete
           schema:
             type: string
+            example: 908a8cd0-d41b-4a11-b90c-3493a1060929
       responses:
         '201':
           description: OK
@@ -3467,8 +3555,8 @@ paths:
             name: Fireblocks SDK Java example
   /contracts/{contractId}/{assetId}:
     get:
-      summary: Find a contract asset
-      description: Returns a contract asset by ID.
+      summary: Find a whitelisted contract's asset
+      description: Returns a whitelisted contract's asset by ID.
       tags:
         - Contracts
       parameters:
@@ -3478,6 +3566,7 @@ paths:
           description: The ID of the contract
           schema:
             type: string
+            example: 908a8cd0-d41b-4a11-b90c-3493a1060929
         - in: path
           name: assetId
           required: true
@@ -3485,6 +3574,7 @@ paths:
           schema:
             type: string
             x-fb-entity: asset
+            example: ETH
       responses:
         '200':
           description: A Wallet Asset object
@@ -3507,8 +3597,8 @@ paths:
             code: CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.contracts().getContractAsset(contractId, assetId);
             name: Fireblocks SDK Java example
     post:
-      summary: Add an asset to a contract
-      description: Adds an asset to an existing contract.
+      summary: Add an Asset to a Whitelisted Contract
+      description: Adds an asset to an existing whitelisted contract.
       tags:
         - Contracts
       parameters:
@@ -3518,6 +3608,7 @@ paths:
           description: The ID of the contract
           schema:
             type: string
+            example: 908a8cd0-d41b-4a11-b90c-3493a1060929
         - in: path
           name: assetId
           required: true
@@ -3525,6 +3616,7 @@ paths:
           schema:
             type: string
             x-fb-entity: asset
+            example: ETH
         - $ref: '#/components/parameters/X-Idempotency-Key'
       responses:
         '200':
@@ -3553,8 +3645,8 @@ paths:
             code: CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.contracts().addContractAsset(contractId, assetId, addContractAssetRequest, idempotencyKey);
             name: Fireblocks SDK Java example
     delete:
-      summary: Delete a contract asset
-      description: Deletes a contract asset by ID.
+      summary: Delete a Whitelisted Contract's Asset
+      description: Deletes a whitelisted contract's asset by Fireblocks Contract ID and Asset ID.
       tags:
         - Contracts
       parameters:
@@ -3564,6 +3656,7 @@ paths:
           description: The ID of the contract
           schema:
             type: string
+            example: 908a8cd0-d41b-4a11-b90c-3493a1060929
         - in: path
           name: assetId
           required: true
@@ -3571,6 +3664,7 @@ paths:
           schema:
             type: string
             x-fb-entity: asset
+            example: ETH
       responses:
         '201':
           description: OK
@@ -5088,12 +5182,6 @@ paths:
       description: |
         Get all user groups in your workspace
 
-
-        **Note**:
-
-        - This endpoint is now in Beta, disabled for general availability at this
-        time.
-
         - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
       x-readme:
         code-samples:
@@ -5128,12 +5216,6 @@ paths:
       summary: Create user group
       description: |
         Create a new user group.
-
-
-        **Note**:
-
-        - This endpoint is now in Beta, disabled for general availability at this
-        time.
 
         - Please note that this endpoint is available only for API keys with Admin
         permissions.
@@ -5180,12 +5262,6 @@ paths:
       description: |
         Get a user group by ID
 
-
-        **Note**:
-
-        - This endpoint is now in Beta, disabled for general availability at this
-        time.
-
         - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
       tags:
         - Workspace Management
@@ -5196,6 +5272,7 @@ paths:
           description: The ID of the user group
           schema:
             type: string
+            example: 777d084b-e1d5-4040-8d73-38c8f8a321b2
       responses:
         '200':
           description: User group
@@ -5220,10 +5297,7 @@ paths:
       operationId: updateUserGroup
       summary: Update user group
       description: |
-        Update a user group by ID.</br>
-
-        **Note**:
-        - This endpoint is now in Beta, disabled for general availability at this time.
+        Update a user group by ID
         - Please note that this endpoint is available only for API keys with Admin permissions.
       tags:
         - User groups (Beta)
@@ -5234,6 +5308,7 @@ paths:
           description: The ID of the user group
           schema:
             type: string
+            example: 777d084b-e1d5-4040-8d73-38c8f8a321b2
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
         required: true
@@ -5266,9 +5341,6 @@ paths:
       summary: Delete user group
       description: |
         Delete a user group by ID.</br>
-
-        **Note**:
-        - This endpoint is now in Beta, disabled for general availability at this time.
         - Please note that this endpoint is available only for API keys with Admin permissions.
       tags:
         - Workspace Management
@@ -5279,6 +5351,7 @@ paths:
           description: The ID of the user group
           schema:
             type: string
+            example: 777d084b-e1d5-4040-8d73-38c8f8a321b2
       responses:
         '204':
           description: Request to delete user group submitted for approval
@@ -5561,6 +5634,7 @@ paths:
           description: The id of the main exchange account for which the requested collateral account is associated with
           schema:
             type: string
+            example: c2896695-4263-40af-a15c-4348b294b5c4
       responses:
         '200':
           description: An ExchangeAccount object
@@ -7750,13 +7824,13 @@ paths:
   /connections:
     get:
       operationId: get
-      summary: List all open Web3 connections.
-      description: Get open Web3 connections.
+      summary: List all open dApp connections
+      description: List all open dApp connections.
       parameters:
         - name: order
           required: false
           in: query
-          description: List order; ascending or descending.
+          description: List order (ascending or descending)
           schema:
             type: string
             enum:
@@ -7791,18 +7865,40 @@ paths:
             properties:
               id:
                 type: string
+                description: Unique connection ID
+                example: 44075fd3-6fc5-4855-bd7b-510e35f9e671
               userId:
                 type: string
+                description: User ID that established the connection
+                example: 5e7889fc-b5d6-5c6d-89cd-627ae94f1efd
               vaultAccountId:
                 type: number
+                description: Unique vault account identifier that the connection was established with
+                example: 0
               connectionMethod:
+                description: |
+                  The method that the connection was established with.
+
+                  - MOBILE: for connections that were established by scanning a WalletConnect QR code 
+                  - DESKTOP: for connection that were established by WalletConnect desktop connections
                 type: string
+                enum:
+                  - MOBILE
+                  - DESKTOP
               feeLevel:
                 type: string
+                description: The fee level for the transactions over the connection
+                enum:
+                  - MEDIUM
+                  - HIGH
               appUrl:
                 type: string
+                description: The dApp URL
+                example: https://app.uniswap.org
               appName:
                 type: string
+                description: dApps name
+                example: Uniswap
         - name: sort
           required: false
           in: query
@@ -7818,6 +7914,7 @@ paths:
               - appUrl
               - appName
             default: createdAt
+            example: userId=5e7889fc-b5d6-5c6d-89cd-627ae94f1efd,appName=Uniswap
         - name: pageSize
           required: false
           in: query
@@ -7826,12 +7923,14 @@ paths:
             type: number
             default: 10
             maximum: 50
+            example: 20
         - name: next
           required: false
           in: query
           description: Cursor to the next page
           schema:
             type: string
+            example: MjAyNC0wNC0xMSAyMDozOToxOC40Nzc=:ODZhOGI2M2M3MjVkYTY1OWNmNDAyMzNiYjc0NTViMTJlMDhiNjZiZmM4MjU3NGNhN2I2OWYxZjQ2N2E2ZjI3OA==
       responses:
         '200':
           description: ''
@@ -7880,7 +7979,7 @@ paths:
               $ref: '#/components/schemas/CreateConnectionRequest'
       responses:
         '201':
-          description: Web3 connection initiated successfully
+          description: dApp connection initiated successfully
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
@@ -7911,12 +8010,13 @@ paths:
   /connections/wc/{id}:
     put:
       operationId: submit
-      summary: Respond to a pending Web3 connection request.
-      description: |-
-        Submit a response to *approve* or *reject* an initiated Web3 connection.
+      summary: Respond to a pending dApp connection request
+      description: |
+        Submit a response to *approve* or *reject* an initiated dApp connection.
+
         * Note: This call is used to complete your `POST /v1/connections/wc/` request.
 
-        After this succeeds, your new Web3 connection is created and functioning.
+        After this succeeds, your new dApp connection is created and functioning.
       parameters:
         - name: id
           description: The ID of the initiated Web3 connection to approve.
@@ -7924,6 +8024,7 @@ paths:
           in: path
           schema:
             type: string
+            example: 44075fd3-6fc5-4855-bd7b-510e35f9e671
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
         required: true
@@ -7964,8 +8065,8 @@ paths:
             name: Fireblocks SDK Java example
     delete:
       operationId: remove
-      summary: Remove an existing Web3 connection.
-      description: Remove a Web3 connection
+      summary: Remove an existing dApp connection
+      description: Remove an existing dApp connection
       parameters:
         - name: id
           description: The ID of the existing Web3 connection to remove.
@@ -7973,6 +8074,7 @@ paths:
           in: path
           schema:
             type: string
+            example: 44075fd3-6fc5-4855-bd7b-510e35f9e671
       responses:
         '200':
           description: Connection removed successfully
@@ -10468,10 +10570,14 @@ components:
         total:
           description: |
             The total wallet balance. 
-            In EOS this value includes the network balance, self staking and pending refund. 
 
-            For all other coins it is the balance as it appears on the blockchain.
+            Total = available + pending + lockedAmount + frozen
+
+            - In EOS this value includes the network balance, self staking and pending refund. 
+
+            - For all other coins it is the balance as it appears on the blockchain.
           type: string
+          example: '10.5'
         balance:
           deprecated: true
           description: Deprecated - replaced by "total"
@@ -10903,10 +11009,94 @@ components:
           description: Compressed/Uncompressed public key value in hex representation
           example: 1044c36403c1802818b472398f546a43a0d91569d5583a6e807c3825b155c7bd
           type: string
-    GetVaultAssetsResponse:
+    VaultAssetNumber:
+      type: object
+      required:
+        - id
+        - total
+        - available
+        - pending
+        - frozen
+        - lockedAmount
+      properties:
+        id:
+          type: string
+          example: ETH
+        total:
+          description: |
+            The total wallet balance. 
+
+            Total = available + pending + lockedAmount + frozen
+
+            - In EOS this value includes the network balance, self staking and pending refund. 
+
+            - For all other coins it is the balance as it appears on the blockchain.
+          type: number
+          example: 10.5
+        balance:
+          deprecated: true
+          description: Deprecated - replaced by "total"
+          type: string
+          example: '10.5'
+        available:
+          description: |
+            Funds available for transfer. Equals: "total" minus "lockedAmount" minus "frozen" minus "pending"
+          type: string
+          example: '9'
+        pending:
+          description: The cumulative balance of all transactions pending to be cleared
+          type: number
+          example: 0.5
+        frozen:
+          description: The cumulative frozen balance
+          type: number
+          example: 0.5
+        lockedAmount:
+          description: Funds in outgoing transactions that are not yet published to the network
+          type: number
+          example: 0.5
+        staked:
+          deprecated: true
+          description: Deprecated
+          type: string
+        totalStakedCPU:
+          type: number
+          deprecated: true
+          description: Deprecated
+        totalStakedNetwork:
+          deprecated: true
+          type: string
+          description: Deprecated
+        selfStakedCPU:
+          deprecated: true
+          type: string
+          description: Deprecated
+        selfStakedNetwork:
+          deprecated: true
+          type: string
+          description: Deprecated
+        pendingRefundCPU:
+          type: string
+          deprecated: true
+          description: Deprecated
+        pendingRefundNetwork:
+          type: string
+          deprecated: true
+          description: Deprecated
+        blockHeight:
+          description: The height (number) of the block of the balance
+          type: string
+          example: '19911062'
+        blockHash:
+          description: The hash of the block of the balance
+          type: string
+          example: '0xcc16c4ab5e018d1f05d3a18fcd122a3ef94276c10a4c89bbab10830f5c1ca742'
+        rewardsInfo:
+          $ref: '#/components/schemas/RewardsInfo'
+    GetVaultAssetsNumberResponse:
       type: array
       items:
-        $ref: '#/components/schemas/VaultAsset'
+        $ref: '#/components/schemas/VaultAssetNumber'
     ExchangeType:
       type: string
       enum:
@@ -13164,9 +13354,13 @@ components:
       type: object
       properties:
         amount:
+          description: The amount as string
           type: string
+          example: '20'
         assetId:
+          description: Unique asset identifier
           type: string
+          example: ETH
       required:
         - amount
         - assetId
@@ -13541,9 +13735,9 @@ components:
           description: The asset ID to disburse
           example: ETH
         percentage:
-          description: The percentage of the asset's balance to disburse
+          description: The percentage of the asset's balance to disburse (i.e. '20' for 20% )
           type: string
-          example: '0.2'
+          example: '20'
       required:
         - payeeAccount
         - assetId
@@ -13649,6 +13843,8 @@ components:
       type: object
       properties:
         operationId:
+          description: Operation unique identifier
+          example: 7bf16b28-6cd6-403f-af60-045c4b68a767
           type: string
         type:
           $ref: '#/components/schemas/ConversionOperationType'
@@ -13925,9 +14121,15 @@ components:
       properties:
         configId:
           type: string
+          description: Configuration unique identifier
+          example: 98822424-15ad-498c-9ef4-19c7430b4b6e
         configName:
           type: string
+          description: You configuration name
+          example: my_config_name
         createdAt:
+          description: Create at timestamp
+          example: 1717325386
           type: number
         configOperations:
           type: array
@@ -14044,6 +14246,8 @@ components:
       properties:
         operationId:
           type: string
+          description: Operation unique identifier
+          example: 1cbf5105-b462-4c0b-83ca-d805251835e9
         status:
           $ref: '#/components/schemas/ExecutionOperationStatus'
         operationType:
@@ -14239,6 +14443,8 @@ components:
       properties:
         operationId:
           type: string
+          example: 1cbf5105-b462-4c0b-83ca-d805251835e9
+          description: Operation unique identifier
         status:
           $ref: '#/components/schemas/ExecutionOperationStatus'
         validationFailure:
@@ -14349,6 +14555,8 @@ components:
       properties:
         operationId:
           type: string
+          description: Configuration unique identifier
+          example: 98822424-15ad-498c-9ef4-19c7430b4b6e
         status:
           $ref: '#/components/schemas/ExecutionOperationStatus'
         validationFailure:
@@ -14374,7 +14582,9 @@ components:
       x-internal: true
       properties:
         executionId:
+          description: Execution unique identifier
           type: string
+          example: 507f6867-d76b-4cd6-92c8-cf84536be0b6
         preScreening:
           $ref: '#/components/schemas/PreScreening'
         configSnapshot:
@@ -16651,12 +16861,20 @@ components:
       properties:
         appUrl:
           type: string
+          description: dApp URL
+          example: https://app.uniswap.org
         appName:
           type: string
+          description: dApp Name
+          example: Uniswap
         appDescription:
           type: string
+          description: dApp Description (provided by the dApp developers)
+          example: Uniswap Interface
         appIcon:
           type: string
+          description: dApp icon URL
+          example: https://static.fireblocks.io/wcs/dappIcon/f16fbab26bad5aa296073f682cf6ff32dfe262e333a1b32f6a481b100c8a144b
       required:
         - appUrl
     SessionDTO:
@@ -16725,7 +16943,7 @@ components:
       type: object
       properties:
         data:
-          description: Array with the requested Web3 connection's data
+          description: Array with the requested dApp connection's data
           type: array
           items:
             $ref: '#/components/schemas/SessionDTO'
@@ -16750,9 +16968,9 @@ components:
         uri:
           type: string
           description: The WalletConnect uri provided by the dapp.
-          example: wc:77752975-906f-48f5-b59f-047826ee947e@1?bridge=https%3A%2F%2F0.bridge.walletconnect.org&key=64be99adc6086b7a729b0ec8c7e1f174927ab92e84f5c6f9527050225344a637
+          example: '"wc:77752975-906f-48f5-b59f-047826ee947e@1?bridge=https%3A%2F%2F0.bridge.walletconnect.org&key=64be99adc6086b7a729b0ec8c7e1f174927ab92e84f5c6f9527050225344a637"'
         chainIds:
-          description: The IDs of the blockchain networks used in the Web3 connection (Currently required in V1 connections only).
+          description: The IDs of the blockchain networks used in the dApp connection.
           example:
             - ETH
           type: array
@@ -16783,9 +17001,9 @@ components:
         uri:
           type: string
           description: The WalletConnect uri provided by the dapp.
-          example: wc:77752975-906f-48f5-b59f-047826ee947e@1?bridge=https%3A%2F%2F0.bridge.walletconnect.org&key=64be99adc6086b7a729b0ec8c7e1f174927ab92e84f5c6f9527050225344a637
+          example: '"wc:77752975-906f-48f5-b59f-047826ee947e@1?bridge=https%3A%2F%2F0.bridge.walletconnect.org&key=64be99adc6086b7a729b0ec8c7e1f174927ab92e84f5c6f9527050225344a637"'
         chainIds:
-          description: The IDs of the blockchain networks used in the Web3 connection (Currently required in V1 connections only).
+          description: The IDs of the blockchain networks used in the dApp connection.
           example:
             - ETH
           type: array
@@ -16808,7 +17026,7 @@ components:
           description: The ID of the Web3 connection initiated.
           example: 4e9e7051-f3b2-48e9-8ee6-b12492552657
         sessionMetadata:
-          description: Metadata of the Web3 connection (provided by the DApp).
+          description: Metadata of the dApp connection (provided by the dApp).
           allOf:
             - $ref: '#/components/schemas/SessionMetadata'
       required:
@@ -16819,7 +17037,7 @@ components:
       properties:
         approve:
           type: boolean
-          description: Approval of the initiated Web3 connection.
+          description: Approval of the initiated dApp connection.
           example: true
       required:
         - approve

@@ -14,6 +14,59 @@ servers:
     description: Fireblocks Production Environment Base URL
   - url: https://sandbox-api.fireblocks.io/v1
     description: Fireblocks Sandbox Environment Base URL
+tags:
+  - name: Workspace Management
+    description: Workspace Management APIs
+  - name: Policy Editor (Beta)
+    description: Transaction Authorization Policy Management APIs
+  - name: Compliance
+    description: Anti Money Laundering and Travel Rule policies APIs
+  - name: Blockchains & Assets
+    description: Blockchains & Assets Management APIs
+  - name: Vaults
+    description: Vault Accounts Management APIs
+  - name: Transactions
+    description: Transactions Management APIs
+  - name: Gas Station
+    description: Gas Station Management APIs
+  - name: Whitelisted Internal Wallets
+    description: Internal Wallets (Whitelisted Addresses) APIs
+  - name: Whitelisted External Wallets
+    description: External Wallets (Whitelisted Addresses) APIs
+  - name: Whitelisted Contracts
+    description: Contracts (Whitelisted Addresses) APIs
+  - name: Fireblocks Network
+    description: Fireblocks Network Management APIs
+  - name: Smart Transfer
+    description: Smart Transfer Management APIs
+  - name: Exchange Accounts
+    description: Exchange Accounts Management APIs
+  - name: Fiat Accounts
+    description: Fiat Accounts Management APIs
+  - name: Tokenization
+    description: Tokenization Management APIs
+  - name: Contract Templates
+    description: Contract Templates Management APIs
+  - name: Deployed Contracts
+    description: Deployed Contracts Management APIs
+  - name: Contract Interactions
+    description: Contract Interactions Management APIs
+  - name: Staking
+    description: Staking Management APIs
+  - name: NFTs
+    description: NFTs Management APIs
+  - name: dApp Connections
+    description: dApp Connections Management APIs
+  - name: Cosigners (Beta)
+    description: Cosigners Management APIs
+  - name: Webhooks
+    description: Webhooks Management APIs
+  - name: Off Exchange
+    description: Off Exchange Management APIs
+  - name: Payments - Payout
+    description: Payouts Management APIs
+  - name: Payments - Flows
+    description: Flows Management APIs
 paths:
   /vault/accounts:
     get:
@@ -1570,7 +1623,7 @@ paths:
       summary: List exchange accounts
       description: Deprecated (use new 'paged' endpoint) - Returns all exchange accounts.
       tags:
-        - Exchange accounts
+        - Exchange Accounts
       x-readme:
         code-samples:
           - language: python
@@ -1598,7 +1651,7 @@ paths:
       summary: Pagination list exchange accounts
       description: Returns a page include exchange accounts.
       tags:
-        - Exchange accounts
+        - Exchange Accounts
       x-readme:
         code-samples:
           - language: javascript
@@ -1650,7 +1703,7 @@ paths:
       summary: Find a specific exchange account
       description: Returns an exchange account by ID.
       tags:
-        - Exchange accounts
+        - Exchange Accounts
       x-readme:
         code-samples:
           - language: python
@@ -1690,7 +1743,7 @@ paths:
       summary: Internal transfer for exchange accounts
       description: Transfers funds between trading accounts under the same exchange account.
       tags:
-        - Exchange accounts
+        - Exchange Accounts
       parameters:
         - in: path
           name: exchangeAccountId
@@ -1730,7 +1783,7 @@ paths:
       summary: Convert exchange account funds from the source asset to the destination asset.
       description: Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
       tags:
-        - Exchange accounts
+        - Exchange Accounts
       parameters:
         - in: path
           name: exchangeAccountId
@@ -1770,7 +1823,7 @@ paths:
       summary: Find an asset for an exchange account
       description: Returns an asset for an exchange account.
       tags:
-        - Exchange accounts
+        - Exchange Accounts
       x-readme:
         code-samples:
           - language: python
@@ -1816,7 +1869,7 @@ paths:
       summary: List fiat accounts
       description: Returns all fiat accounts.
       tags:
-        - Fiat accounts
+        - Fiat Accounts
       x-readme:
         code-samples:
           - language: python
@@ -1849,7 +1902,7 @@ paths:
       summary: Find a specific fiat account
       description: Returns a fiat account by ID.
       tags:
-        - Fiat accounts
+        - Fiat Accounts
       x-readme:
         code-samples:
           - language: python
@@ -1889,7 +1942,7 @@ paths:
       summary: Redeem funds to DDA
       description: Redeems funds to the linked DDA.
       tags:
-        - Fiat accounts
+        - Fiat Accounts
       x-readme:
         code-samples:
           - language: python
@@ -1935,7 +1988,7 @@ paths:
       summary: Deposit funds from DDA
       description: Deposits funds from the linked DDA.
       tags:
-        - Fiat accounts
+        - Fiat Accounts
       x-readme:
         code-samples:
           - language: python
@@ -2693,7 +2746,7 @@ paths:
     get:
       summary: List internal wallets
       tags:
-        - Internal wallets
+        - Whitelisted Internal Wallets
       description: |
         Gets a list of internal wallets.
 
@@ -2722,15 +2775,15 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetInternalWalletsResponse>> = fireblocks.internalWallets.getInternalWallets();'
+            code: 'const response: Promise<FireblocksResponse<GetInternalWalletsResponse>> = fireblocks.whitelistedInternalWallets.getInternalWallets();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = fireblocks.internalWallets().getInternalWallets();
+            code: CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = fireblocks.whitelistedInternalWallets().getInternalWallets();
             name: Fireblocks SDK Java example
     post:
       summary: Create an internal wallet
       tags:
-        - Internal wallets
+        - Whitelisted Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -2740,10 +2793,10 @@ paths:
             code: const internalWallet = await fireblocks.createInternalWallet(name, customerRefId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.internalWallets.createInternalWallet(internalWalletsApiCreateInternalWalletRequest);'
+            code: 'const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.whitelistedInternalWallets.createInternalWallet(whitelistedInternalWalletsApiCreateInternalWalletRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.internalWallets().createInternalWallet(createWalletRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.whitelistedInternalWallets().createInternalWallet(createWalletRequest, idempotencyKey);
             name: Fireblocks SDK Java example
       description: Creates a new internal wallet with the requested name.
       parameters:
@@ -2770,7 +2823,7 @@ paths:
     get:
       summary: Get assets for internal wallet
       tags:
-        - Internal wallets
+        - Whitelisted Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -2780,10 +2833,10 @@ paths:
             code: const result = await fireblocks.getInternalWallet(walletId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.internalWallets.getInternalWallet(internalWalletsApiGetInternalWalletRequest);'
+            code: 'const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.whitelistedInternalWallets.getInternalWallet(whitelistedInternalWalletsApiGetInternalWalletRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.internalWallets().getInternalWallet(walletId);
+            code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.whitelistedInternalWallets().getInternalWallet(walletId);
             name: Fireblocks SDK Java example
       description: |
         Returns all assets in an internal wallet by ID.
@@ -2815,7 +2868,7 @@ paths:
     delete:
       summary: Delete an internal wallet
       tags:
-        - Internal wallets
+        - Whitelisted Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -2825,10 +2878,10 @@ paths:
             code: const result = await fireblocks.deleteInternalWallet(walletId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.internalWallets.deleteInternalWallet(internalWalletsApiDeleteInternalWalletRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.whitelistedInternalWallets.deleteInternalWallet(whitelistedInternalWalletsApiDeleteInternalWalletRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.internalWallets().deleteInternalWallet(walletId);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.whitelistedInternalWallets().deleteInternalWallet(walletId);
             name: Fireblocks SDK Java example
       description: |
         Deletes an internal wallet by ID.
@@ -2857,7 +2910,7 @@ paths:
     post:
       summary: Set an AML/KYT customer reference ID for an internal wallet
       tags:
-        - Internal wallets
+        - Whitelisted Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -2867,10 +2920,10 @@ paths:
             code: const result = await fireblocks.setCustomerRefIdForInternalWallet(walletId, customerRefId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.internalWallets.setCustomerRefIdForInternalWallet(internalWalletsApiSetCustomerRefIdForInternalWalletRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.whitelistedInternalWallets.setCustomerRefIdForInternalWallet(whitelistedInternalWalletsApiSetCustomerRefIdForInternalWalletRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.internalWallets().setCustomerRefIdForInternalWallet(setCustomerRefIdRequest, walletId, idempotencyKey);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.whitelistedInternalWallets().setCustomerRefIdForInternalWallet(setCustomerRefIdRequest, walletId, idempotencyKey);
             name: Fireblocks SDK Java example
       description: |
         Sets an AML/KYT customer reference ID for the specific internal wallet.
@@ -2906,7 +2959,7 @@ paths:
     get:
       summary: Get an asset from an internal wallet
       tags:
-        - Internal wallets
+        - Whitelisted Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -2916,10 +2969,10 @@ paths:
             code: const internalWalletAsset = fireblocks.getInternalWalletAsset(walletId, assetId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<WalletAsset>> = fireblocks.internalWallets.getInternalWalletAsset(internalWalletsApiGetInternalWalletAssetRequest);'
+            code: 'const response: Promise<FireblocksResponse<WalletAsset>> = fireblocks.whitelistedInternalWallets.getInternalWalletAsset(whitelistedInternalWalletsApiGetInternalWalletAssetRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<WalletAsset>> response = fireblocks.internalWallets().getInternalWalletAsset(walletId, assetId);
+            code: CompletableFuture<ApiResponse<WalletAsset>> response = fireblocks.whitelistedInternalWallets().getInternalWalletAsset(walletId, assetId);
             name: Fireblocks SDK Java example
       description: |
         Returns information for an asset in an internal wallet.
@@ -2958,7 +3011,7 @@ paths:
     post:
       summary: Add an asset to an internal wallet
       tags:
-        - Internal wallets
+        - Whitelisted Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -2968,10 +3021,10 @@ paths:
             code: const internalWalletAsset = await fireblocks.createInternalWalletAsset(walletContainerId, assetId, address, tag);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<WalletAsset>> = fireblocks.internalWallets.createInternalWalletAsset(internalWalletsApiCreateInternalWalletAssetRequest);'
+            code: 'const response: Promise<FireblocksResponse<WalletAsset>> = fireblocks.whitelistedInternalWallets.createInternalWalletAsset(whitelistedInternalWalletsApiCreateInternalWalletAssetRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<WalletAsset>> response = fireblocks.internalWallets().createInternalWalletAsset(walletId, assetId, createInternalWalletAssetRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<WalletAsset>> response = fireblocks.whitelistedInternalWallets().createInternalWalletAsset(walletId, assetId, createInternalWalletAssetRequest, idempotencyKey);
             name: Fireblocks SDK Java example
       description: |
         Adds an asset to an existing internal wallet.
@@ -3016,7 +3069,7 @@ paths:
     delete:
       summary: Delete a whitelisted address from an internal wallet
       tags:
-        - Internal wallets
+        - Whitelisted Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3026,10 +3079,10 @@ paths:
             code: const result = await fireblocks.deleteInternalWalletAsset(walletId, assetId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.internalWallets.deleteInternalWalletAsset(internalWalletsApiDeleteInternalWalletAssetRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.whitelistedInternalWallets.deleteInternalWalletAsset(whitelistedInternalWalletsApiDeleteInternalWalletAssetRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.internalWallets().deleteInternalWalletAsset(walletId, assetId);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.whitelistedInternalWallets().deleteInternalWalletAsset(walletId, assetId);
             name: Fireblocks SDK Java example
       description: |
         Deletes a whitelisted address (for an asset) from an internal wallet.
@@ -3072,7 +3125,7 @@ paths:
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
-        - External wallets
+        - Whitelisted External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3082,10 +3135,10 @@ paths:
             code: const externalWallets = await fireblocks.getExternalWallets();
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetExternalWalletsResponse>> = fireblocks.externalWallets.getExternalWallets();'
+            code: 'const response: Promise<FireblocksResponse<GetExternalWalletsResponse>> = fireblocks.whitelistedExternalWallets.getExternalWallets();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = fireblocks.externalWallets().getExternalWallets();
+            code: CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = fireblocks.whitelistedExternalWallets().getExternalWallets();
             name: Fireblocks SDK Java example
       responses:
         '200':
@@ -3110,7 +3163,7 @@ paths:
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
-        - External wallets
+        - Whitelisted External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3120,10 +3173,10 @@ paths:
             code: const externalWallet = await fireblocks.createExternalWallet(name, customerRefId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.externalWallets.createExternalWallet(externalWalletsApiCreateExternalWalletRequest);'
+            code: 'const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.whitelistedExternalWallets.createExternalWallet(whitelistedExternalWalletsApiCreateExternalWalletRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.externalWallets().createExternalWallet(createWalletRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.whitelistedExternalWallets().createExternalWallet(createWalletRequest, idempotencyKey);
             name: Fireblocks SDK Java example
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
@@ -3156,7 +3209,7 @@ paths:
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
-        - External wallets
+        - Whitelisted External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3166,10 +3219,10 @@ paths:
             code: const externalWallet = await fireblocks.getExternalWallet(walletId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.externalWallets.getExternalWallet(externalWalletsApiGetExternalWalletRequest);'
+            code: 'const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.whitelistedExternalWallets.getExternalWallet(whitelistedExternalWalletsApiGetExternalWalletRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.externalWallets().getExternalWallet(walletId);
+            code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.whitelistedExternalWallets().getExternalWallet(walletId);
             name: Fireblocks SDK Java example
       parameters:
         - in: path
@@ -3201,7 +3254,7 @@ paths:
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
-        - External wallets
+        - Whitelisted External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3211,10 +3264,10 @@ paths:
             code: const result = await fireblocks.deleteExternalWallet(walletId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.externalWallets.deleteExternalWallet(externalWalletsApiDeleteExternalWalletRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.whitelistedExternalWallets.deleteExternalWallet(whitelistedExternalWalletsApiDeleteExternalWalletRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.externalWallets().deleteExternalWallet(walletId);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.whitelistedExternalWallets().deleteExternalWallet(walletId);
             name: Fireblocks SDK Java example
       parameters:
         - in: path
@@ -3243,7 +3296,7 @@ paths:
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
-        - External wallets
+        - Whitelisted External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3253,10 +3306,10 @@ paths:
             code: const result = await fireblocks.setCustomerRefIdForExternalWallet(walletId, customerRefId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.externalWallets.setExternalWalletCustomerRefId(externalWalletsApiSetExternalWalletCustomerRefIdRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.whitelistedExternalWallets.setExternalWalletCustomerRefId(whitelistedExternalWalletsApiSetExternalWalletCustomerRefIdRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.externalWallets().setExternalWalletCustomerRefId(setCustomerRefIdRequest, walletId, idempotencyKey);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.whitelistedExternalWallets().setExternalWalletCustomerRefId(setCustomerRefIdRequest, walletId, idempotencyKey);
             name: Fireblocks SDK Java example
       parameters:
         - in: path
@@ -3292,7 +3345,7 @@ paths:
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
-        - External wallets
+        - Whitelisted External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3302,10 +3355,10 @@ paths:
             code: const externalWalletAsset = fireblocks.getExternalWalletAsset(walletId, assetId)
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ExternalWalletAsset>> = fireblocks.externalWallets.getExternalWalletAsset(externalWalletsApiGetExternalWalletAssetRequest);'
+            code: 'const response: Promise<FireblocksResponse<ExternalWalletAsset>> = fireblocks.whitelistedExternalWallets.getExternalWalletAsset(whitelistedExternalWalletsApiGetExternalWalletAssetRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.externalWallets().getExternalWalletAsset(walletId, assetId);
+            code: CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.whitelistedExternalWallets().getExternalWalletAsset(walletId, assetId);
             name: Fireblocks SDK Java example
       parameters:
         - in: path
@@ -3338,7 +3391,7 @@ paths:
       summary: Add an asset to an external wallet.
       description: Adds an asset to an existing external wallet.
       tags:
-        - External wallets
+        - Whitelisted External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3348,10 +3401,10 @@ paths:
             code: const externalWalletAsset = await fireblocks.createExternalWalletAsset(walletContainerId, assetId, address, tag);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ExternalWalletAsset>> = fireblocks.externalWallets.addAssetToExternalWallet(externalWalletsApiAddAssetToExternalWalletRequest);'
+            code: 'const response: Promise<FireblocksResponse<ExternalWalletAsset>> = fireblocks.whitelistedExternalWallets.addAssetToExternalWallet(whitelistedExternalWalletsApiAddAssetToExternalWalletRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.externalWallets().addAssetToExternalWallet(walletId, assetId, addAssetToExternalWalletRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.whitelistedExternalWallets().addAssetToExternalWallet(walletId, assetId, addAssetToExternalWalletRequest, idempotencyKey);
             name: Fireblocks SDK Java example
       parameters:
         - in: path
@@ -3390,7 +3443,7 @@ paths:
       summary: Delete an asset from an external wallet
       description: Deletes an external wallet asset by ID.
       tags:
-        - External wallets
+        - Whitelisted External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3400,10 +3453,10 @@ paths:
             code: const result = await fireblocks.deleteExternalWalletAsset(walletId, assetId);
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.externalWallets.removeAssetFromExternalWallet(externalWalletsApiRemoveAssetFromExternalWalletRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.whitelistedExternalWallets.removeAssetFromExternalWallet(whitelistedExternalWalletsApiRemoveAssetFromExternalWalletRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.externalWallets().removeAssetFromExternalWallet(walletId, assetId);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.whitelistedExternalWallets().removeAssetFromExternalWallet(walletId, assetId);
             name: Fireblocks SDK Java example
       parameters:
         - in: path
@@ -3433,7 +3486,7 @@ paths:
       summary: List Whitelisted Contracts
       description: Gets a list of whitelisted contracts.
       tags:
-        - Contracts
+        - Whitelisted Contracts
       responses:
         '200':
           description: A list of whitelisted contracts
@@ -3450,16 +3503,16 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetContractsResponse>> = fireblocks.contracts.getContracts();'
+            code: 'const response: Promise<FireblocksResponse<GetContractsResponse>> = fireblocks.whitelistedContracts.getContracts();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = fireblocks.contracts().getContracts();
+            code: CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = fireblocks.whitelistedContracts().getContracts();
             name: Fireblocks SDK Java example
     post:
       summary: Create a Whitelisted Contract
       description: Creates a new whitelisted contract.
       tags:
-        - Contracts
+        - Whitelisted Contracts
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       responses:
@@ -3483,17 +3536,17 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.contracts.createContract(contractsApiCreateContractRequest);'
+            code: 'const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.whitelistedContracts.createContract(whitelistedContractsApiCreateContractRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.contracts().createContract(createContractRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.whitelistedContracts().createContract(createContractRequest, idempotencyKey);
             name: Fireblocks SDK Java example
   /contracts/{contractId}:
     get:
       summary: Find a Specific Whitelisted Contract
       description: Returns a whitelisted contract by Fireblocks Contract ID
       tags:
-        - Contracts
+        - Whitelisted Contracts
       parameters:
         - in: path
           name: contractId
@@ -3518,16 +3571,16 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.contracts.getContract(contractsApiGetContractRequest);'
+            code: 'const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.whitelistedContracts.getContract(whitelistedContractsApiGetContractRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.contracts().getContract(contractId);
+            code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.whitelistedContracts().getContract(contractId);
             name: Fireblocks SDK Java example
     delete:
       summary: Delete a Whitelisted Contract
       description: Deletes a whitelisted contract by Fireblocks Contract ID
       tags:
-        - Contracts
+        - Whitelisted Contracts
       parameters:
         - in: path
           name: contractId
@@ -3548,10 +3601,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.contracts.deleteContract(contractsApiDeleteContractRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.whitelistedContracts.deleteContract(whitelistedContractsApiDeleteContractRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.contracts().deleteContract(contractId);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.whitelistedContracts().deleteContract(contractId);
             name: Fireblocks SDK Java example
   /contracts/{contractId}/{assetId}:
     get:
@@ -3600,7 +3653,7 @@ paths:
       summary: Add an Asset to a Whitelisted Contract
       description: Adds an asset to an existing whitelisted contract.
       tags:
-        - Contracts
+        - Whitelisted Contracts
       parameters:
         - in: path
           name: contractId
@@ -3639,16 +3692,16 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<ExternalWalletAsset>> = fireblocks.contracts.addContractAsset(contractsApiAddContractAssetRequest);'
+            code: 'const response: Promise<FireblocksResponse<ExternalWalletAsset>> = fireblocks.whitelistedContracts.addContractAsset(whitelistedContractsApiAddContractAssetRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.contracts().addContractAsset(contractId, assetId, addContractAssetRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.whitelistedContracts().addContractAsset(contractId, assetId, addContractAssetRequest, idempotencyKey);
             name: Fireblocks SDK Java example
     delete:
       summary: Delete a Whitelisted Contract's Asset
       description: Deletes a whitelisted contract's asset by Fireblocks Contract ID and Asset ID.
       tags:
-        - Contracts
+        - Whitelisted Contracts
       parameters:
         - in: path
           name: contractId
@@ -3677,10 +3730,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.contracts.deleteContractAsset(contractsApiDeleteContractAssetRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.whitelistedContracts.deleteContractAsset(whitelistedContractsApiDeleteContractAssetRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.contracts().deleteContractAsset(contractId, assetId);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.whitelistedContracts().deleteContractAsset(contractId, assetId);
             name: Fireblocks SDK Java example
   /supported_assets:
     get:
@@ -5300,7 +5353,7 @@ paths:
         Update a user group by ID
         - Please note that this endpoint is available only for API keys with Admin permissions.
       tags:
-        - User groups (Beta)
+        - Workspace Management
       parameters:
         - in: path
           required: true
@@ -5331,10 +5384,10 @@ paths:
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<UserGroupCreateResponse>> = fireblocks.userGroupsBeta.updateUserGroup(userGroupsBetaApiUpdateUserGroupRequest);'
+            code: 'const response: Promise<FireblocksResponse<UserGroupCreateResponse>> = fireblocks.workspaceManagement.updateUserGroup(workspaceManagementApiUpdateUserGroupRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<UserGroupCreateResponse>> response = fireblocks.userGroupsBeta().updateUserGroup(userGroupUpdateRequest, groupId, idempotencyKey);
+            code: CompletableFuture<ApiResponse<UserGroupCreateResponse>> response = fireblocks.workspaceManagement().updateUserGroup(userGroupUpdateRequest, groupId, idempotencyKey);
             name: Fireblocks SDK Java example
     delete:
       operationId: deleteUserGroup
@@ -5375,7 +5428,7 @@ paths:
       description: |
         DEPRECATED - please use `GET /management/users` instead
       tags:
-        - Users
+        - Workspace Management
       x-readme:
         code-samples:
           - language: python
@@ -5385,10 +5438,10 @@ paths:
             code: const users = await fireblocks.getUsers();
             name: Fireblocks SDK Javascript example
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetUsersResponse>> = fireblocks.users.getUsers();'
+            code: 'const response: Promise<FireblocksResponse<GetUsersResponse>> = fireblocks.workspaceManagement.getUsers();'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<List<UserResponse>>> response = fireblocks.users().getUsers();
+            code: CompletableFuture<ApiResponse<List<UserResponse>>> response = fireblocks.workspaceManagement().getUsers();
             name: Fireblocks SDK Java example
       responses:
         '200':
@@ -7952,14 +8005,14 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       tags:
-        - Web3 connections
+        - dApp Connections
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<GetConnectionsResponse>> = fireblocks.web3Connections.get(web3ConnectionsApiGetRequest);'
+            code: 'const response: Promise<FireblocksResponse<GetConnectionsResponse>> = fireblocks.dAppConnections.get(dAppConnectionsApiGetRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<GetConnectionsResponse>> response = fireblocks.web3Connections().get(order, filter, sort, pageSize, next);
+            code: CompletableFuture<ApiResponse<GetConnectionsResponse>> response = fireblocks.dAppConnections().get(order, filter, sort, pageSize, next);
             name: Fireblocks SDK Java example
   /connections/wc:
     post:
@@ -7998,14 +8051,14 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       tags:
-        - Web3 connections
+        - dApp Connections
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<CreateConnectionResponse>> = fireblocks.web3Connections.create(web3ConnectionsApiCreateRequest);'
+            code: 'const response: Promise<FireblocksResponse<CreateConnectionResponse>> = fireblocks.dAppConnections.create(dAppConnectionsApiCreateRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<CreateConnectionResponse>> response = fireblocks.web3Connections().create(createConnectionRequest, idempotencyKey);
+            code: CompletableFuture<ApiResponse<CreateConnectionResponse>> response = fireblocks.dAppConnections().create(createConnectionRequest, idempotencyKey);
             name: Fireblocks SDK Java example
   /connections/wc/{id}:
     put:
@@ -8054,14 +8107,14 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       tags:
-        - Web3 connections
+        - dApp Connections
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.web3Connections.submit(web3ConnectionsApiSubmitRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.dAppConnections.submit(dAppConnectionsApiSubmitRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().submit(respondToConnectionRequest, id, idempotencyKey);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.dAppConnections().submit(respondToConnectionRequest, id, idempotencyKey);
             name: Fireblocks SDK Java example
     delete:
       operationId: remove
@@ -8092,14 +8145,14 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       tags:
-        - Web3 connections
+        - dApp Connections
       x-readme:
         code-samples:
           - language: typescript
-            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.web3Connections.remove(web3ConnectionsApiRemoveRequest);'
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.dAppConnections.remove(dAppConnectionsApiRemoveRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().remove(id);
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.dAppConnections().remove(id);
             name: Fireblocks SDK Java example
   /screening/travel_rule/transaction/validate:
     post:

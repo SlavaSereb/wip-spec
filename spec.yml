@@ -72,7 +72,7 @@ tags:
 paths:
   /vault/accounts:
     get:
-      x-internal: true
+      # x-internal: true
       deprecated: true
       summary: Get vault accounts
       description: DEPRECATED - Please use `/vault/accounts_paged` endpoint instead
@@ -1578,7 +1578,7 @@ paths:
       operationId: getVaultBalanceByAsset
   /workspace/freeze:
     post:
-      x-internal: true
+      # x-internal: true
       operationId: freezeWorkspace
       summary: Freeze
       x-readme:
@@ -1620,7 +1620,7 @@ paths:
           $ref: '#/components/responses/Error'
   /exchange_accounts:
     get:
-      x-internal: true
+      # x-internal: true
       deprecated: true
       summary: List exchange accounts
       description: Deprecated (use new 'paged' endpoint) - Returns all exchange accounts.
@@ -5336,7 +5336,7 @@ paths:
       operationId: createFlowConfiguration
   /payments/workflow_config/{configId}:
     get:
-      x-internal: true
+      # x-internal: true
       tags:
         - Payments - Flows
       description: Retrieve a previously created workflow configuration using the specified "configId".
@@ -5370,7 +5370,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       operationId: getFlowConfiguration
     delete:
-      x-internal: true
+      # x-internal: true
       tags:
         - Payments - Flows
       description: Delete a configuration using the specified "configId".
@@ -5405,7 +5405,7 @@ paths:
       operationId: deleteFlowConfiguration
   /payments/workflow_execution:
     post:
-      x-internal: true
+      # x-internal: true
       tags:
         - Payments - Flows
       description: Validate the "workflow-config" previously created by utilizing the unique "configId". This step requires the mandatory field amount, and allows for modifications to other fields defined via the "workflow-config" endpoint, including pre-screening preferences. A response containing the "workflowExecutionId" and detailing the validation status will be provided. Execution is ready when the "workflow-execution" status is READY_FOR_LAUNCH, at which point it can be initiated with "POST /workflow-execution/{workflowExecutionId}/actions/execute".
@@ -5439,7 +5439,7 @@ paths:
       operationId: createFlowExecution
   /payments/workflow_execution/{workflowExecutionId}:
     get:
-      x-internal: true
+      # x-internal: true
       tags:
         - Payments - Flows
       description: Retrieve details of a previously initiated workflow execution by specifying the "workflowExecutionId"
@@ -5472,7 +5472,7 @@ paths:
       operationId: getFlowExecution
   /payments/workflow_execution/{workflowExecutionId}/actions/execute:
     post:
-      x-internal: true
+      # x-internal: true
       tags:
         - Payments - Flows
       description: Launch the execution of a pre-configured workflow, identified by "workflowExecutionId", once it reaches the READY_FOR_LAUNCH state. The workflow undergoes several phases during execution - EXECUTION_IN_PROGRESS - Marks the start of the workflow execution. EXECUTION_COMPLETED or EXECUTION_FAILED - Indicates the execution has reached a final state.
@@ -7544,7 +7544,7 @@ paths:
         - Staking
   /admin_quorum:
     put:
-      x-internal: true
+      # x-internal: true
       operationId: setAdminQuorumThreshold
       summary: Update admin quorum threshold
       description: Update admin quorum threshold
@@ -14473,7 +14473,7 @@ components:
         - $ref: '#/components/schemas/CreateTransferConfigOperationRequest'
         - $ref: '#/components/schemas/CreateDisbursementConfigOperationRequest'
     CorrelationData:
-      x-internal: true
+      # x-internal: true
       oneOf:
         - type: object
           additionalProperties:
@@ -14481,7 +14481,7 @@ components:
         - type: string
     CreateWorkflowConfigurationRequest:
       type: object
-      x-internal: true
+      # x-internal: true
       properties:
         configName:
           description: Your configuration name
@@ -14652,7 +14652,7 @@ components:
         - $ref: '#/components/schemas/DisbursementConfigOperation'
     WorkflowConfiguration:
       type: object
-      x-internal: true
+      # x-internal: true
       properties:
         configId:
           description: Unqiue configuration ID
@@ -14751,7 +14751,7 @@ components:
         - configOperationId
     CreateWorkflowExecutionRequest:
       type: object
-      x-internal: true
+      # x-internal: true
       properties:
         configId:
           description: The created configuration unique identifier
@@ -14817,7 +14817,7 @@ components:
         - $ref: '#/components/schemas/ConfigDisbursementOperationSnapshot'
     WorkflowConfigurationSnapshot:
       type: object
-      x-internal: true
+      # x-internal: true
       properties:
         configId:
           type: string
@@ -15279,7 +15279,7 @@ components:
         - $ref: '#/components/schemas/ExecutionDisbursementOperation'
     WorkflowExecution:
       type: object
-      x-internal: true
+      # x-internal: true
       properties:
         executionId:
           description: Execution unique identifier

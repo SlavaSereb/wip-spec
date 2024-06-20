@@ -72,6 +72,7 @@ tags:
 paths:
   /vault/accounts:
     get:
+      x-internal: true
       deprecated: true
       summary: Get vault accounts
       description: DEPRECATED - Please use `/vault/accounts_paged` endpoint instead
@@ -1575,8 +1576,51 @@ paths:
         default:
           $ref: '#/components/responses/Error'
       operationId: getVaultBalanceByAsset
+  /workspace/freeze:
+    post:
+      x-internal: true
+      operationId: freezeWorkspace
+      summary: Freeze
+      x-readme:
+        code-samples:
+          - language: python
+            code: vault_accounts = fireblocks.get_vault_accounts()
+            name: Fireblocks SDK Python example
+          - language: javascript
+            code: const vaultAccounts = await fireblocks.getVaultAccounts();
+            name: Fireblocks SDK Javascript example
+      description: |
+        Freezes a Workspace so that ALL operations by ANY user are blocked.
+
+
+        You should only perform this action when the workspace faces imminent risk,
+        such as when you have a security breach.
+
+
+        To unfreeze a workspace, the workspace Owner must submit a request to
+        Fireblocks Support.
+
+
+        **NOTE:** 
+
+        - This operation can only be performed by the workspace Owner
+
+        - Your workspace continues to receive incoming transfers during this time.
+      tags:
+        - Workspace Management
+      parameters:
+        - $ref: '#/components/parameters/X-Idempotency-Key'
+      responses:
+        '204':
+          description: Indicates that the workspace is now frozen
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          $ref: '#/components/responses/Error'
   /exchange_accounts:
     get:
+      x-internal: true
       deprecated: true
       summary: List exchange accounts
       description: DEPRECATED - Please use the `/exchange_accounts/paged` endpoint
@@ -14422,6 +14466,7 @@ components:
         - $ref: '#/components/schemas/CreateTransferConfigOperationRequest'
         - $ref: '#/components/schemas/CreateDisbursementConfigOperationRequest'
     CorrelationData:
+      x-internal: true
       oneOf:
         - type: object
           additionalProperties:
@@ -14599,6 +14644,7 @@ components:
         - $ref: '#/components/schemas/DisbursementConfigOperation'
     WorkflowConfiguration:
       type: object
+      x-internal: true
       properties:
         configId:
           description: Unqiue configuration ID

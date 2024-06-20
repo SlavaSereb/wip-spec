@@ -72,7 +72,6 @@ tags:
 paths:
   /vault/accounts:
     get:
-      # x-internal: true
       deprecated: true
       summary: Get vault accounts
       description: DEPRECATED - Please use `/vault/accounts_paged` endpoint instead
@@ -1576,54 +1575,11 @@ paths:
         default:
           $ref: '#/components/responses/Error'
       operationId: getVaultBalanceByAsset
-  /workspace/freeze:
-    post:
-      # x-internal: true
-      operationId: freezeWorkspace
-      summary: Freeze
-      x-readme:
-        code-samples:
-          - language: python
-            code: vault_accounts = fireblocks.get_vault_accounts()
-            name: Fireblocks SDK Python example
-          - language: javascript
-            code: const vaultAccounts = await fireblocks.getVaultAccounts();
-            name: Fireblocks SDK Javascript example
-      description: |
-        Freezes a Workspace so that ALL operations by ANY user are blocked.
-
-
-        You should only perform this action when the workspace faces imminent risk,
-        such as when you have a security breach.
-
-
-        To unfreeze a workspace, the workspace Owner must submit a request to
-        Fireblocks Support.
-
-
-        **NOTE:** 
-
-        - This operation can only be performed by the workspace Owner
-
-        - Your workspace continues to receive incoming transfers during this time.
-      tags:
-        - Workspace Management
-      parameters:
-        - $ref: '#/components/parameters/X-Idempotency-Key'
-      responses:
-        '204':
-          description: Indicates that the workspace is now frozen
-          headers:
-            X-Request-ID:
-              $ref: '#/components/headers/X-Request-ID'
-        default:
-          $ref: '#/components/responses/Error'
   /exchange_accounts:
     get:
-      # x-internal: true
       deprecated: true
       summary: List exchange accounts
-      description: Deprecated (use new 'paged' endpoint) - Returns all exchange accounts.
+      description: DEPRECATED - Please use the `/exchange_accounts/paged` endpoint
       tags:
         - Exchange Accounts
       x-readme:
@@ -1650,8 +1606,8 @@ paths:
   /exchange_accounts/paged:
     get:
       operationId: getPagedExchangeAccounts
-      summary: Pagination list exchange accounts
-      description: Returns a page include exchange accounts.
+      summary: List connected exchange accounts
+      description: Returns a list of the connected exchange accounts in your workspace
       tags:
         - Exchange Accounts
       x-readme:
@@ -1702,8 +1658,8 @@ paths:
           $ref: '#/components/responses/Error'
   /exchange_accounts/{exchangeAccountId}:
     get:
-      summary: Find a specific exchange account
-      description: Returns an exchange account by ID.
+      summary: Get a specific exchange account
+      description: Returns an exchange account by ID
       tags:
         - Exchange Accounts
       x-readme:
@@ -1743,7 +1699,7 @@ paths:
   /exchange_accounts/{exchangeAccountId}/internal_transfer:
     post:
       summary: Internal transfer for exchange accounts
-      description: Transfers funds between trading accounts under the same exchange account.
+      description: Transfers funds between trading accounts under the same exchange account
       tags:
         - Exchange Accounts
       parameters:
@@ -1782,8 +1738,8 @@ paths:
             name: Fireblocks SDK Java example
   /exchange_accounts/{exchangeAccountId}/convert:
     post:
-      summary: Convert exchange account funds from the source asset to the destination asset.
-      description: Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
+      summary: Convert exchange account funds from the source asset to the destination asset
+      description: Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions
       tags:
         - Exchange Accounts
       parameters:
@@ -1822,8 +1778,8 @@ paths:
             name: Fireblocks SDK Java example
   /exchange_accounts/{exchangeAccountId}/{assetId}:
     get:
-      summary: Find an asset for an exchange account
-      description: Returns an asset for an exchange account.
+      summary: Get an asset for an exchange account
+      description: Returns an asset for an exchange account
       tags:
         - Exchange Accounts
       x-readme:
@@ -5302,7 +5258,6 @@ paths:
             name: Fireblocks SDK Java example
   /payments/workflow_config:
     post:
-      # x-internal: true
       tags:
         - Payments - Flows
       description: Generate a new configuration ID to be used for initiating executions in subsequent phases. This configuration should include the operations you intend to incorporate into the workflow, such as TRANSFER, CONVERT, and DISBURSE, in addition to your pre-screening preferences, which are disabled by default.
@@ -5336,7 +5291,6 @@ paths:
       operationId: createFlowConfiguration
   /payments/workflow_config/{configId}:
     get:
-      # x-internal: true
       tags:
         - Payments - Flows
       description: Retrieve a previously created workflow configuration using the specified "configId".
@@ -5370,7 +5324,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       operationId: getFlowConfiguration
     delete:
-      # x-internal: true
       tags:
         - Payments - Flows
       description: Delete a configuration using the specified "configId".
@@ -5405,7 +5358,6 @@ paths:
       operationId: deleteFlowConfiguration
   /payments/workflow_execution:
     post:
-      # x-internal: true
       tags:
         - Payments - Flows
       description: Validate the "workflow-config" previously created by utilizing the unique "configId". This step requires the mandatory field amount, and allows for modifications to other fields defined via the "workflow-config" endpoint, including pre-screening preferences. A response containing the "workflowExecutionId" and detailing the validation status will be provided. Execution is ready when the "workflow-execution" status is READY_FOR_LAUNCH, at which point it can be initiated with "POST /workflow-execution/{workflowExecutionId}/actions/execute".
@@ -5439,7 +5391,6 @@ paths:
       operationId: createFlowExecution
   /payments/workflow_execution/{workflowExecutionId}:
     get:
-      # x-internal: true
       tags:
         - Payments - Flows
       description: Retrieve details of a previously initiated workflow execution by specifying the "workflowExecutionId"
@@ -5472,7 +5423,6 @@ paths:
       operationId: getFlowExecution
   /payments/workflow_execution/{workflowExecutionId}/actions/execute:
     post:
-      # x-internal: true
       tags:
         - Payments - Flows
       description: Launch the execution of a pre-configured workflow, identified by "workflowExecutionId", once it reaches the READY_FOR_LAUNCH state. The workflow undergoes several phases during execution - EXECUTION_IN_PROGRESS - Marks the start of the workflow execution. EXECUTION_COMPLETED or EXECUTION_FAILED - Indicates the execution has reached a final state.
@@ -7544,7 +7494,6 @@ paths:
         - Staking
   /admin_quorum:
     put:
-      # x-internal: true
       operationId: setAdminQuorumThreshold
       summary: Update admin quorum threshold
       description: Update admin quorum threshold
@@ -14473,7 +14422,6 @@ components:
         - $ref: '#/components/schemas/CreateTransferConfigOperationRequest'
         - $ref: '#/components/schemas/CreateDisbursementConfigOperationRequest'
     CorrelationData:
-      # x-internal: true
       oneOf:
         - type: object
           additionalProperties:
@@ -14481,7 +14429,6 @@ components:
         - type: string
     CreateWorkflowConfigurationRequest:
       type: object
-      # x-internal: true
       properties:
         configName:
           description: Your configuration name
@@ -14652,7 +14599,6 @@ components:
         - $ref: '#/components/schemas/DisbursementConfigOperation'
     WorkflowConfiguration:
       type: object
-      # x-internal: true
       properties:
         configId:
           description: Unqiue configuration ID
@@ -14751,7 +14697,6 @@ components:
         - configOperationId
     CreateWorkflowExecutionRequest:
       type: object
-      # x-internal: true
       properties:
         configId:
           description: The created configuration unique identifier
@@ -14817,7 +14762,6 @@ components:
         - $ref: '#/components/schemas/ConfigDisbursementOperationSnapshot'
     WorkflowConfigurationSnapshot:
       type: object
-      # x-internal: true
       properties:
         configId:
           type: string
@@ -15279,7 +15223,6 @@ components:
         - $ref: '#/components/schemas/ExecutionDisbursementOperation'
     WorkflowExecution:
       type: object
-      # x-internal: true
       properties:
         executionId:
           description: Execution unique identifier
@@ -19674,7 +19617,6 @@ components:
 x-readme:
   explorer-enabled: false
   samples-languages:
+    - curl
     - javascript
     - python
-    - curl
-    

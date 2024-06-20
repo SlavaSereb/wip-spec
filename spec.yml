@@ -67,13 +67,15 @@ tags:
     description: Payouts Management APIs
   - name: Payments - Flows
     description: Flows Management APIs
+  - name: Key Link (Beta)
+    description: Key Link Management APIs
 paths:
   /vault/accounts:
     get:
       x-internal: true
       deprecated: true
-      summary: List vault accounts
-      description: DEPRECATED - Please use /vault/accounts_paged endpoint instead
+      summary: Get vault accounts
+      description: DEPRECATED - Please use `/vault/accounts_paged` endpoint instead
       tags:
         - Vaults
       parameters:
@@ -153,7 +155,7 @@ paths:
           $ref: '#/components/responses/Error'
   /vault/accounts_paged:
     get:
-      summary: List vault accounts (Paginated)
+      summary: Get vault accounts (Paginated)
       description: Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time.
       tags:
         - Vaults
@@ -332,7 +334,7 @@ paths:
       operationId: updateVaultAccount
   /vault/asset_wallets:
     get:
-      summary: List vault wallets (Paginated)
+      summary: Get vault wallets (Paginated)
       description: |
         Get all vault wallets of the vault accounts in your workspace. 
         A vault wallet is an asset in a vault account. 
@@ -621,7 +623,7 @@ paths:
       operationId: setVaultAccountCustomerRefId
   /vault/accounts/{vaultAccountId}/set_auto_fuel:
     post:
-      summary: Toggle auto fueling on or off
+      summary: Set auto fueling to on or off
       description: |
         Toggles the auto fueling property of the vault account to enabled or disabled.
         Vault Accounts with 'autoFuel=true' are monitored and auto fueled by the Fireblocks Gas Station.
@@ -956,7 +958,7 @@ paths:
       operationId: createVaultAccountAssetAddress
   /vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated:
     get:
-      summary: List addresses (Paginated)
+      summary: Get addresses (Paginated)
       description: Returns a paginated response of the addresses for a given vault account and asset.
       tags:
         - Vaults
@@ -1028,7 +1030,7 @@ paths:
       summary: Get the maximum spendable amount in a single transaction.
       description: |
         Get the maximum amount of a particular asset that can be spent in a single
-        transaction from a specified vault account (UTXO assets only). 
+        transaction from a specified vault account (UTXO assets only).
       tags:
         - Vaults
       x-readme:
@@ -3114,6 +3116,430 @@ paths:
         default:
           $ref: '#/components/responses/Error'
       operationId: deleteInternalWalletAsset
+  /key_link/signing_keys:
+    post:
+      operationId: createSigningKey
+      summary: Add a new signing key
+      description: |-
+        Adds a new signing key to the workspace. The added key will be linked to the specific Fireblocks agent user ID. The same user will receive the proof of ownership message to be signed, and upon successful proof, the key will become enabled.
+        Please note that this endpoint is available only for Key Link enabled workspaces.
+        **Note:** 
+        This endpoint is currently in beta and might be subject to changes.
+        If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+      parameters:
+        - $ref: '#/components/parameters/X-Idempotency-Key'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSigningKeyDto'
+      responses:
+        '201':
+          description: Newly created signing key
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SigningKeyDto'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+        - Key Link (Beta)
+      x-readme:
+        code-samples:
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLinkBeta.createSigningKey(keyLinkBetaApiCreateSigningKeyRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLinkBeta().createSigningKey(createSigningKeyDto, idempotencyKey);
+            name: Fireblocks SDK Java example
+    get:
+      operationId: getSigningKeysList
+      summary: Get list of signing keys
+      description: |-
+        Returns the list of signing keys in the workspace
+        Please note that this endpoint is available only for Key Link enabled workspaces.
+        **Note:** 
+        This endpoint is currently in beta and might be subject to changes.
+        If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+      parameters:
+        - name: pageCursor
+          required: false
+          in: query
+          description: Cursor to the next page
+          example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+          schema:
+            type: string
+        - name: pageSize
+          required: false
+          in: query
+          description: Amount of results to return in the next page
+          schema:
+            minimum: 1
+            maximum: 50
+            default: 10
+            type: number
+        - name: sortBy
+          required: false
+          in: query
+          description: Field(s) to use for sorting
+          schema:
+            default: createdAt
+            enum:
+              - createdAt
+            type: string
+        - name: order
+          required: false
+          in: query
+          description: Is the order ascending or descending
+          schema:
+            default: ASC
+            enum:
+              - ASC
+              - DESC
+            type: string
+      responses:
+        '200':
+          description: List of signing keys and a data that allows requesting the next page if applicable
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSigningKeyResponseDto'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+        - Key Link (Beta)
+      x-readme:
+        code-samples:
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<GetSigningKeyResponseDto>> = fireblocks.keyLinkBeta.getSigningKeysList(keyLinkBetaApiGetSigningKeysListRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize, sortBy, order);
+            name: Fireblocks SDK Java example
+  /key_link/signing_keys/{keyId}:
+    get:
+      operationId: getSigningKey
+      summary: Get a signing key by `keyId`
+      description: |-
+        Returns a signing key if it exists, identified by the specified Fireblocks provided `keyId`.
+        Please note that this endpoint is available only for Key Link enabled workspaces.
+        **Note:** 
+        This endpoint is currently in beta and might be subject to changes.
+        If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+      parameters:
+        - name: keyId
+          required: true
+          in: path
+          description: The unique identifier for the signing key provided by Fireblocks
+          schema:
+            type: string
+            example: 46a92767-5f93-4a46-9eed-f012196bb4fc
+      responses:
+        '200':
+          description: Requested signing key data
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SigningKeyDto'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+        - Key Link (Beta)
+      x-readme:
+        code-samples:
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLinkBeta.getSigningKey(keyLinkBetaApiGetSigningKeyRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLinkBeta().getSigningKey(keyId);
+            name: Fireblocks SDK Java example
+    patch:
+      operationId: updateSigningKey
+      summary: Modify the signing by Fireblocks provided `keyId`
+      description: |-
+        Allows assigning the signing key to a vault account, if it hasn't been assigned to any other vault accounts yet.
+        Please note that this endpoint is available only for Key Link enabled workspaces.
+        **Note:** 
+        This endpoint is currently in beta and might be subject to changes.
+        If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+      parameters:
+        - name: keyId
+          required: true
+          in: path
+          description: The unique identifier for the signing key provided by Fireblocks
+          schema:
+            type: string
+            example: 46a92767-5f93-4a46-9eed-f012196bb4fc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifySigningKeyDto'
+      responses:
+        '200':
+          description: Modified signing key data
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SigningKeyDto'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+        - Key Link (Beta)
+      x-readme:
+        code-samples:
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLinkBeta.updateSigningKey(keyLinkBetaApiUpdateSigningKeyRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLinkBeta().updateSigningKey(modifySigningKeyDto, keyId);
+            name: Fireblocks SDK Java example
+  /key_link/signing_keys/{keyId}/agent_user_id:
+    patch:
+      operationId: setAgentId
+      summary: Set agent user id that can sign with the signing key identified by the Fireblocks provided `keyId`
+      description: |-
+        Can modify existing signing key id if the key is not enabled. The change done in background and will be visible once applied. If key is already enabled (after proof of ownership) the user cannot be changed.
+        Please note that this endpoint is available only for Key Link enabled workspaces.
+        **Note:** 
+        This endpoint is currently in beta and might be subject to changes.
+        If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+      parameters:
+        - name: keyId
+          required: true
+          in: path
+          description: The unique identifier for the signing key provided by Fireblocks
+          schema:
+            type: string
+            example: 46a92767-5f93-4a46-9eed-f012196bb4fc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifySigningKeyAgentIdDto'
+      responses:
+        '204':
+          description: Agent user id modification process has started in background.
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+        - Key Link (Beta)
+      x-readme:
+        code-samples:
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<void>> = fireblocks.keyLinkBeta.setAgentId(keyLinkBetaApiSetAgentIdRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<Void>> response = fireblocks.keyLinkBeta().setAgentId(modifySigningKeyAgentIdDto, keyId);
+            name: Fireblocks SDK Java example
+  /key_link/validation_keys:
+    post:
+      operationId: createValidationKey
+      summary: Add a new validation key
+      description: |-
+        Adds a new validation key used to validate signing keys. The new validation key will undergo an approval process by the workspace quorum.
+        Please note that this endpoint is available only for Key Link enabled workspaces.
+        **Note:** 
+        This endpoint is currently in beta and might be subject to changes.
+        If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+      parameters:
+        - $ref: '#/components/parameters/X-Idempotency-Key'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateValidationKeyDto'
+      responses:
+        '201':
+          description: The validation key that was added and is pending approval.
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateValidationKeyResponseDto'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+        - Key Link (Beta)
+      x-readme:
+        code-samples:
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<CreateValidationKeyResponseDto>> = fireblocks.keyLinkBeta.createValidationKey(keyLinkBetaApiCreateValidationKeyRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<CreateValidationKeyResponseDto>> response = fireblocks.keyLinkBeta().createValidationKey(createValidationKeyDto, idempotencyKey);
+            name: Fireblocks SDK Java example
+    get:
+      operationId: getValidationKeysList
+      summary: Get list of registered validation keys
+      description: |-
+        Returns the list of validation keys in the workspace
+        Please note that this endpoint is available only for Key Link enabled workspaces.
+        **Note:** 
+        This endpoint is currently in beta and might be subject to changes.
+        If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+      parameters:
+        - name: pageCursor
+          required: false
+          in: query
+          description: Cursor to the next page
+          example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+          schema:
+            type: string
+        - name: pageSize
+          required: false
+          in: query
+          description: Amount of results to return in the next page
+          schema:
+            minimum: 1
+            maximum: 50
+            default: 10
+            type: number
+        - name: sortBy
+          required: false
+          in: query
+          description: Field(s) to use for sorting
+          schema:
+            default: createdAt
+            enum:
+              - createdAt
+            type: string
+        - name: order
+          required: false
+          in: query
+          description: Is the order ascending or descending
+          schema:
+            default: ASC
+            enum:
+              - ASC
+              - DESC
+            type: string
+      responses:
+        '200':
+          description: Validation keys list along with data required to request the next page if applicable
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetValidationKeyResponseDto'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+        - Key Link (Beta)
+      x-readme:
+        code-samples:
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<GetValidationKeyResponseDto>> = fireblocks.keyLinkBeta.getValidationKeysList(keyLinkBetaApiGetValidationKeysListRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<GetValidationKeyResponseDto>> response = fireblocks.keyLinkBeta().getValidationKeysList(pageCursor, pageSize, sortBy, order);
+            name: Fireblocks SDK Java example
+  /key_link/validation_keys/{keyId}:
+    get:
+      operationId: getValidationKey
+      summary: Get a validation key by `keyId`
+      description: |-
+        Returns a validation key if it exists, identified by the specified `keyId`.
+        Please note that this endpoint is available only for Key Link enabled workspaces.
+        **Note:** 
+        This endpoint is currently in beta and might be subject to changes.
+        If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+      parameters:
+        - name: keyId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The requested validation key data
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationKeyDto'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+        - Key Link (Beta)
+      x-readme:
+        code-samples:
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<ValidationKeyDto>> = fireblocks.keyLinkBeta.getValidationKey(keyLinkBetaApiGetValidationKeyRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLinkBeta().getValidationKey(keyId);
+            name: Fireblocks SDK Java example
+    patch:
+      operationId: disableValidationKey
+      summary: Disables a validation key
+      description: |-
+        Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
+        Please note that this endpoint is available only for Key Link enabled workspaces.
+        **Note:** 
+        This endpoint is currently in beta and might be subject to changes.
+        If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+      parameters:
+        - name: keyId
+          required: true
+          in: path
+          description: The unique identifier for the validation key provided by Fireblocks
+          schema:
+            type: string
+            example: 46a92767-5f93-4a46-9eed-f012196bb4fc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifyValidationKeyDto'
+      responses:
+        '200':
+          description: Modified validation key data
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationKeyDto'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+        - Key Link (Beta)
+      x-readme:
+        code-samples:
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<ValidationKeyDto>> = fireblocks.keyLinkBeta.disableValidationKey(keyLinkBetaApiDisableValidationKeyRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLinkBeta().disableValidationKey(modifyValidationKeyDto, keyId);
+            name: Fireblocks SDK Java example
   /external_wallets:
     get:
       summary: List external wallets
@@ -3761,7 +4187,7 @@ paths:
             name: Fireblocks SDK Java example
       responses:
         '200':
-          description: A Transaction object
+          description: Supported Assets Response
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
@@ -3783,8 +4209,11 @@ paths:
         - Algorand
         - TRON
         - NEAR
+        - Solana
       tags:
         - Blockchains & Assets
+      parameters:
+        - $ref: '#/components/parameters/X-Idempotency-Key'
       x-readme:
         code-samples:
           - language: python
@@ -3797,7 +4226,7 @@ paths:
             code: 'const response: Promise<FireblocksResponse<AssetResponse>> = fireblocks.blockchainsAssets.registerNewAsset(blockchainsAssetsApiRegisterNewAssetRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<AssetResponse>> response = fireblocks.blockchainsAssets().registerNewAsset(registerNewAssetRequest);
+            code: CompletableFuture<ApiResponse<AssetResponse>> response = fireblocks.blockchainsAssets().registerNewAsset(registerNewAssetRequest, idempotencyKey);
             name: Fireblocks SDK Java example
       responses:
         '200':
@@ -3815,6 +4244,8 @@ paths:
             - Self serve listing an asset on the requested blockchain is currently not supported, please contact support. Error code: 1004
 
             - Blockchain is deprecated. Error code: 1006
+
+            - The asset's standard is not supported. Error code: 1007
           content:
             application/json:
               schema:
@@ -3822,6 +4253,10 @@ paths:
         '403':
           description: |
             - The asset creation quota reached. Error code: 1005
+
+            - Tenant is not allowed to create testnet assets. Error code: 1008
+
+            - Tenant is not allowed to create mainnet assets. Error code: 1009
           content:
             application/json:
               schema:
@@ -3855,8 +4290,8 @@ paths:
               $ref: '#/components/schemas/RegisterNewAssetRequest'
   /transactions:
     get:
-      summary: List transaction history
-      description: Lists the transaction history for your workspace.
+      summary: Get transaction history
+      description: Get the transaction history for your workspace.
       tags:
         - Transactions
       x-readme:
@@ -4159,7 +4594,7 @@ paths:
       operationId: estimateTransactionFee
   /transactions/{txId}:
     get:
-      summary: Find a specific transaction by Fireblocks transaction ID
+      summary: Get a specific transaction by Fireblocks transaction ID
       description: Get a specific transaction data by Fireblocks Transaction ID
       tags:
         - Transactions
@@ -4202,7 +4637,7 @@ paths:
       operationId: getTransaction
   /transactions/external_tx_id/{externalTxId}:
     get:
-      summary: Find a specific transaction by external transaction ID
+      summary: Get a specific transaction by external transaction ID
       description: Returns transaction by external transaction ID.
       tags:
         - Transactions
@@ -4575,7 +5010,7 @@ paths:
 
         - For UTXO based assets, the response will contain the suggested fee per byte
         - For ETH (and all EVM) based assets, the suggested gas price
-        - For XRP/XLM, the transaction fee 
+        - For XRP/XLM, the transaction fee
       tags:
         - Blockchains & Assets
       x-readme:
@@ -4867,7 +5302,7 @@ paths:
             name: Fireblocks SDK Java example
   /payments/workflow_config:
     post:
-      x-internal: true
+      # x-internal: true
       tags:
         - Payments - Flows
       description: Generate a new configuration ID to be used for initiating executions in subsequent phases. This configuration should include the operations you intend to incorporate into the workflow, such as TRANSFER, CONVERT, and DISBURSE, in addition to your pre-screening preferences, which are disabled by default.
@@ -5235,7 +5670,7 @@ paths:
       description: |
         Get all user groups in your workspace
 
-        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       x-readme:
         code-samples:
           - language: javascript
@@ -5270,8 +5705,7 @@ paths:
       description: |
         Create a new user group.
 
-        - Please note that this endpoint is available only for API keys with Admin
-        permissions.
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       x-readme:
         code-samples:
           - language: javascript
@@ -5315,7 +5749,7 @@ paths:
       description: |
         Get a user group by ID
 
-        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
         - Workspace Management
       parameters:
@@ -5394,7 +5828,7 @@ paths:
       summary: Delete user group
       description: |
         Delete a user group by ID.</br>
-        - Please note that this endpoint is available only for API keys with Admin permissions.
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
         - Workspace Management
       parameters:
@@ -5506,7 +5940,7 @@ paths:
       description: |
         Get Audit logs for the last Day/Week.
 
-        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
         - Workspace Management
       x-readme:
@@ -5797,23 +6231,6 @@ paths:
       summary: List all contract templates
       description: Return minimal representation of all the contract templates available for the workspace
       parameters:
-        - name: limit
-          required: false
-          in: query
-          description: Items per page (max 100)
-          schema:
-            minimum: 1
-            maximum: 100
-            default: 100
-            type: number
-        - name: offset
-          required: false
-          in: query
-          description: Paging offset
-          schema:
-            minimum: 0
-            default: 0
-            type: number
         - name: pageCursor
           required: false
           in: query
@@ -5843,6 +6260,7 @@ paths:
               - TOKEN_UTILITY
         - name: initializationPhase
           required: false
+          description: For standalone contracts use ON_DEPLOYMENT and for contracts that are behind proxies use POST_DEPLOYMENT
           in: query
           schema:
             enum:
@@ -5861,7 +6279,7 @@ paths:
             code: 'const response: Promise<FireblocksResponse<TemplatesPaginatedResponse>> = fireblocks.contractTemplates.getContractTemplates(contractTemplatesApiGetContractTemplatesRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<TemplatesPaginatedResponse>> response = fireblocks.contractTemplates().getContractTemplates(limit, offset, pageCursor, pageSize, type, initializationPhase);
+            code: CompletableFuture<ApiResponse<TemplatesPaginatedResponse>> response = fireblocks.contractTemplates().getContractTemplates(pageCursor, pageSize, type, initializationPhase);
             name: Fireblocks SDK Java example
       responses:
         '200':
@@ -6050,18 +6468,6 @@ paths:
       operationId: getFunctionAbiByContractTemplateId
       summary: Return contract template's function
       description: Return contract template`s function ABI by signature
-      x-readme:
-        code-samples:
-          - language: javascript
-            code: |
-              const contractTemplate = await fireblocks.getContractAbiFunction(contractId: string, functionSignature: string);
-            name: Fireblocks SDK Javascript example
-          - language: typescript
-            code: 'const response: Promise<FireblocksResponse<AbiFunction>> = fireblocks.contractTemplates.getFunctionAbiByContractTemplateId(contractTemplatesApiGetFunctionAbiByContractTemplateIdRequest);'
-            name: Fireblocks SDK TypeScript example
-          - language: java
-            code: CompletableFuture<ApiResponse<AbiFunction>> response = fireblocks.contractTemplates().getFunctionAbiByContractTemplateId(contractTemplateId, functionSignature);
-            name: Fireblocks SDK Java example
       parameters:
         - name: contractTemplateId
           required: true
@@ -6071,7 +6477,9 @@ paths:
           schema:
             type: string
         - name: functionSignature
+          description: The contract's function signature
           required: true
+          example: initialize(string,string,address)
           in: query
           schema:
             type: string
@@ -6092,6 +6500,14 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
         - Contract Templates
+      x-readme:
+        code-samples:
+          - language: typescript
+            code: 'const response: Promise<FireblocksResponse<AbiFunction>> = fireblocks.contractTemplates.getFunctionAbiByContractTemplateId(contractTemplatesApiGetFunctionAbiByContractTemplateIdRequest);'
+            name: Fireblocks SDK TypeScript example
+          - language: java
+            code: CompletableFuture<ApiResponse<AbiFunction>> response = fireblocks.contractTemplates().getFunctionAbiByContractTemplateId(contractTemplateId, functionSignature);
+            name: Fireblocks SDK Java example
   /tokenization/templates/{contractTemplateId}/deploy:
     post:
       operationId: deployContract
@@ -6173,12 +6589,16 @@ paths:
           schema:
             type: string
         - name: assetId
+          description: The blockchain asset ID
+          example: ETH
           required: false
           in: query
           schema:
             type: string
         - name: templateId
           required: false
+          description: The contract template identifier
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
           in: query
           schema:
             type: string
@@ -6259,6 +6679,8 @@ paths:
           schema:
             type: string
         - name: assetId
+          description: The blockchain base asset ID
+          example: ETH
           required: true
           in: path
           schema:
@@ -6534,14 +6956,16 @@ paths:
           schema:
             type: string
         - name: assetId
+          description: The blockchain base assetId
           required: true
           in: path
+          example: ETH
           schema:
             type: string
       x-readme:
         code-samples:
           - language: python
-            code: deployed_contract_abi = fireblocks.get_contracts_abi(base_asset_id, contract_address)
+            code: deployed_contract_abi = fireblocks.get_contract_abi(base_asset_id, contract_address)
             name: Fireblocks SDK Python example
           - language: javascript
             code: const deployedContractAbi = await fireblocks.getContractAbi(baseAssetId, contractAddress);
@@ -6554,7 +6978,7 @@ paths:
             name: Fireblocks SDK Java example
       responses:
         '200':
-          description: ''
+          description: Contract ABI response
           content:
             application/json:
               schema:
@@ -6578,8 +7002,10 @@ paths:
           schema:
             type: string
         - name: assetId
+          description: The blockchain base assetId
           required: true
           in: path
+          example: ETH
           schema:
             type: string
       x-readme:
@@ -6628,8 +7054,10 @@ paths:
           schema:
             type: string
         - name: assetId
+          description: The blockchain base assetId
           required: true
           in: path
+          example: ETH
           schema:
             type: string
       x-readme:
@@ -8593,7 +9021,7 @@ paths:
 
         Learn more about [One Time Addresses](https://support.fireblocks.io/hc/en-us/articles/4409104568338-One-Time-Address-OTA-feature)
 
-        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       x-readme:
         code-samples:
           - language: javascript
@@ -8634,8 +9062,13 @@ paths:
         - Workspace Management
     get:
       operationId: getOtaStatus
-      summary: Returns current OTA status
-      description: Returns current OTA status
+      summary: Returns current One Time Address status
+      description: |
+        Returns current One Time Address status
+
+        Learn more about [One Time Addresses](https://support.fireblocks.io/hc/en-us/articles/4409104568338-One-Time-Address-OTA-feature)
+
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       x-readme:
         code-samples:
           - language: javascript
@@ -8670,7 +9103,7 @@ paths:
 
         - This endpoint is now in Beta, disabled for general availability at this time.
 
-        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       responses:
         '200':
           content:
@@ -8899,7 +9332,7 @@ paths:
       description: |
         Get console users for your tenant.
 
-        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
         - Workspace Management
       x-readme:
@@ -8958,7 +9391,10 @@ paths:
     post:
       operationId: createConsoleUser
       summary: Create console user
-      description: Creates console user in your tenant
+      description: |
+        Create console users in your workspace
+
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
         - Workspace Management
       x-readme:
@@ -9029,7 +9465,7 @@ paths:
       description: |
         List all API keys in your workspace.
 
-        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
         - Workspace Management
       x-readme:
@@ -9159,7 +9595,7 @@ paths:
       description: |
         Resets mobile device for given console user, that user will need to do mobile onboarding again.
 
-        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
         - Workspace Management
       x-readme:
@@ -9226,7 +9662,7 @@ paths:
       description: |
         Get a list of the whitelisted IP addresses for a specific API Key
 
-        - Please note that this endpoint is available only for API keys with Admin/Non Signin Admin permissions.
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
         - Workspace Management
       x-readme:
@@ -10921,6 +11357,8 @@ components:
           enum:
             - SEGWIT
             - LEGACY
+            - BASE
+            - PAYMENT
         legacyAddress:
           type: string
         enterpriseAddress:
@@ -11674,6 +12112,205 @@ components:
           description: for XRP wallets, the destination tag; for EOS, the memo; for the fiat providers (BLINC by BCB Group), the Bank Transfer Description
       required:
         - address
+    SigningKeyDto:
+      type: object
+      properties:
+        keyId:
+          type: string
+          minLength: 36
+          maxLength: 36
+          example: 46a92767-5f93-4a46-9eed-f012196bb4fc
+          description: External signing key id set by Fireblocks.
+        signingDeviceKeyId:
+          type: string
+          maxLength: 256
+          example: MyKey1
+          description: The ID, name or label of the key specified on the customer's signing device.
+        publicKeyPem:
+          type: string
+          example: '-----BEGIN PUBLIC KEY ... END PUBLIC KEY-----'
+          description: PEM encoded public key
+        algorithm:
+          type: string
+          example: ECDSA_SECP256K1
+          description: 'Algorithm and curve used for the signature. Can be: ECDSA_SECP256K1 or EDDSA_ED25519'
+        enabled:
+          type: boolean
+          example: true
+          description: True if the signing key is enabled
+        vaultAccountId:
+          type: number
+          nullable: true
+          example: 10
+          description: Id of the vault account which this key is linked to
+        agentUserId:
+          type: string
+          minLength: 36
+          maxLength: 36
+          example: d18847b5-1df6-4c46-8f99-5cce47284529
+          description: Id of user that represent agent servers that can sign with the key
+        createdAt:
+          type: number
+          example: 124757537
+          description: Creation date (timestamp) in milliseconds.
+      required:
+        - keyId
+        - signingDeviceKeyId
+        - publicKeyPem
+        - algorithm
+        - enabled
+        - vaultAccountId
+        - agentUserId
+        - createdAt
+    GetSigningKeyResponseDto:
+      type: object
+      properties:
+        data:
+          description: Response object for getting external signing keys.
+          type: array
+          items:
+            $ref: '#/components/schemas/SigningKeyDto'
+        next:
+          type: string
+          description: The ID of the next page
+      required:
+        - data
+    CreateSigningKeyDto:
+      type: object
+      properties:
+        signingDeviceKeyId:
+          type: string
+          example: MyKey1
+          maxLength: 256
+          description: The ID, name or label of the key specified on the customer's signing device.
+        signedCertPem:
+          type: string
+          example: '-----BEGIN CERTIFICATE ... END CERTIFICATE-----'
+          description: The signed certificate that includes the public key PEM of the signing key, signed by a validation key.
+        agentUserId:
+          type: string
+          minLength: 36
+          maxLength: 36
+          example: d18847b5-1df6-4c46-8f99-5cce47284529
+          description: Id of user to which this key belongs
+      required:
+        - signingDeviceKeyId
+        - signedCertPem
+        - agentUserId
+    ModifySigningKeyDto:
+      type: object
+      properties:
+        vaultAccountId:
+          type: number
+          minimum: 1
+          example: 123
+      required:
+        - vaultAccountId
+    ModifySigningKeyAgentIdDto:
+      type: object
+      properties:
+        agentUserId:
+          type: string
+          minLength: 36
+          maxLength: 36
+          example: d18847b5-1df6-4c46-8f99-5cce47284529
+          description: Id of user that represent agent servers which signs with the key
+      required:
+        - agentUserId
+    ValidationKeyDto:
+      type: object
+      properties:
+        keyId:
+          type: string
+          minLength: 36
+          maxLength: 36
+          example: 46a92767-5f93-4a46-9eed-f012196bb4fc
+          description: External validation key id set by Fireblocks.
+        publicKeyPem:
+          type: string
+          example: '-----BEGIN PUBLIC KEY ...  END PUBLIC KEY-----'
+          description: PEM encoded public key used for the validation.
+        daysTillExpired:
+          type: number
+          minimum: 1
+          example: 365
+        enabled:
+          type: boolean
+          example: false
+          description: True if the validation key is enabled.
+        createdAt:
+          type: number
+          example: 12345633
+          description: Creation date (timestamp) in milliseconds.
+      required:
+        - keyId
+        - publicKeyPem
+        - daysTillExpired
+        - enabled
+        - createdAt
+    GetValidationKeyResponseDto:
+      type: object
+      properties:
+        data:
+          description: Response object for getting external validation keys.
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationKeyDto'
+        next:
+          type: string
+          description: The ID of the next page
+      required:
+        - data
+    CreateValidationKeyDto:
+      type: object
+      properties:
+        publicKeyPem:
+          type: string
+          example: '-----BEGIN PUBLIC KEY ...  END PUBLIC KEY-----'
+          description: The PEM encoded public key of the validation key being added
+        daysTillExpired:
+          type: number
+          minimum: 1
+          example: 365
+          description: The number of days from the date the validation key was added until it expires
+      required:
+        - publicKeyPem
+        - daysTillExpired
+    CreateValidationKeyResponseDto:
+      type: object
+      properties:
+        validationKey:
+          description: Created validation key
+          allOf:
+            - $ref: '#/components/schemas/ValidationKeyDto'
+        admins:
+          description: Admins who have to approve the validation key addition
+          type: array
+          items:
+            type: string
+        approvalThreshold:
+          type: number
+          minimum: 0
+          example: 0
+          description: Minimal number of approvers required. 0 for all
+        requestId:
+          type: number
+          example: 1234
+          description: Approval request id. Can be cancelled
+      required:
+        - validationKey
+        - admins
+        - approvalThreshold
+        - requestId
+    ModifyValidationKeyDto:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          example: false
+          description: Disable validation key
+      required:
+        - enabled
     GetExternalWalletsResponse:
       type: array
       items:
@@ -11850,6 +12487,7 @@ components:
         - address
     AssetTypeResponse:
       type: object
+      description: Supported Asset Object
       properties:
         id:
           type: string
@@ -11892,6 +12530,7 @@ components:
         - type
     GetSupportedAssetsResponse:
       type: array
+      description: An Array of Supported Assets Objects
       items:
         $ref: '#/components/schemas/AssetTypeResponse'
     RegisterNewAssetRequest:
@@ -11903,7 +12542,14 @@ components:
           example: ETH
         address:
           type: string
-          description: Asset address
+          description: |
+            Asset address.
+            - EVM-based chains: token contract address
+            - Stellar (XLM): issuer address
+            - Algorand (ALGO): asset ID
+            - TRON (TRX): token contract address
+            - NEAR: token address
+            - Solana: token's mint account address
           example: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
         symbol:
           type: string
@@ -11953,7 +12599,6 @@ components:
             - symbol
             - name
             - decimals
-            - standard
         metadata:
           type: object
           properties:
@@ -12577,10 +13222,10 @@ components:
         For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)
 
         For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions.
-        *Note: `rawMessageData`, `contractCallData`, and `inputsSelection` cannot be used together in the same call." 
+        *Note: `rawMessageData`, `contractCallData`, and `inputsSelection` cannot be used together in the same call."
     SignedMessage:
       type: object
-      description: A list of signed messages returned for raw signing.
+      description: Signed Message Object (for RAW signing responses)
       properties:
         content:
           type: string
@@ -12626,6 +13271,7 @@ components:
           example: 03af66c4551559d54bfbfd14c84870a337b06bf2738ed6427480ec56ee551c7458
     SignedMessages:
       type: array
+      description: An array of signed messages
       items:
         $ref: '#/components/schemas/SignedMessage'
     BlockInfo:
@@ -12714,6 +13360,7 @@ components:
           type: string
           description: Source address tag for Tag/Memo supporting assets, or Bank Transfer Description for the fiat provider BLINC (by BCB Group).
           example: '247016305'
+          deprecated: true
         destination:
           $ref: '#/components/schemas/DestinationTransferPeerPathResponse'
         destinations:
@@ -15108,8 +15755,6 @@ components:
           enum:
             - FUNGIBLE_TOKEN
             - NON_FUNGIBLE_TOKEN
-            - NON_TOKEN
-            - TOKEN_EXTENSION
             - TOKEN_UTILITY
       required:
         - id
@@ -15199,8 +15844,7 @@ components:
           description: The type of the parameter as it appears in the ABI
         components:
           type: array
-          items:
-            $ref: '#/components/schemas/Parameter'
+          description: In case it’s a struct, it will hold the struct data
       required:
         - name
         - type
@@ -15274,8 +15918,6 @@ components:
           enum:
             - FUNGIBLE_TOKEN
             - NON_FUNGIBLE_TOKEN
-            - NON_TOKEN
-            - TOKEN_EXTENSION
             - TOKEN_UTILITY
           type: string
           example: FUNGIBLE_TOKEN
@@ -15428,8 +16070,6 @@ components:
           enum:
             - FUNGIBLE_TOKEN
             - NON_FUNGIBLE_TOKEN
-            - NON_TOKEN
-            - TOKEN_EXTENSION
             - TOKEN_UTILITY
           type: string
           example: FUNGIBLE_TOKEN
@@ -15464,7 +16104,7 @@ components:
       properties:
         name:
           type: string
-          example: _name
+          example: Some Name
           description: The name of the parameter as it appears in the ABI
         description:
           type: string
@@ -15559,13 +16199,15 @@ components:
           type: string
           description: The contract template identifier
           example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
-        blockchainId:
+        baseAssetId:
           type: string
+          description: The blockchain's base assetId
+          example: ETH
       required:
         - id
         - contractAddress
         - contractTemplateId
-        - blockchainId
+        - baseAssetId
     DeployedContractsPaginatedResponse:
       type: object
       properties:
@@ -15600,13 +16242,15 @@ components:
           type: string
           example: '0'
           description: The vault account id this contract was deploy from
-        blockchainId:
+        baseAssetId:
           type: string
+          description: The blockchain's base assetId
+          example: ETH
       required:
         - id
         - contractAddress
         - contractTemplateId
-        - blockchainId
+        - baseAssetId
     AssetMetadataDto:
       type: object
       properties:
@@ -15701,10 +16345,10 @@ components:
           type: string
           description: The deployed contract ID
           example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
-        blockchainId:
+        baseAssetId:
           type: string
-          description: The blockchain ID
-          example: B7QG017M
+          description: The blockchain base asset ID
+          example: ETH
         contractAddress:
           type: string
           description: The address of the token contract
@@ -15719,7 +16363,7 @@ components:
           example: '0'
       required:
         - id
-        - blockchainId
+        - baseAssetId
         - contractAddress
         - contractTemplateId
     TokenLinkDto:
@@ -15741,7 +16385,6 @@ components:
             - FUNGIBLE_TOKEN
             - NON_FUNGIBLE_TOKEN
             - TOKEN_UTILITY
-            - TOKEN_EXTENSION
           type: string
           description: The type of token
           example: FUNGIBLE_TOKEN
@@ -15836,13 +16479,9 @@ components:
     CreateTokenRequestDto:
       type: object
       properties:
-        blockchainId:
-          type: string
-          example: B7QG017M
-          description: The id of the blockchain the request was initiated on
         assetId:
           type: string
-          example: ETH_TEST5
+          example: ETH
           description: The base asset identifier of the blockchain you want to deploy to
         vaultAccountId:
           type: string
@@ -15880,7 +16519,6 @@ components:
             - FUNGIBLE_TOKEN
             - NON_FUNGIBLE_TOKEN
             - TOKEN_UTILITY
-            - TOKEN_EXTENSION
           type: string
           description: The type of token being linked
         refId:
@@ -16106,6 +16744,8 @@ components:
       properties:
         txId:
           type: string
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          description: The Fireblocks transaction id of the function call
       required:
         - txId
     StakingGetChainsResponse:
@@ -19034,6 +19674,7 @@ components:
 x-readme:
   explorer-enabled: false
   samples-languages:
-    - curl
     - javascript
     - python
+    - curl
+    

@@ -87,7 +87,7 @@ x-tagGroups:
       - Workspace Settings
   - name: Policy & Compliance
     tags: 
-      - Transaction Authorization Policy
+      - Transaction Authorization Policy (Beta)
       - Travel Rule
       - AML Policy
       - Audit Log

@@ -102,9 +102,9 @@ x-tagGroups:
       - Fee Management
   - name: Whitelisted Addresses
     tags:
-      - Whitelisted External Addresses
-      - Whitelisted Internal Addresses
-      - Whitelisted Contracts
+      - External Wallets
+      - Internal Wallets
+      - Contracts
   - name: Fireblocks Network
     tags:
       - Network Connections

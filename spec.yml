@@ -11093,8 +11093,12 @@ components:
       type: object
       properties:
         message:
+          description: Error message content
           type: string
+          example: Invalid signature
         code:
+          description: |
+            Error code. For more info on Fireblocks Error Codes please visit the following [guide](https://developers.fireblocks.com/reference/api-responses)
           type: number
     RewardsInfo:
       type: object

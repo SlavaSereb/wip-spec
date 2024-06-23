@@ -9,6 +9,9 @@ info:
   version: 1.8.0
   contact:
     email: developers@fireblocks.com
+security:
+  - ApiKeyAuth: []
+    bearerTokenAuth: []
 servers:
   - url: https://api.fireblocks.io/v1
     description: Fireblocks Production Environment Base URL
@@ -11098,7 +11101,7 @@ components:
           example: Invalid signature
         code:
           description: |
-            Error code. For more info on Fireblocks Error Codes please visit the following [guide](https://developers.fireblocks.com/reference/api-responses)
+            Error code. For more info on Fireblocks error codes please visit https://developers.fireblocks.com/reference/api-responses
           type: number
           example: -1
     RewardsInfo:

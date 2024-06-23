@@ -139,7 +139,7 @@ paths:
       summary: Get vault accounts
       description: DEPRECATED - Please use `/vault/accounts_paged` endpoint instead
       tags:
-        - Vaults
+        - Vault Accounts
       parameters:
         - in: query
           name: namePrefix
@@ -180,7 +180,7 @@ paths:
       operationId: createVaultAccount
       description: Creates a new vault account with the requested name
       tags:
-        - Vaults
+        - Vault Accounts
       x-readme:
         code-samples:
           - language: python
@@ -220,7 +220,7 @@ paths:
       summary: Get vault accounts (Paginated)
       description: Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time.
       tags:
-        - Vaults
+        - Vault Accounts
       x-readme:
         code-samples:
           - language: python
@@ -307,7 +307,7 @@ paths:
       summary: Get a vault account by ID
       description: Get a vault account by its unique ID
       tags:
-        - Vaults
+        - Vault Accounts
       x-readme:
         code-samples:
           - language: python
@@ -349,7 +349,7 @@ paths:
       summary: Rename a vault account
       description: Renames the requested vault account
       tags:
-        - Vaults
+        - Vault Accounts
       x-readme:
         code-samples:
           - language: python
@@ -403,7 +403,7 @@ paths:
 
         This method allows fast traversal of all account balances.
       tags:
-        - Vaults
+        - Vault Wallets
       x-readme:
         code-samples:
           - language: python
@@ -492,7 +492,7 @@ paths:
 
         NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault.
       tags:
-        - Vaults
+        - Vault Accounts
       x-readme:
         code-samples:
           - language: python
@@ -536,7 +536,7 @@ paths:
       summary: Unhide a vault account in the console
       description: Makes a hidden vault account visible in web console view
       tags:
-        - Vaults
+        - Vault Accounts
       x-readme:
         code-samples:
           - language: python
@@ -596,7 +596,7 @@ paths:
             code: CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response = fireblocks.vaults().activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey);
             name: Fireblocks SDK Java example
       tags:
-        - Vaults
+        - Vault Wallets
       parameters:
         - in: path
           name: vaultAccountId
@@ -634,7 +634,7 @@ paths:
       summary: Set an AML/KYT customer reference ID for a vault account
       description: Assigns an AML/KYT customer reference ID for the vault account
       tags:
-        - Vaults
+        - Vault Accounts
       x-readme:
         code-samples:
           - language: python
@@ -704,7 +704,7 @@ paths:
             code: CompletableFuture<ApiResponse<VaultActionStatus>> response = fireblocks.vaults().setVaultAccountAutoFuel(setAutoFuelRequest, vaultAccountId, idempotencyKey);
             name: Fireblocks SDK Java example
       tags:
-        - Vaults
+        - Vault Accounts
       parameters:
         - in: path
           name: vaultAccountId
@@ -740,7 +740,7 @@ paths:
       summary: Get the asset balance for a vault account
       description: Returns a specific vault wallet balance information for a specific asset
       tags:
-        - Vaults
+        - Balances
       x-readme:
         code-samples:
           - language: python
@@ -792,7 +792,7 @@ paths:
       summary: Create a new vault wallet
       description: Creates a wallet for a specific asset in a vault account
       tags:
-        - Vaults
+        - Vault Wallet
       x-readme:
         code-samples:
           - language: python
@@ -853,7 +853,7 @@ paths:
         This API endpoint is subject to a strict rate limit.
         Should be used by clients in very specific scenarios.
       tags:
-        - Vaults
+        - Balances
       x-readme:
         code-samples:
           - language: python
@@ -919,7 +919,7 @@ paths:
         - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: "This endpoint is unavailable.
         - Please use the GET /v1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list.
       tags:
-        - Vaults
+        - Vault Wallets
       parameters:
         - in: path
           name: vaultAccountId
@@ -965,7 +965,7 @@ paths:
 
         Requests with account based assets will fail
       tags:
-        - Vaults
+        - Vault Wallets
       x-readme:
         code-samples:
           - language: python
@@ -1023,7 +1023,7 @@ paths:
       summary: Get addresses (Paginated)
       description: Returns a paginated response of the addresses for a given vault account and asset.
       tags:
-        - Vaults
+        - Vault Wallets
       x-readme:
         code-samples:
           - language: python
@@ -1094,7 +1094,7 @@ paths:
         Get the maximum amount of a particular asset that can be spent in a single
         transaction from a specified vault account (UTXO assets only).
       tags:
-        - Vaults
+        - Transactions Management
       x-readme:
         code-samples:
           - language: python
@@ -1154,7 +1154,7 @@ paths:
       summary: Update address description
       description: Updates the description of an existing address of an asset in a vault account.
       tags:
-        - Vaults
+        - Vault Wallets
       x-readme:
         code-samples:
           - language: python
@@ -1233,7 +1233,7 @@ paths:
       summary: Assign AML customer reference ID
       description: Sets an AML/KYT customer reference ID for a specific address
       tags:
-        - Vaults
+        - Vault Wallets
       x-readme:
         code-samples:
           - language: python
@@ -1298,7 +1298,7 @@ paths:
       summary: Convert a segwit address to legacy format
       description: Converts an existing segwit address to the legacy format
       tags:
-        - Vaults
+        - Vault Wallets
       parameters:
         - in: path
           name: vaultAccountId
@@ -1350,7 +1350,7 @@ paths:
       summary: Get UTXO unspent inputs information
       description: Returns unspent inputs information of an UTXO asset in a vault account
       tags:
-        - Vaults
+        - Balances
       x-readme:
         code-samples:
           - language: python
@@ -1402,7 +1402,7 @@ paths:
       summary: Get the public key for a derivation path
       description: Gets the public key information based on derivation path and signing algorithm.
       tags:
-        - Vaults
+        - Vault Wallets
       x-readme:
         code-samples:
           - language: python
@@ -1472,7 +1472,7 @@ paths:
       summary: Get the public key of an asset in a vault account
       description: Get the public key information for a specific asset in a vault account
       tags:
-        - Vaults
+        - Vault Wallets
       x-readme:
         code-samples:
           - language: python
@@ -1556,7 +1556,7 @@ paths:
       summary: Get asset balance for chosen assets
       description: Gets the assets amount summary for all accounts or filtered accounts.
       tags:
-        - Vaults
+        - Balances
       x-readme:
         code-samples:
           - language: python
@@ -1602,7 +1602,7 @@ paths:
       summary: Get vault balance by an asset
       description: Get the total balance of an asset across all the vault accounts
       tags:
-        - Vaults
+        - Balances
       x-readme:
         code-samples:
           - language: python
@@ -1669,7 +1669,7 @@ paths:
 
         - Your workspace continues to receive incoming transfers during this time.
       tags:
-        - Workspace Management
+        - Workspace Settings
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       responses:
@@ -2810,7 +2810,7 @@ paths:
     get:
       summary: List internal wallets
       tags:
-        - Whitelisted Internal Wallets
+        - Internal Wallets
       description: |
         Gets a list of internal wallets.
 
@@ -2847,7 +2847,7 @@ paths:
     post:
       summary: Create an internal wallet
       tags:
-        - Whitelisted Internal Wallets
+        - Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -2887,7 +2887,7 @@ paths:
     get:
       summary: Get assets for internal wallet
       tags:
-        - Whitelisted Internal Wallets
+        - Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -2932,7 +2932,7 @@ paths:
     delete:
       summary: Delete an internal wallet
       tags:
-        - Whitelisted Internal Wallets
+        - Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -2974,7 +2974,7 @@ paths:
     post:
       summary: Set an AML/KYT customer reference ID for an internal wallet
       tags:
-        - Whitelisted Internal Wallets
+        - Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3023,7 +3023,7 @@ paths:
     get:
       summary: Get an asset from an internal wallet
       tags:
-        - Whitelisted Internal Wallets
+        - Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3075,7 +3075,7 @@ paths:
     post:
       summary: Add an asset to an internal wallet
       tags:
-        - Whitelisted Internal Wallets
+        - Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3133,7 +3133,7 @@ paths:
     delete:
       summary: Delete a whitelisted address from an internal wallet
       tags:
-        - Whitelisted Internal Wallets
+        - Internal Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3613,7 +3613,7 @@ paths:
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
-        - Whitelisted External Wallets
+        - External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3651,7 +3651,7 @@ paths:
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
-        - Whitelisted External Wallets
+        - External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3697,7 +3697,7 @@ paths:
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
-        - Whitelisted External Wallets
+        - External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3742,7 +3742,7 @@ paths:
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
-        - Whitelisted External Wallets
+        - External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3784,7 +3784,7 @@ paths:
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
-        - Whitelisted External Wallets
+        - External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3833,7 +3833,7 @@ paths:
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
       tags:
-        - Whitelisted External Wallets
+        - External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3879,7 +3879,7 @@ paths:
       summary: Add an asset to an external wallet.
       description: Adds an asset to an existing external wallet.
       tags:
-        - Whitelisted External Wallets
+        - External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3931,7 +3931,7 @@ paths:
       summary: Delete an asset from an external wallet
       description: Deletes an external wallet asset by ID.
       tags:
-        - Whitelisted External Wallets
+        - External Wallets
       x-readme:
         code-samples:
           - language: python
@@ -3974,7 +3974,7 @@ paths:
       summary: List Whitelisted Contracts
       description: Gets a list of whitelisted contracts.
       tags:
-        - Whitelisted Contracts
+        - Contracts
       responses:
         '200':
           description: A list of whitelisted contracts
@@ -4000,7 +4000,7 @@ paths:
       summary: Create a Whitelisted Contract
       description: Creates a new whitelisted contract.
       tags:
-        - Whitelisted Contracts
+        - Contracts
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       responses:
@@ -4034,7 +4034,7 @@ paths:
       summary: Find a Specific Whitelisted Contract
       description: Returns a whitelisted contract by Fireblocks Contract ID
       tags:
-        - Whitelisted Contracts
+        - Contracts
       parameters:
         - in: path
           name: contractId
@@ -4068,7 +4068,7 @@ paths:
       summary: Delete a Whitelisted Contract
       description: Deletes a whitelisted contract by Fireblocks Contract ID
       tags:
-        - Whitelisted Contracts
+        - Contracts
       parameters:
         - in: path
           name: contractId
@@ -4099,7 +4099,7 @@ paths:
       summary: Find a whitelisted contract's asset
       description: Returns a whitelisted contract's asset by ID.
       tags:
-        - Whitelisted Contracts
+        - Contracts
       parameters:
         - in: path
           name: contractId
@@ -4141,7 +4141,7 @@ paths:
       summary: Add an Asset to a Whitelisted Contract
       description: Adds an asset to an existing whitelisted contract.
       tags:
-        - Whitelisted Contracts
+        - Contracts
       parameters:
         - in: path
           name: contractId
@@ -4189,7 +4189,7 @@ paths:
       summary: Delete a Whitelisted Contract's Asset
       description: Deletes a whitelisted contract's asset by Fireblocks Contract ID and Asset ID.
       tags:
-        - Whitelisted Contracts
+        - Contracts
       parameters:
         - in: path
           name: contractId
@@ -4355,7 +4355,7 @@ paths:
       summary: Get transaction history
       description: Get the transaction history for your workspace.
       tags:
-        - Transactions
+        - Transactions Management
       x-readme:
         code-samples:
           - language: python
@@ -4530,7 +4530,7 @@ paths:
 
         - Typed Message Signing is supported for the following asset IDs: 'ETH', 'BTC' and 'TRX'. [Typed Message Signing Guide](https://developers.fireblocks.com/docs/typed-message-signing-overview).
       tags:
-        - Transactions
+        - Transactions Management
       parameters:
         - $ref: '#/components/parameters/X-End-User-Wallet-Id'
         - $ref: '#/components/parameters/X-Idempotency-Key'
@@ -4604,7 +4604,7 @@ paths:
 
         * Note: Supports all Fireblocks assets except ZCash (ZEC).
       tags:
-        - Transactions
+        - Fee Management
       x-readme:
         code-samples:
           - language: python
@@ -4659,7 +4659,7 @@ paths:
       summary: Get a specific transaction by Fireblocks transaction ID
       description: Get a specific transaction data by Fireblocks Transaction ID
       tags:
-        - Transactions
+        - Transactions Management
       x-readme:
         code-samples:
           - language: python
@@ -4702,7 +4702,7 @@ paths:
       summary: Get a specific transaction by external transaction ID
       description: Returns transaction by external transaction ID.
       tags:
-        - Transactions
+        - Transactions Management
       x-readme:
         code-samples:
           - language: python
@@ -4743,7 +4743,7 @@ paths:
       summary: Set confirmation threshold by Fireblocks Transaction ID
       description: Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID.
       tags:
-        - Transactions
+        - Transactions Management
       x-readme:
         code-samples:
           - language: python
@@ -4790,7 +4790,7 @@ paths:
       summary: Drop ETH (EVM) transaction by ID
       description: Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount.
       tags:
-        - Transactions
+        - Transactions Management
       x-readme:
         code-samples:
           - language: python
@@ -4841,7 +4841,7 @@ paths:
 
         Can be used only for transactions that did not get to the BROADCASTING state.
       tags:
-        - Transactions
+        - Transactions Management
       x-readme:
         code-samples:
           - language: python
@@ -4889,7 +4889,7 @@ paths:
         For account based assets - the entire amount of the transaction is frozen 
         For UTXO based assets - all UTXOs of the specified transaction are frozen
       tags:
-        - Transactions
+        - AML Policy
       x-readme:
         code-samples:
           - language: python
@@ -4930,7 +4930,7 @@ paths:
       summary: Unfreeze a transaction
       description: Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again.
       tags:
-        - Transactions
+        - AML Policy
       x-readme:
         code-samples:
           - language: python
@@ -5020,7 +5020,7 @@ paths:
       summary: Set confirmation threshold by transaction hash
       description: Overrides the required number of confirmations for transaction completion by transaction hash.
       tags:
-        - Transactions
+        - Transactions Management
       x-readme:
         code-samples:
           - language: python
@@ -5074,7 +5074,7 @@ paths:
         - For ETH (and all EVM) based assets, the suggested gas price
         - For XRP/XLM, the transaction fee
       tags:
-        - Blockchains & Assets
+        - Fee Management
       x-readme:
         code-samples:
           - language: python
@@ -5742,7 +5742,7 @@ paths:
             code: CompletableFuture<ApiResponse<List<UserGroupResponse>>> response = fireblocks.workspaceManagement().getUserGroups();
             name: Fireblocks SDK Java example
       tags:
-        - Workspace Management
+        - Users Management
       responses:
         '200':
           description: List of the user groups in your workspace
@@ -5777,7 +5777,7 @@ paths:
             code: CompletableFuture<ApiResponse<CreateUserGroupResponse>> response = fireblocks.workspaceManagement().createUserGroup(userGroupCreateRequest, idempotencyKey);
             name: Fireblocks SDK Java example
       tags:
-        - Workspace Management
+        - Users Management
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -5807,7 +5807,7 @@ paths:
 
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
-        - Workspace Management
+        - Users Management
       parameters:
         - in: path
           required: true
@@ -5843,7 +5843,7 @@ paths:
         Update a user group by ID
         - Please note that this endpoint is available only for API keys with Admin permissions.
       tags:
-        - Workspace Management
+        - Users Management
       parameters:
         - in: path
           required: true
@@ -5886,7 +5886,7 @@ paths:
         Delete a user group by ID.</br>
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
-        - Workspace Management
+        - Users Management
       parameters:
         - in: path
           required: true
@@ -5918,7 +5918,7 @@ paths:
       description: |
         DEPRECATED - please use `GET /management/users` instead
       tags:
-        - Workspace Management
+        - Users Management
       x-readme:
         code-samples:
           - language: python
@@ -5952,7 +5952,7 @@ paths:
       deprecated: true
       description: Deprecated. Please use the `GET /management/audit_logs` endpoint instead.
       tags:
-        - Workspace Management
+        - Audit Log
       x-readme:
         code-samples:
           - language: python
@@ -5998,7 +5998,7 @@ paths:
 
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
-        - Workspace Management
+        - Audit Log
       x-readme:
         code-samples:
           - language: javascript
@@ -7604,7 +7604,7 @@ paths:
       summary: Update admin quorum threshold
       description: Update admin quorum threshold
       tags:
-        - Workspace Management
+        - Workspace settings
       x-readme:
         code-samples:
           - language: python
@@ -8669,7 +8669,7 @@ paths:
         '500':
           description: Internal server error
       tags:
-        - Compliance
+        - Travel Rule
       x-readme:
         code-samples:
           - language: typescript
@@ -8710,7 +8710,7 @@ paths:
         '500':
           description: Internal server error
       tags:
-        - Compliance
+        - Travel Rule
       x-readme:
         code-samples:
           - language: typescript
@@ -8755,7 +8755,7 @@ paths:
         '500':
           description: Internal server error
       tags:
-        - Compliance
+        - Travel Rule
       x-readme:
         code-samples:
           - language: typescript
@@ -8809,7 +8809,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/TravelRuleGetAllVASPsResponse'
       tags:
-        - Compliance
+        - Travel Rule
       x-readme:
         code-samples:
           - language: typescript
@@ -8850,7 +8850,7 @@ paths:
         '500':
           description: Internal server error
       tags:
-        - Compliance
+        - Travel Rule
       x-readme:
         code-samples:
           - language: typescript
@@ -8873,7 +8873,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScreeningPolicyResponse'
       tags:
-        - Compliance
+        - Travel Rule
       x-readme:
         code-samples:
           - language: typescript
@@ -8896,7 +8896,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScreeningProviderRulesConfigurationResponse'
       tags:
-        - Compliance
+        - Travel Rule
       x-readme:
         code-samples:
           - language: typescript
@@ -8919,7 +8919,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScreeningConfigurationsRequest'
       tags:
-        - Compliance
+        - Travel Rule
       x-readme:
         code-samples:
           - language: typescript
@@ -8942,7 +8942,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScreeningConfigurationsRequest'
       tags:
-        - Compliance
+        - Travel Rule
       x-readme:
         code-samples:
           - language: typescript
@@ -8965,7 +8965,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScreeningConfigurationsRequest'
       tags:
-        - Compliance
+        - AML Policy
       x-readme:
         code-samples:
           - language: typescript
@@ -8988,7 +8988,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScreeningConfigurationsRequest'
       tags:
-        - Compliance
+        - AML Policy
       x-readme:
         code-samples:
           - language: typescript
@@ -9011,7 +9011,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScreeningProviderRulesConfigurationResponse'
       tags:
-        - Compliance
+        - AML Policy
       x-readme:
         code-samples:
           - language: typescript
@@ -9034,7 +9034,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScreeningPolicyResponse'
       tags:
-        - Compliance
+        - AML Policy
       x-readme:
         code-samples:
           - language: typescript
@@ -9046,8 +9046,8 @@ paths:
   /screening/configurations:
     put:
       operationId: updateScreeningConfiguration
-      summary: Tenant - Screening Configuration
-      description: Update tenant screening configuration.
+      summary: Update AML Screening Configuration
+      description: Update AML screening configuration
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       responses:
@@ -9058,7 +9058,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScreeningUpdateConfigurationsRequest'
       tags:
-        - Compliance
+        - AML Policy
       x-readme:
         code-samples:
           - language: typescript
@@ -9114,7 +9114,7 @@ paths:
         '500':
           description: Internal server error
       tags:
-        - Workspace Management
+        - Workspace Settings
     get:
       operationId: getOtaStatus
       summary: Returns current One Time Address status
@@ -9146,7 +9146,7 @@ paths:
         '404':
           description: Configuration not found for tenant
       tags:
-        - Workspace Management
+        - Workspace Settings
   /management/workspace_status:
     get:
       operationId: getWorkspaceStatus
@@ -9169,7 +9169,7 @@ paths:
         '404':
           description: Workspace not found
       tags:
-        - Workspace Management
+        - Workspace Settings
       x-readme:
         code-samples:
           - language: typescript
@@ -9187,7 +9187,7 @@ paths:
         **Note:** These endpoints are currently in beta and might be subject to changes.
         If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
       tags:
-        - Policy Editor (Beta)
+        - Transaction Authorization Policy (Beta)
       x-readme:
         code-samples:
           - language: python
@@ -9223,7 +9223,7 @@ paths:
         **Note:** These endpoints are currently in beta and might be subject to changes.
         If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
       tags:
-        - Policy Editor (Beta)
+        - Transaction Authorization Policy (Beta)
       x-readme:
         code-samples:
           - language: python
@@ -9258,7 +9258,7 @@ paths:
         **Note:** These endpoints are currently in beta and might be subject to changes.
         If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
       tags:
-        - Policy Editor (Beta)
+        - Transaction Authorization Policy (Beta)
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       x-readme:
@@ -9301,7 +9301,7 @@ paths:
         **Note:** These endpoints are currently in beta and might be subject to changes.
         If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
       tags:
-        - Policy Editor (Beta)
+        - Transaction Authorization Policy (Beta)
       x-readme:
         code-samples:
           - language: python
@@ -9345,7 +9345,7 @@ paths:
         **Note:** These endpoints are currently in beta and might be subject to changes.
         If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
       tags:
-        - Policy Editor (Beta)
+        - Transaction Authorization Policy (Beta)
       x-readme:
         code-samples:
           - language: python
@@ -9389,7 +9389,7 @@ paths:
 
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
-        - Workspace Management
+        - Users Management
       x-readme:
         code-samples:
           - language: javascript
@@ -9451,7 +9451,7 @@ paths:
 
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
-        - Workspace Management
+        - Users Management
       x-readme:
         code-samples:
           - language: javascript
@@ -9522,7 +9522,7 @@ paths:
 
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
-        - Workspace Management
+        - API Keys Management
       x-readme:
         code-samples:
           - language: javascript
@@ -9581,7 +9581,7 @@ paths:
       summary: Create API Key
       description: Create a new API key in your workspace
       tags:
-        - Workspace Management
+        - API Keys Management
       x-readme:
         code-samples:
           - language: javascript
@@ -9652,7 +9652,7 @@ paths:
 
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
-        - Workspace Management
+        - Users Management
       x-readme:
         code-samples:
           - language: javascript
@@ -9719,7 +9719,7 @@ paths:
 
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
       tags:
-        - Workspace Management
+        - API Keys Management
       x-readme:
         code-samples:
           - language: javascript

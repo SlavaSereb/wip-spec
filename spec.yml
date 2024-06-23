@@ -126,15 +126,16 @@ x-tagGroups:
       - Exchange Accounts
       - FIAT Accounts
       - Dapp Connections
-  - name: ""
-    tags:
-      - Webhooks
-      - Cosigners (Beta)
   - name: On-Chain
     tags:
       - NFTs
       - Staking
       - Dapp Connections
+  - name: ""
+    tags:
+      - Webhooks
+      - Cosigners (Beta)
+  
 paths:
   /vault/accounts:
     get:

@@ -129,8 +129,12 @@ x-tagGroups:
   - name: ""
     tags:
       - Webhooks
-      - NFTs
       - Cosigners (Beta)
+  - name: On-Chain APIs
+    tags:
+      - NFTs
+      - Staking
+      - Dapp Connections
 paths:
   /vault/accounts:
     get:
@@ -1933,7 +1937,7 @@ paths:
       summary: List fiat accounts
       description: Returns all fiat accounts.
       tags:
-        - Fiat Accounts
+        - FIAT Accounts
       x-readme:
         code-samples:
           - language: python
@@ -1966,7 +1970,7 @@ paths:
       summary: Find a specific fiat account
       description: Returns a fiat account by ID.
       tags:
-        - Fiat Accounts
+        - FIAT Accounts
       x-readme:
         code-samples:
           - language: python
@@ -2006,7 +2010,7 @@ paths:
       summary: Redeem funds to DDA
       description: Redeems funds to the linked DDA.
       tags:
-        - Fiat Accounts
+        - FIAT Accounts
       x-readme:
         code-samples:
           - language: python
@@ -2052,7 +2056,7 @@ paths:
       summary: Deposit funds from DDA
       description: Deposits funds from the linked DDA.
       tags:
-        - Fiat Accounts
+        - FIAT Accounts
       x-readme:
         code-samples:
           - language: python
@@ -2115,7 +2119,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Fireblocks Network
+        - Network Connections
       x-readme:
         code-samples:
           - language: python
@@ -2166,7 +2170,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Fireblocks Network
+        - Network Connections
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -2219,7 +2223,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Fireblocks Network
+        - Network Connections
       parameters:
         - in: path
           name: connectionId
@@ -2259,7 +2263,7 @@ paths:
       summary: Retrieve third-party network routing validation by asset type.
       description: The Fireblocks Network allows for flexibility around incoming deposits. A receiver can receive network deposits to locations other than Fireblocks. This endpoint validates whether future transactions are routed to the displayed recipient or to a 3rd party.
       tags:
-        - Fireblocks Network
+        - Network Connections
       parameters:
         - in: path
           name: connectionId
@@ -2318,7 +2322,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Fireblocks Network
+        - Network Connections
       x-readme:
         code-samples:
           - language: python
@@ -2375,7 +2379,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Fireblocks Network
+        - Network Connections
       parameters:
         - in: path
           name: connectionId
@@ -2427,7 +2431,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Fireblocks Network
+        - Network IDs
       responses:
         '200':
           description: A list of network IDs
@@ -2472,7 +2476,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Fireblocks Network
+        - Network IDs
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -2509,7 +2513,7 @@ paths:
         Your routing policy defines how your transactions are routed.
         You can use one or more enabled routing policy asset groups to describe connection or network id routing policy.
       tags:
-        - Fireblocks Network
+        - Network IDs
       responses:
         '200':
           description: A list of enabled routing policy asset groups
@@ -2553,7 +2557,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Fireblocks Network
+        - Network IDs
       parameters:
         - in: path
           name: networkId
@@ -2604,7 +2608,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Fireblocks Network
+        - Network IDs
       parameters:
         - in: path
           name: networkId
@@ -2655,7 +2659,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Fireblocks Network
+        - Network IDs
       parameters:
         - in: path
           name: networkId
@@ -2712,7 +2716,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Fireblocks Network
+        - Network IDs
       parameters:
         - in: path
           name: networkId
@@ -2770,7 +2774,7 @@ paths:
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       tags:
-        - Fireblocks Network
+        - Network IDs
       parameters:
         - in: path
           name: networkId
@@ -4232,7 +4236,7 @@ paths:
 
         The response includes all assets supported by Fireblocks globally in addition to assets added to the specific workspace.
       tags:
-        - Blockchains & Assets
+        - Blockchains
       x-readme:
         code-samples:
           - language: python
@@ -4273,7 +4277,7 @@ paths:
         - NEAR
         - Solana
       tags:
-        - Blockchains & Assets
+        - Blockchains
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       x-readme:
@@ -4971,7 +4975,7 @@ paths:
       summary: Validate destination address
       description: Checks if an address is valid and active (for XRP, DOT, XLM, and EOS).
       tags:
-        - Blockchains & Assets
+        - Transactions Management
       x-readme:
         code-samples:
           - language: python
@@ -5114,7 +5118,7 @@ paths:
   /payments/payout:
     post:
       tags:
-        - Payments - Payout
+        - Payouts
       description: |
         **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br>
         </br>These endpoints are currently in beta and might be subject to changes.</br>
@@ -5218,7 +5222,7 @@ paths:
   /payments/payout/{payoutId}/actions/execute:
     post:
       tags:
-        - Payments - Payout
+        - Payouts
       summary: Execute a payout instruction set
       description: |
         **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br>
@@ -5277,7 +5281,7 @@ paths:
   /payments/payout/{payoutId}:
     get:
       tags:
-        - Payments - Payout
+        - Payouts
       summary: Get the status of a payout instruction set
       description: |
         **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br>
@@ -5365,7 +5369,7 @@ paths:
   /payments/workflow_config:
     post:
       tags:
-        - Payments - Flows
+        - Flows
       description: Generate a new configuration ID to be used for initiating executions in subsequent phases. This configuration should include the operations you intend to incorporate into the workflow, such as TRANSFER, CONVERT, and DISBURSE, in addition to your pre-screening preferences, which are disabled by default.
       summary: Create payment flow configuration
       parameters:
@@ -5398,7 +5402,7 @@ paths:
   /payments/workflow_config/{configId}:
     get:
       tags:
-        - Payments - Flows
+        - Flows
       description: Retrieve a previously created workflow configuration using the specified "configId".
       summary: Retrieve workflow configuration
       parameters:
@@ -5431,7 +5435,7 @@ paths:
       operationId: getFlowConfiguration
     delete:
       tags:
-        - Payments - Flows
+        - Flows
       description: Delete a configuration using the specified "configId".
       summary: Delete workflow configuration
       parameters:
@@ -5465,7 +5469,7 @@ paths:
   /payments/workflow_execution:
     post:
       tags:
-        - Payments - Flows
+        - Flows
       description: Validate the "workflow-config" previously created by utilizing the unique "configId". This step requires the mandatory field amount, and allows for modifications to other fields defined via the "workflow-config" endpoint, including pre-screening preferences. A response containing the "workflowExecutionId" and detailing the validation status will be provided. Execution is ready when the "workflow-execution" status is READY_FOR_LAUNCH, at which point it can be initiated with "POST /workflow-execution/{workflowExecutionId}/actions/execute".
       summary: Create workflow execution
       parameters:
@@ -5498,7 +5502,7 @@ paths:
   /payments/workflow_execution/{workflowExecutionId}:
     get:
       tags:
-        - Payments - Flows
+        - Flows
       description: Retrieve details of a previously initiated workflow execution by specifying the "workflowExecutionId"
       summary: Get workflow execution details
       parameters:
@@ -5530,7 +5534,7 @@ paths:
   /payments/workflow_execution/{workflowExecutionId}/actions/execute:
     post:
       tags:
-        - Payments - Flows
+        - Flows
       description: Launch the execution of a pre-configured workflow, identified by "workflowExecutionId", once it reaches the READY_FOR_LAUNCH state. The workflow undergoes several phases during execution - EXECUTION_IN_PROGRESS - Marks the start of the workflow execution. EXECUTION_COMPLETED or EXECUTION_FAILED - Indicates the execution has reached a final state.
       summary: Execute the payments workflow
       parameters:
@@ -6807,7 +6811,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AssetAlreadyExistHttpError'
       tags:
-        - Tokenization
+        - Tokens
     get:
       operationId: getLinkedTokens
       summary: List all linked tokens
@@ -6859,7 +6863,7 @@ paths:
         default:
           $ref: '#/components/responses/Error'
       tags:
-        - Tokenization
+        - Tokens
   /tokenization/tokens/link:
     post:
       operationId: link
@@ -6915,7 +6919,7 @@ paths:
         default:
           $ref: '#/components/responses/Error'
       tags:
-        - Tokenization
+        - Tokens
   /tokenization/tokens/{id}:
     delete:
       operationId: unlink
@@ -6959,7 +6963,7 @@ paths:
         default:
           $ref: '#/components/responses/Error'
       tags:
-        - Tokenization
+        - Tokens
     get:
       operationId: getLinkedToken
       summary: Return a linked token
@@ -6996,7 +7000,7 @@ paths:
         default:
           $ref: '#/components/responses/Error'
       tags:
-        - Tokenization
+        - Tokens
   /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions:
     get:
       operationId: getDeployedContractAbi
@@ -8488,7 +8492,7 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       tags:
-        - dApp Connections
+        - Dapp Connections
       x-readme:
         code-samples:
           - language: typescript
@@ -8534,7 +8538,7 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       tags:
-        - dApp Connections
+        - Dapp Connections
       x-readme:
         code-samples:
           - language: typescript
@@ -8590,7 +8594,7 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       tags:
-        - dApp Connections
+        - Dapp Connections
       x-readme:
         code-samples:
           - language: typescript
@@ -8628,7 +8632,7 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       tags:
-        - dApp Connections
+        - Dapp Connections
       x-readme:
         code-samples:
           - language: typescript

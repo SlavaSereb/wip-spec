@@ -130,7 +130,7 @@ x-tagGroups:
     tags:
       - Webhooks
       - Cosigners (Beta)
-  - name: On-Chain APIs
+  - name: On-Chain
     tags:
       - NFTs
       - Staking

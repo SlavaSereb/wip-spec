@@ -138,6 +138,7 @@ x-tagGroups:
     tags:
       - Webhooks
       - Cosigners (Beta)
+      - Off Exchange
   
 paths:
   /vault/accounts:
@@ -6051,8 +6052,8 @@ paths:
       operationId: getAuditLogs
   /off_exchange/add:
     post:
-      summary: add collateral
-      description: add collateral, create deposit request
+      summary: Add Collateral
+      description: Add collateral - create deposit request
       tags:
         - Off Exchange
       parameters:
@@ -6082,8 +6083,8 @@ paths:
             name: Fireblocks SDK Java example
   /off_exchange/remove:
     post:
-      summary: remove collateral
-      description: remove collateral, create withdraw request
+      summary: Remove Collateral
+      description: Remove collateral - create withdraw request
       tags:
         - Off Exchange
       parameters:
@@ -6113,8 +6114,8 @@ paths:
             name: Fireblocks SDK Java example
   /off_exchange/settlements/trader:
     post:
-      summary: create settlement for a trader
-      description: create settlement for a trader
+      summary: Create Settlement For a Trader
+      description: Create Settlement For a Trader
       tags:
         - Off Exchange
       parameters:
@@ -6144,8 +6145,8 @@ paths:
             name: Fireblocks SDK Java example
   /off_exchange/settlements/transactions:
     get:
-      summary: get settlements transactions from exchange
-      description: get settlements transactions from exchange
+      summary: Get Settlements Transactions
+      description: Get settlements transactions from exchange
       tags:
         - Off Exchange
       parameters:
@@ -6175,7 +6176,7 @@ paths:
   /off_exchange/collateral_accounts/{mainExchangeAccountId}:
     get:
       summary: Find a specific collateral exchange account
-      description: Returns a collateral account by mainExchangeAccountId.
+      description: Returns a collateral account by `mainExchangeAccountId`
       tags:
         - Off Exchange
       parameters:

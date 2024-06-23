@@ -15,60 +15,117 @@ servers:
   - url: https://sandbox-api.fireblocks.io/v1
     description: Fireblocks Sandbox Environment Base URL
 tags:
-  - name: Workspace Management
-    description: Workspace Management APIs
-  - name: Policy Editor (Beta)
+  - name: Users Management
+    description: Users Management APIs
+  - name: API Keys Management
+    description: API Keys Management APIs
+  - name: Workspace Settings
+    description: Workspace Settings APIs
+  - name: Transaction Authorization Policy (Beta)
     description: Transaction Authorization Policy Management APIs
-  - name: Compliance
-    description: Anti Money Laundering and Travel Rule policies APIs
-  - name: Blockchains & Assets
-    description: Blockchains & Assets Management APIs
-  - name: Vaults
+  - name: Travel Rule
+    description: Travel Rule Policies APIs
+  - name: AML Policy
+    description: Anti MOney Laundering Policies APIs
+  - name: Audit Log
+    description: Audit Logs APIs
+  - name: Vault Accounts
     description: Vault Accounts Management APIs
+  - name: Vault Wallets
+    description: Vault Wallets Management APIs
+  - name: Balances
+    description: Vault Wallets' Balances APIs
   - name: Transactions
     description: Transactions Management APIs
-  - name: Gas Station
-    description: Gas Station Management APIs
-  - name: Whitelisted Internal Wallets
-    description: Internal Wallets (Whitelisted Addresses) APIs
+  - name: Fee Management
+    description: Transaction Fee Management APIs
   - name: Whitelisted External Wallets
-    description: External Wallets (Whitelisted Addresses) APIs
+    description: Whitelisted External Wallets APIs
+  - name: Whitelisted Internal Wallets
+    description: Whitelisted Internal Wallets APIs
   - name: Whitelisted Contracts
-    description: Contracts (Whitelisted Addresses) APIs
-  - name: Fireblocks Network
-    description: Fireblocks Network Management APIs
+    description: Whitelisted Contracts APIs
+  - name: Network Connections
+    description: Fireblocks Network Connections APIs
+  - name: Network IDs
+    description: Fireblocks Network IDs APIs
   - name: Smart Transfers
-    description: Smart Transfers Management APIs
-  - name: Exchange Accounts
-    description: Exchange Accounts Management APIs
-  - name: Fiat Accounts
-    description: Fiat Accounts Management APIs
-  - name: Tokenization
-    description: Tokenization Management APIs
-  - name: Contract Templates
-    description: Contract Templates Management APIs
+    description: Smart Transfers APIs
+  - name: Tokens
+    description: Tokenization APIs
   - name: Deployed Contracts
     description: Deployed Contracts Management APIs
   - name: Contract Interactions
     description: Contract Interactions Management APIs
-  - name: Staking
-    description: Staking Management APIs
+  - name: Contract Templates
+    description: Smart Contract Templates APIs
   - name: NFTs
     description: NFTs Management APIs
-  - name: dApp Connections
-    description: dApp Connections Management APIs
+  - name: Dapp Connections
+    description: Dapp Connections Management APIs
   - name: Cosigners (Beta)
     description: Cosigners Management APIs
   - name: Webhooks
     description: Webhooks Management APIs
   - name: Off Exchange
     description: Off Exchange Management APIs
-  - name: Payments - Payout
+  - name: Payouts
     description: Payouts Management APIs
-  - name: Payments - Flows
+  - name: Flows
     description: Flows Management APIs
   - name: Key Link (Beta)
     description: Key Link Management APIs
+  - name: Exchange Accounts
+    description: Exchange Accounts Management APIs
+  - name: FIAT Accounts
+    description: FIAT Accounts Management APIs
+x-tagGroups:
+  - name: Workspace Management
+    tags:
+      - Users Management
+      - API Keys Management
+      - Workspace Settings
+  - name: Policy & Compliance
+    tags: 
+      - Transaction Authorization Policy
+      - Travel Rule
+      - AML Policy
+      - Audit Log
+  - name: Vault Management
+    tags:
+      - Vault Accounts
+      - Vault Wallets
+      - Balances
+  - name: Transactions
+    tags:
+      - Transactions Management
+      - Fee Management
+  - name: Whitelisted Addresses
+    tags:
+      - Whitelisted External Addresses
+      - Whitelisted Internal Addresses
+      - Whitelisted Contracts
+  - name: Fireblocks Network
+    tags:
+      - Network Connections
+      - Network IDs
+      - Smart Transfers
+  - name: Tokenization
+    tags:
+      - Tokens
+      - Contract Templates
+      - Contract Interactions
+      - Contract Templates
+      - Deployed Contracts
+  - name: Payments
+    tags:
+      - Payouts
+      - Flows
+  - name: Third Party Connections
+    tags:
+      - Exchange Accounts
+      - FIAT Accounts
+      - Dapp Connections
 paths:
   /vault/accounts:
     get:

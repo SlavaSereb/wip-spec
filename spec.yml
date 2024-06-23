@@ -11100,6 +11100,7 @@ components:
           description: |
             Error code. For more info on Fireblocks Error Codes please visit the following [guide](https://developers.fireblocks.com/reference/api-responses)
           type: number
+          example: -1
     RewardsInfo:
       type: object
       properties:

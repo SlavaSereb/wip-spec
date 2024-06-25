@@ -118,7 +118,6 @@ x-tagGroups:
       - Tokens
       - Contract Templates
       - Contract Interactions
-      - Contract Templates
       - Deployed Contracts
   - name: Payments
     tags:

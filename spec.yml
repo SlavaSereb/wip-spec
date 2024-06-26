@@ -118,6 +118,7 @@ x-tagGroups:
       - Tokens
       - Contract Templates
       - Contract Interactions
+      - Contract Templates
       - Deployed Contracts
   - name: Payments
     tags:
@@ -133,7 +134,7 @@ x-tagGroups:
       - NFTs
       - Staking
       - Dapp Connections
-  - name: Other
+  - name: ""
     tags:
       - Webhooks
       - Cosigners (Beta)

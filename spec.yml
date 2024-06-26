@@ -35,7 +35,7 @@ tags:
   - name: Travel Rule
     description: Travel Rule Policies APIs
   - name: AML Policy
-    description: Anti MOney Laundering Policies APIs
+    description: Anti Money Laundering Policies APIs
   - name: Audit Log
     description: Audit Logs APIs
   - name: Vault Accounts

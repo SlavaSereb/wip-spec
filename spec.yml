@@ -48,12 +48,20 @@ tags:
     description: Transactions Management APIs
   - name: Fee Management
     description: Transaction Fee Management APIs
-  - name: Whitelisted External Wallets
-    description: Whitelisted External Wallets APIs
-  - name: Whitelisted Internal Wallets
-    description: Whitelisted Internal Wallets APIs
-  - name: Whitelisted Contracts
-    description: Whitelisted Contracts APIs
+  - name: External Wallets
+    description: |
+      Whitelisted External Wallets APIs:
+      External Wallets hold external addresses of your clients' and counterparties' wallets. 
+      Whitelisted addresses under External Wallets will not display the current on-chain balance of these addresses.
+  - name: Internal Wallets
+    description: |
+      Whitelisted Internal Wallets APIs:
+      Internal Wallets contain external addresses of wallets you own outside of Fireblocks. 
+      Whitelisted addresses under Internal Wallets will also display the current on-chain balance of these addresses.
+  - name: Contracts
+    description: |
+      Whitelisted Contracts APIs:
+      Whitelisted Contracts contain the addresses of the smart contracts you intend to interact with.
   - name: Network Connections
     description: Fireblocks Network Connections APIs
   - name: Network IDs
@@ -124,8 +132,11 @@ x-tagGroups:
       - Tokens
       - Contract Templates
       - Contract Interactions
-      - Contract Templates
       - Deployed Contracts
+  - name: Tokens Management
+    tags:
+      - NFTs
+      - Supported Assets
   - name: Payments
     tags:
       - Payouts
@@ -134,10 +145,8 @@ x-tagGroups:
     tags:
       - Exchange Accounts
       - FIAT Accounts
-      - Dapp Connections
-  - name: On-Chain
+  - name: On-Chain Applications
     tags:
-      - NFTs
       - Staking
       - Dapp Connections
   - name: ''
@@ -6526,7 +6535,7 @@ paths:
         The response includes all assets supported by Fireblocks globally in
         addition to assets added to the specific workspace.
       tags:
-        - Blockchains
+        - Supported Assets
       x-readme:
         code-samples:
           - language: python
@@ -6597,7 +6606,7 @@ paths:
 
         - Solana
       tags:
-        - Blockchains
+        - Supported Assets
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       x-readme:
@@ -12155,7 +12164,7 @@ paths:
       operationId: listOwnedTokens
       summary: List all distinct owned tokens (paginated)
       description: >
-        Returns all owned distinct tokens (for your tenant) and their data in
+        Returns all owned distinct tokens (for your workspace) and their data in
         your workspace.
       x-readme:
         code-samples:
@@ -12714,7 +12723,7 @@ paths:
     put:
       operationId: updateTokensOwnershipStatus
       summary: Update tokens ownership status
-      description: Updates tokens status for a tenant, in all tenant vaults.
+      description: Updates tokens status for a workspace, in all workspace vault accounts.
       x-readme:
         code-samples:
           - language: javascript
@@ -12789,8 +12798,8 @@ paths:
       operationId: updateTokensOwnershipSpam
       summary: Update tokens ownership spam property
       description: >-
-        Updates tokens spam property for a tenant's token ownerships, in all
-        tenant vaults.
+        Updates tokens spam property for a workspace's token ownerships, in all
+        vaults accounts.
       x-readme:
         code-samples:
           - language: python
@@ -14092,7 +14101,7 @@ paths:
                 $ref: '#/components/schemas/GetOtaStatusResponse'
           description: Current OTA status
         '404':
-          description: Configuration not found for tenant
+          description: Configuration not found for workspace
       tags:
         - Workspace Settings
       x-codeSamples:
@@ -14513,7 +14522,7 @@ paths:
       operationId: getConsoleUsers
       summary: Get console users
       description: >
-        Get console users for your tenant.
+        Get console users for your workspace.
 
 
         - Please note that this endpoint is available only for API keys with
@@ -24844,12 +24853,12 @@ components:
       properties:
         disableBypass:
           type: boolean
-          description: Flag to enable or disable bypass screening on tenant configuration.
+          description: Flag to enable or disable bypass screening on workspace configuration.
         disableUnfreeze:
           type: boolean
           description: >-
             Flag to enable or disable unfreeze of transaction frozen by policy
-            rule on tenant configuration.
+            rule on workspace configuration.
     GetOtaStatusResponse:
       type: object
       properties:

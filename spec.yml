@@ -20262,14 +20262,14 @@ components:
         id:
           type: string
           description: Unique Fireblocks identifier of the transaction
+          example: "1a4d77a7-f919-426e-ab3a-7062c9995be8"
         status:
           type: string
           description: >-
             The primary status of the transaction. For details, see [Primary
             transaction statuses.]
             (https://developers.fireblocks.com/reference/primary-transaction-statuses)
-        systemMessages:
-          $ref: '#/components/schemas/SystemMessageInfo'
+          example: SUBMITTED
     TransactionFee:
       type: object
       properties:

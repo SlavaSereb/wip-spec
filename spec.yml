@@ -117,6 +117,7 @@ x-tagGroups:
     tags:
       - Transactions Management
       - Fee Management
+      - Gas Station
   - name: Whitelisted Addresses
     tags:
       - External Wallets
@@ -1166,7 +1167,7 @@ paths:
       summary: Create a new vault wallet
       description: Creates a wallet for a specific asset in a vault account
       tags:
-        - Vault Wallet
+        - Vault Wallets
       x-readme:
         code-samples:
           - language: python
@@ -11837,7 +11838,7 @@ paths:
       summary: Update admin quorum threshold
       description: Update admin quorum threshold
       tags:
-        - Workspace settings
+        - Workspace Settings
       x-readme:
         code-samples:
           - language: python

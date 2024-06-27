@@ -96,6 +96,8 @@ tags:
     description: Exchange Accounts Management APIs
   - name: FIAT Accounts
     description: FIAT Accounts Management APIs
+  - name: Gas Station
+    description: Fireblocks Gas Station Management APIs
 x-tagGroups:
   - name: Workspace Management
     tags:

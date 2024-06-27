@@ -7015,7 +7015,7 @@ paths:
             name: Fireblocks SDK Java example
       responses:
         '200':
-          description: A transaction object
+          description: A create transaction object
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'

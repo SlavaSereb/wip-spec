@@ -145,6 +145,7 @@ x-tagGroups:
     tags:
       - Exchange Accounts
       - FIAT Accounts
+      - Off Exchange
   - name: On-Chain Applications
     tags:
       - Staking
@@ -153,7 +154,6 @@ x-tagGroups:
     tags:
       - Webhooks
       - Cosigners (Beta)
-      - Off Exchange
 paths:
   /vault/accounts:
     get:

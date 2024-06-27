@@ -154,6 +154,7 @@ x-tagGroups:
     tags:
       - Webhooks
       - Cosigners (Beta)
+      - Key Link (Beta)
 paths:
   /vault/accounts:
     get:

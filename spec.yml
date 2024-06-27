@@ -20269,7 +20269,7 @@ components:
             The primary status of the transaction. For details, see [Primary
             transaction statuses.]
             (https://developers.fireblocks.com/reference/primary-transaction-statuses)
-          example: SUBMITTED
+          $ref: '#/components/schemas/TransactionStatus'
     TransactionFee:
       type: object
       properties:

@@ -12390,8 +12390,12 @@ components:
       properties:
         message:
           type: string
+          description: Error Message. Learn more in the following [guide](https://developers.fireblocks.com/reference/api-error-codes).
+          example: Invalid signature
         code:
           type: number
+          example: -1
+          description: Error Code. Learn more in the following [guide](https://developers.fireblocks.com/reference/api-error-codes).
     RewardsInfo:
       type: object
       properties:

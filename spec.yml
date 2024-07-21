@@ -21345,17 +21345,6 @@ components:
         format: uuid
         example: bd53b580-f69d-4ff9-ba9b-71ef02aaee13
 x-tagGroups:
-  - name: Workspace Management
-    tags:
-      - Users Management
-      - API Keys Management
-      - Workspace Settings
-  - name: Policy & Compliance
-    tags:
-      - Transaction Authorization Policy (Beta)
-      - Travel Rule
-      - AML Policy
-      - Audit Log
   - name: Vault Management
     tags:
       - Vault Accounts
@@ -21371,6 +21360,17 @@ x-tagGroups:
       - External Wallets
       - Internal Wallets
       - Contracts
+  - name: Workspace Management
+    tags:
+      - Users Management
+      - API Keys Management
+      - Workspace Settings
+  - name: Policy & Compliance
+    tags:
+      - Transaction Authorization Policy (Beta)
+      - Travel Rule
+      - AML Policy
+      - Audit Log
   - name: Fireblocks Network
     tags:
       - Network Connections

@@ -12387,9 +12387,6 @@ components:
   schemas:
     ErrorSchema:
       type: object
-      description: |
-        Fireblocks Error Response.
-        Learn more in the following [guide](https://developers.fireblocks.com/reference/api-error-codes).
       properties:
         message:
           type: string
@@ -21269,7 +21266,9 @@ components:
         - data
   responses:
     Error:
-      description: Error Response
+      description: |
+        Fireblocks Error Response.
+        Learn more in the following [guide](https://developers.fireblocks.com/reference/api-error-codes).
       headers:
         X-Request-ID:
           $ref: '#/components/headers/X-Request-ID'

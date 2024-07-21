@@ -63,7 +63,7 @@ tags:
       Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet
   - name: Balances
     description: Vault Wallets' Balances APIs
-  - name: Transactions
+  - name: Transactions Management
     description: |
       Transactions Management APIs.
 

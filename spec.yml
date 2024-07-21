@@ -22,6 +22,56 @@ security:
   - ApiKeyAuth: []
     bearerTokenAuth: []
 tags:
+  - name: Vault Accounts
+    description: |
+      Vault Accounts Management APIs.
+
+      Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account)
+  - name: Vault Wallets
+    description: |
+      Vault Wallets Management APIs.
+
+      Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet
+  - name: Balances
+    description: Vault Wallets' Balances APIs
+  - name: Transactions Management
+    description: |
+      Transactions Management APIs.
+
+      Learn more about Fireblocks Transactions management in the following [guide](https://developers.fireblocks.com/reference/create-transactions)
+  - name: Fee Management
+    description: |
+      Transaction Fee Management APIs.
+
+      Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee)
+  - name: Gas Station
+    description: |
+      Fireblocks Gas Station Management APIs.
+
+      Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station)
+  - name: External Wallets
+    description: |
+      Whitelisted External Wallets APIs:
+
+      External Wallets are entities that hold addresses external to your Fireblocks workspace and are not under your ownership. 
+      Whitelisted addresses under External Wallets will not display the current on-chain balance of these addresses.
+
+      Learn more about Whitelisted External Wallet Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#external-wallets).
+  - name: Internal Wallets
+    description: |
+      Whitelisted Internal Wallets APIs:
+
+      Internal Wallets are entities that hold addresses external to your Fireblocks workspace but are under your ownership. 
+      Whitelisted addresses under Internal Wallets will also display the current on-chain balance of these addresses.
+
+      Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)/
+  - name: Contracts
+    description: |
+      Whitelisted Contracts APIs:
+
+      Whitelisted Contracts contain the addresses of the smart contracts you intend to interact with.
+
+      Learn more about Whitelisted Smart Contracts [here](https://developers.fireblocks.com/docs/whitelist-addresses#contracts).
   - name: Users Management
     description: |
       Users Management APIs.
@@ -51,51 +101,6 @@ tags:
       Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies)
   - name: Audit Log
     description: Audit Logs APIs
-  - name: Vault Accounts
-    description: |
-      Vault Accounts Management APIs.
-
-      Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account)
-  - name: Vault Wallets
-    description: |
-      Vault Wallets Management APIs.
-
-      Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet
-  - name: Balances
-    description: Vault Wallets' Balances APIs
-  - name: Transactions Management
-    description: |
-      Transactions Management APIs.
-
-      Learn more about Fireblocks Transactions management in the following [guide](https://developers.fireblocks.com/reference/create-transactions)
-  - name: Fee Management
-    description: |
-      Transaction Fee Management APIs.
-
-      Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee)
-  - name: External Wallets
-    description: |
-      Whitelisted External Wallets APIs:
-
-      External Wallets are entities that hold addresses external to your Fireblocks workspace and are not under your ownership. 
-      Whitelisted addresses under External Wallets will not display the current on-chain balance of these addresses.
-
-      Learn more about Whitelisted External Wallet Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#external-wallets).
-  - name: Internal Wallets
-    description: |
-      Whitelisted Internal Wallets APIs:
-
-      Internal Wallets are entities that hold addresses external to your Fireblocks workspace but are under your ownership. 
-      Whitelisted addresses under Internal Wallets will also display the current on-chain balance of these addresses.
-
-      Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)/
-  - name: Contracts
-    description: |
-      Whitelisted Contracts APIs:
-
-      Whitelisted Contracts contain the addresses of the smart contracts you intend to interact with.
-
-      Learn more about Whitelisted Smart Contracts [here](https://developers.fireblocks.com/docs/whitelist-addresses#contracts).
   - name: Network Connections
     description: |
       Fireblocks Network Connections APIs.
@@ -110,34 +115,22 @@ tags:
       Learn more about Fireblocks Smart Transfers in the following [guide](https://developers.fireblocks.com/docs/execute-smart-transfers)
   - name: Tokens
     description: Tokenization APIs
-  - name: Deployed Contracts
-    description: Deployed Contracts Management APIs
-  - name: Contract Interactions
-    description: Contract Interactions Management APIs
   - name: Contract Templates
     description: Smart Contract Templates APIs
+  - name: Contract Interactions
+    description: Contract Interactions Management APIs
+  - name: Deployed Contracts
+    description: Deployed Contracts Management APIs
   - name: NFTs
     description: |
       NFTs Management APIs.
 
       Learn more about Fireblocks NFT management in the following [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection)
-  - name: Dapp Connections
+  - name: Supported Assets
     description: |
-      Dapp Connections Management APIs.
+      Supported Assets APIs.
 
-      Learn more about Fireblocks Wallet Link in the following [guide](https://developers.fireblocks.com/docs/web3-wallet-link)
-  - name: Cosigners (Beta)
-    description: Cosigners Management APIs
-  - name: Webhooks
-    description: |
-      Webhooks Management APIs.
-
-      Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks)
-  - name: Off Exchange
-    description: |
-      Off Exchange Management APIs.
-
-      Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange)
+      Learn more about Supporting Additional Assets in Fireblocks in the following [guide](https://developers.fireblocks.com/docs/add-your-tokens-1)
   - name: Payouts
     description: |
       Payouts Management APIs.
@@ -148,8 +141,6 @@ tags:
       Flows Management APIs.
 
       Learn more about Fireblocks Payments - Flows in the following [guide](https://developers.fireblocks.com/docs/payment-flows-copy)
-  - name: Key Link (Beta)
-    description: Key Link Management APIs
   - name: Exchange Accounts
     description: |
       Exchange Accounts Management APIs.
@@ -160,16 +151,30 @@ tags:
       FIAT Accounts Management APIs.
 
       Learn more about Fireblocks FIAT Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers)
-  - name: Gas Station
+  - name: Off Exchange
     description: |
-      Fireblocks Gas Station Management APIs.
+      Off Exchange Management APIs.
 
-      Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station)
+      Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange)
   - name: Staking
     description: |
       Fireblocks Staking APIs.
 
       Learn more about Staking in Fireblocks in the following [guide](https://developers.fireblocks.com/docs/stake-assets)
+  - name: Dapp Connections
+    description: |
+      Dapp Connections Management APIs.
+
+      Learn more about Fireblocks Wallet Link in the following [guide](https://developers.fireblocks.com/docs/web3-wallet-link)
+  - name: Webhooks
+    description: |
+      Webhooks Management APIs.
+
+      Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks)
+  - name: Cosigners (Beta)
+    description: Cosigners Management APIs
+  - name: Key Link (Beta)
+    description: Key Link Management APIs
 paths:
   /vault/accounts:
     get:

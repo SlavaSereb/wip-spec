@@ -5066,7 +5066,7 @@ paths:
             code: 'const response: Promise<FireblocksResponse<CreateTransactionResponse>> = fireblocks.transactionsManagement.createTransaction(transactionsManagementApiCreateTransactionRequest);'
             name: Fireblocks SDK TypeScript example
           - language: java
-            code: CompletableFuture<ApiResponse<CreateTransactionResponse>> response = fireblocks.transactionsManagement().createTransaction(transactionRequest, xEndUserWalletId, idempotencyKey);
+            code: CompletableFuture<ApiResponse<CreateTransactionResponse>> response = fireblocks.transactionsManagement().createTransaction(createTransactionRequest, xEndUserWalletId, idempotencyKey);
             name: Fireblocks SDK Java example
       responses:
         '200':
@@ -5085,7 +5085,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TransactionRequest'
+              $ref: '#/components/schemas/CreateTransactionRequest'
       operationId: createTransaction
       x-codeSamples:
         - lang: python
@@ -14991,73 +14991,6 @@ components:
           $ref: '#/components/schemas/OneTimeAddress'
       required:
         - type
-    TransferPeerPathSubType:
-      type: string
-      enum:
-        - BINANCE
-        - BINANCEUS
-        - BITFINEX
-        - BITHUMB
-        - BITMEX
-        - BITSO
-        - BITSTAMP
-        - BITTREX
-        - BLINC
-        - BYBIT
-        - CIRCLE
-        - COINBASEEXCHANGE
-        - COINBASEPRO
-        - COINMETRO
-        - COINSPRO
-        - CRYPTOCOM
-        - DERIBIT
-        - GEMINI
-        - HITBTC
-        - HUOBI
-        - INDEPENDENTRESERVE
-        - KORBIT
-        - KRAKEN
-        - KRAKENINTL
-        - KUCOIN
-        - LIQUID
-        - OKCOIN
-        - OKEX
-        - PAXOS
-        - POLONIEX
-        - External
-        - Internal
-    DestinationTransferPeerPath:
-      type: object
-      description: The destination of the transaction
-      properties:
-        type:
-          $ref: '#/components/schemas/TransferPeerPathType'
-        subType:
-          $ref: '#/components/schemas/TransferPeerPathSubType'
-        id:
-          type: string
-          description: The Fireblocks' unique destination identifier
-          example: '1'
-        name:
-          type: string
-          description: Destination's name if applicable
-          example: My Other Vault Account
-        walletId:
-          type: string
-          format: uuid
-          description: The `walletId` of the Embedded Wallet
-          example: 68fa96a8-12ef-4b2d-bca7-c6d589e161dc
-        oneTimeAddress:
-          $ref: '#/components/schemas/OneTimeAddress'
-      required:
-        - type
-    TransactionRequestDestination:
-      type: object
-      properties:
-        amount:
-          type: string
-        destination:
-          $ref: '#/components/schemas/DestinationTransferPeerPath'
     TravelRuleTransactionBlockchainInfo:
       type: object
       properties:
@@ -15150,7 +15083,7 @@ components:
       required:
         - originator
         - beneficiary
-    TransactionRequest:
+    CreateTransactionRequest:
       type: object
       properties:
         operation:
@@ -15179,7 +15112,7 @@ components:
           type: array
           description: For UTXO based blockchains, you can send a single transaction to multiple destinations.
           items:
-            $ref: '#/components/schemas/TransactionRequestDestination'
+            $ref: '#/components/schemas/CreateTransactionDestination'
         amount:
           description: For `TRANSFER` operations, the requested amount to transfer, in the asset’s unit. Fireblocks recommends using a numeric string for accurate precision. Although a number input exists, it is deprecated.
           oneOf:
@@ -15311,6 +15244,240 @@ components:
           description: The primary status of the transaction. For details, see [Primary transaction statuses.] (https://developers.fireblocks.com/reference/primary-transaction-statuses)
         systemMessages:
           $ref: '#/components/schemas/SystemMessageInfo'
+    TransferPeerPathSubType:
+      type: string
+      enum:
+        - BINANCE
+        - BINANCEUS
+        - BITFINEX
+        - BITHUMB
+        - BITMEX
+        - BITSO
+        - BITSTAMP
+        - BITTREX
+        - BLINC
+        - BYBIT
+        - CIRCLE
+        - COINBASEEXCHANGE
+        - COINBASEPRO
+        - COINMETRO
+        - COINSPRO
+        - CRYPTOCOM
+        - DERIBIT
+        - GEMINI
+        - HITBTC
+        - HUOBI
+        - INDEPENDENTRESERVE
+        - KORBIT
+        - KRAKEN
+        - KRAKENINTL
+        - KUCOIN
+        - LIQUID
+        - OKCOIN
+        - OKEX
+        - PAXOS
+        - POLONIEX
+        - External
+        - Internal
+    SourceTransferPeerPath:
+      type: object
+      description: The source of the transaction.
+      properties:
+        type:
+          $ref: '#/components/schemas/TransferPeerPathType'
+        subType:
+          $ref: '#/components/schemas/TransferPeerPathSubType'
+        id:
+          type: string
+        name:
+          type: string
+        walletId:
+          type: string
+          format: uuid
+      required:
+        - type
+    DestinationTransferPeerPath:
+      type: object
+      description: The destination of the transaction
+      properties:
+        type:
+          $ref: '#/components/schemas/TransferPeerPathType'
+        subType:
+          $ref: '#/components/schemas/TransferPeerPathSubType'
+        id:
+          type: string
+          description: The Fireblocks' unique destination identifier
+          example: '1'
+        name:
+          type: string
+          description: Destination's name if applicable
+          example: My Other Vault Account
+        walletId:
+          type: string
+          format: uuid
+          description: The `walletId` of the Embedded Wallet
+          example: 68fa96a8-12ef-4b2d-bca7-c6d589e161dc
+        oneTimeAddress:
+          $ref: '#/components/schemas/OneTimeAddress'
+      required:
+        - type
+    TransactionRequestDestination:
+      type: object
+      properties:
+        amount:
+          type: string
+        destination:
+          $ref: '#/components/schemas/DestinationTransferPeerPath'
+    TransactionRequest:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/TransactionOperation'
+        note:
+          type: string
+          description: Custom note, not sent to the blockchain, to describe the transaction at your Fireblocks workspace.
+          example: Ticket 123
+        externalTxId:
+          type: string
+          description: |-
+            An optional but highly recommended parameter. Fireblocks will reject future transactions with same ID. 
+            You should set this to a unique ID representing the transaction, to avoid submitting the same transaction twice. This helps with cases where submitting the transaction responds with an error code due to Internet interruptions, but the transaction was actually sent and processed. To validate whether a transaction has been processed, [Find a specific transaction by external transaction ID](https://developers.fireblocks.com/reference/get_transactions-external-tx-id-externaltxid).
+            There is no specific format required for this parameter.
+          example: some_unique_external_tx_id
+        assetId:
+          type: string
+          description: The ID of the asset to transfer, for `TRANSFER`, `MINT` or `BURN` operations. [See the list of supported assets and their IDs on Fireblocks.](https://developers.fireblocks.com/reference/get_supported-assets)
+          x-fb-entity: asset
+          example: ETH
+        source:
+          $ref: '#/components/schemas/SourceTransferPeerPath'
+        destination:
+          $ref: '#/components/schemas/DestinationTransferPeerPath'
+        destinations:
+          type: array
+          description: For UTXO based blockchains, you can send a single transaction to multiple destinations.
+          items:
+            $ref: '#/components/schemas/TransactionRequestDestination'
+        amount:
+          description: For `TRANSFER` operations, the requested amount to transfer, in the asset’s unit. Fireblocks recommends using a numeric string for accurate precision. Although a number input exists, it is deprecated.
+          oneOf:
+            - type: string
+              description: Numeric string (recommended)
+              example: '0.02'
+            - type: number
+              description: Number (deprecated)
+              example: 0.02
+        treatAsGrossAmount:
+          type: boolean
+          description: |-
+            "When set to `true`, the fee will be deducted from the requested amount."
+
+            **Note**: This parameter can only be considered if a transaction’s asset is a base asset, such as ETH or MATIC. If the asset can’t be used for transaction fees, like USDC, this parameter is ignored and the fee is deducted from the relevant base asset wallet in the source account.
+          example: false
+        forceSweep:
+          type: boolean
+          description: |-
+            For Polkadot, Kusama and Westend transactions only. When set to true, Fireblocks will empty the asset wallet.
+
+               **Note:** If set to true when the source account is exactly 1 DOT, the transaction will fail. Any amount more or less than 1 DOT succeeds. This is a Polkadot blockchain limitation.
+          example: false
+        feeLevel:
+          type: string
+          description: For UTXO or EVM-based blockchains only. Defines the blockchain fee level which will be payed for the transaction. Alternatively, specific fee estimation parameters exist below.
+          enum:
+            - LOW
+            - MEDIUM
+            - HIGH
+          example: MEDIUM
+        fee:
+          description: For UTXO-based blockchains, the fee per bytes in the asset’s smallest unit (Satoshi, Latoshi, etc.).  For Ripple, the fee for the transaction. Fireblocks recommends using a numeric string for accurate precision. Although a number input exists, it is deprecated.
+          oneOf:
+            - type: string
+              description: Numeric string (recommended)
+            - type: number
+              description: Number (deprecated)
+        priorityFee:
+          description: For Ethereum-based blockchains only, the fee for EIP-1559 transaction pricing mechanism. Value is in Gwei.  Fireblocks recommends using a numeric string for accurate precision. Although a number input exists, it is deprecated.
+          oneOf:
+            - type: string
+              description: Numeric string (recommended)
+              example: '2'
+            - type: number
+              description: Number (deprecated)
+              example: 2
+        failOnLowFee:
+          type: boolean
+          description: When set to `true`, in case the current `MEDIUM` fee level is higher than the one specified in the transaction, the transaction will fail to avoid getting stuck with no confirmations.
+        maxFee:
+          description: The maximum fee (gas price or fee per byte) that should be payed for the transaction.  In case the current value of the requested `feeLevel` is higher than this requested maximum fee.  Represented by a numeric string for accurate precision.
+          type: string
+          example: '120'
+        gasLimit:
+          description: 'For EVM-based blockchains only. Units of gas required to process the transaction. Note: Only two of the three arguments can be specified in a single transaction: `gasLimit`, `gasPrice` and `networkFee`. Fireblocks recommends using a numeric string for accurate precision. Although a number input exists, it is deprecated.'
+          oneOf:
+            - type: string
+              description: Numeric string (recommended)
+              example: '21000'
+            - type: number
+              description: Number (deprecated)
+              example: 21000
+        gasPrice:
+          description: 'For non-EIP-1559, EVM-based transactions. Price per gas unit (in Ethereum this is specified in Gwei).  Note: Only two of the three arguments can be specified in a single transaction: `gasLimit`, `gasPrice` and `networkFee`. Fireblocks recommends using a numeric string for accurate precision.  Although a number input exists, it is deprecated.'
+          oneOf:
+            - type: string
+              description: Numeric string (recommended)
+            - type: number
+              description: Number (deprecated)
+        networkFee:
+          description: |
+            For EVM-based blockchains only. The total transaction fee in the
+            blockchain’s largest unit. Note: Only two of the three arguments can be
+            specified in a single transaction: `gasLimit`, `gasPrice` and
+            `networkFee`. Fireblocks recommends using a numeric string for accurate
+            precision. Although a number input exists, it is deprecated. - The
+            transaction blockchain fee.
+
+            - For Ethereum, you can't pass `gasPrice`, `gasLimit` and `networkFee` all
+            together.
+
+            - A numeric value representation is required.
+          oneOf:
+            - type: string
+              description: Numeric string (recommended)
+            - type: number
+              description: Number (deprecated)
+        replaceTxByHash:
+          type: string
+          description: For EVM-based blockchains only. In case a transaction is stuck, specify the hash of the stuck transaction to replace it by this transaction with a higher fee, or to replace it with this transaction with a zero fee and drop it from the blockchain.
+          example: 00000000-0000-0000-0000-000000000000
+        extraParameters:
+          $ref: '#/components/schemas/ExtraParameters'
+        customerRefId:
+          type: string
+          description: The ID for AML providers to associate the owner of funds with transactions.
+          example: abcdef
+        travelRuleMessage:
+          $ref: '#/components/schemas/TravelRuleCreateTransactionRequest'
+        autoStaking:
+          type: boolean
+          description: This feature is no longer supported.
+          deprecated: true
+        networkStaking:
+          deprecated: true
+          description: This feature is no longer supported.
+          oneOf:
+            - type: string
+              description: Numeric string (recommended)
+            - type: number
+              description: Number (deprecated)
+        cpuStaking:
+          deprecated: true
+          description: This feature is no longer supported.
+          oneOf:
+            - type: string
+              description: Numeric string (recommended)
+            - type: number
+              description: Number (deprecated)
     TransactionFee:
       type: object
       properties:

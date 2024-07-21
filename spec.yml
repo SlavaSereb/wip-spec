@@ -12419,6 +12419,7 @@ components:
       properties:
         id:
           type: string
+          description: Asset's unique identifier
           example: ETH
         total:
           description: |
@@ -12705,17 +12706,34 @@ components:
       properties:
         assetId:
           type: string
+          description: Asset's unique identifier
+          example: ETH
           x-fb-entity: asset
         address:
+          description: The asset's address
           type: string
+          example: bc1qyx6s9uq77qca3z4mt8wtf2mph55yexnnn8lxaw
         description:
+          description: The address's description
           type: string
+          example: Some End User reference
         tag:
           type: string
+          description: For Tag/Memo supporting assets - the tag/memo of the address
+          example: '123456'
         type:
+          description: |
+            The type of the address: 
+              - Permanent: the first address of the wallet
+              - Deposit: any additional address generated in the same wallet
           type: string
+          enum:
+            - Deposit
+            - Permanent
         customerRefId:
           type: string
+          description: Customer reference ID for AML integrations
+          example: some-reference
         addressFormat:
           type: string
           enum:
@@ -12724,12 +12742,19 @@ components:
             - BASE
             - PAYMENT
         legacyAddress:
+          description: For BTC and BTC based networks - the legacy address format
           type: string
+          example: 1A3BzwaWCGVz6H5VtoK5FnaWTzbKEgEDbC
         enterpriseAddress:
+          description: For ADA only - the address in enterprise format
           type: string
+          example: addr1v88fj3z8tah3tuz7yuvs84smp2dkvgswg3m4xzfjxtjhltgxp2zdx
         bip44AddressIndex:
           type: integer
+          description: BIP44 Address index - for account based assets is always 0
+          example: 0
         userDefined:
+          description: A flag indicating if the address was created by the user or the system (during address rotation)
           type: boolean
     GetVaultAccountAssetAddressesResponse:
       type: array
@@ -12741,22 +12766,34 @@ components:
         description:
           description: (Optional) Attach a description to the new address
           type: string
+          example: Some end user identifier
         customerRefId:
           description: Optional - Sets a customer reference ID
           type: string
+          example: Some user AML reference
     CreateAddressResponse:
       type: object
       properties:
         address:
+          description: The asset's address
           type: string
+          example: bc1qyx6s9uq77qca3z4mt8wtf2mph55yexnnn8lxaw
         legacyAddress:
+          description: For BTC and BTC based networks - the legacy address format
           type: string
+          example: 1A3BzwaWCGVz6H5VtoK5FnaWTzbKEgEDbC
         enterpriseAddress:
+          description: For ADA only - the address in enterprise format
           type: string
+          example: addr1v88fj3z8tah3tuz7yuvs84smp2dkvgswg3m4xzfjxtjhltgxp2zdx
         tag:
           type: string
+          description: For Tag/Memo supporting assets - the tag/memo of the address
+          example: '123456'
         bip44AddressIndex:
           type: integer
+          description: BIP44 Address index - for account based assets is always 0
+          example: 0
     PaginatedAddressResponse:
       type: object
       properties:

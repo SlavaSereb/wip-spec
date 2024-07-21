@@ -5628,7 +5628,11 @@ paths:
   /txHash/{txHash}/set_confirmation_threshold:
     post:
       summary: Set confirmation threshold by transaction hash
-      description: Overrides the required number of confirmations for transaction completion by transaction hash.
+      description: |
+        Overrides the required number of confirmations for transaction completion by
+        transaction hash.
+
+        Learn more about transaction confirmations [here](https://developers.fireblocks.com/docs/define-confirmation-policy-maybe-move-from-here)
       tags:
         - Transactions Management
       x-readme:
@@ -12375,7 +12379,7 @@ components:
       schema:
         type: string
         example: 8a11a1e2-0d23-408c-b39a-e2a5e201991b
-      description: Unique ID correlated to the API request. Please provide it in any support ticket you create or on Github issues related to Fireblocks SDKs
+      description: Unique ID correlated to the API request. Please provide it in any support ticket you create or on Github issues related to Fireblocks SDKs.
     next-page:
       schema:
         type: string
@@ -14065,7 +14069,7 @@ components:
       type: string
       description: |
         The primary status of the transaction. 
-        For details, see [Primary transaction statuses](https://developers.fireblocks.com/reference/primary-transaction-statuses)
+        For details, see [Primary transaction statuses](https://developers.fireblocks.com/reference/statuses)
       enum:
         - SUBMITTED
         - PENDING_AML_SCREENING
@@ -14694,6 +14698,9 @@ components:
           example: '0x1fdc0bc79a07387fa0de794142ead16f26edd9b5c66480139c2c37c422a3935e'
     SystemMessageInfo:
       type: object
+      description: |
+        A response from Fireblocks that communicates a message about the health of the process being performed. 
+        If this object is returned with data, you should expect potential delays or incomplete transaction statuses.
       properties:
         type:
           type: string
@@ -14702,7 +14709,7 @@ components:
             - BLOCK
         message:
           type: string
-          description: A response from Fireblocks that communicates a message about the health of the process being performed. If this object is returned with data, you should expect potential delays or incomplete transaction statuses.
+          description: ''
           example: Slow transaction processing. Outgoing transactions might be stuck.
     TransactionResponse:
       type: object
@@ -15243,9 +15250,11 @@ components:
         id:
           type: string
           description: Unique Fireblocks identifier of the transaction
+          example: 252f221f-bb61-4ef1-956f-c7568ea2a5da
         status:
           type: string
-          description: The primary status of the transaction. For details, see [Primary transaction statuses.] (https://developers.fireblocks.com/reference/primary-transaction-statuses)
+          description: The primary status of the transaction
+          $ref: '#/components/schemas/TransactionStatus'
         systemMessages:
           $ref: '#/components/schemas/SystemMessageInfo'
     TransferPeerPathSubType:
@@ -21280,7 +21289,11 @@ components:
     X-Idempotency-Key:
       name: Idempotency-Key
       in: header
-      description: A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+      description: |
+        A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request.
+        The idempotency key is valid for 24 hours.
+
+        Learn more in the following [guide](https://developers.fireblocks.com/reference/api-idempotency)
       required: false
       schema:
         type: string

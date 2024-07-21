@@ -7,11 +7,9 @@ info:
     blockchain.
 
 
-    - Visit our website for more information: [Fireblocks
-    Website](https://fireblocks.com)
-
-    - Visit our developer docs: [Fireblocks
-    DevPortal](https://developers.fireblocks.com)
+    - Visit our website for more information: [Fireblocks Website](https://fireblocks.com)
+    - Visit our developer docs: [Fireblocks Developer Portal](https://developers.fireblocks.com)
+    - Get a free Sandbox Workspace: [Sandbox Signup](https://www.fireblocks.com/developer-sandbox-sign-up/)
   version: 1.8.0
   contact:
     email: developers@fireblocks.com
@@ -25,29 +23,56 @@ security:
     bearerTokenAuth: []
 tags:
   - name: Users Management
-    description: Users Management APIs
+    description: |
+      Users Management APIs.
+
+      Learn more about Fireblocks Users management in the following [guide](https://developers.fireblocks.com/docs/manage-users)
   - name: API Keys Management
-    description: API Keys Management APIs
+    description: |
+      API Keys Management APIs.
+
+      Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys)
   - name: Workspace Settings
     description: Workspace Settings APIs
   - name: Transaction Authorization Policy (Beta)
-    description: Transaction Authorization Policy Management APIs
+    description: |
+      Transaction Authorization Policy Management APIs.
+
+      Learn more about Fireblocks Transaction Authorization Policy in the following [guide](https://developers.fireblocks.com/docs/set-transaction-authorization-policy)
   - name: Travel Rule
-    description: Travel Rule Policies APIs
+    description: |
+      Travel Rule Policies APIs.
+
+      Learn more about Fireblocks Travel Rule management in the following [guide](https://developers.fireblocks.com/docs/define-travel-rule-policies)
   - name: AML Policy
-    description: Anti Money Laundering Policies APIs
+    description: |
+      Anti Money Laundering Policies APIs.
+
+      Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies)
   - name: Audit Log
     description: Audit Logs APIs
   - name: Vault Accounts
-    description: Vault Accounts Management APIs
+    description: |
+      Vault Accounts Management APIs.
+
+      Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account)
   - name: Vault Wallets
-    description: Vault Wallets Management APIs
+    description: |
+      Vault Wallets Management APIs.
+
+      Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet
   - name: Balances
     description: Vault Wallets' Balances APIs
   - name: Transactions
-    description: Transactions Management APIs
+    description: |
+      Transactions Management APIs.
+
+      Learn more about Fireblocks Transactions management in the following [guide](https://developers.fireblocks.com/reference/create-transactions)
   - name: Fee Management
-    description: Transaction Fee Management APIs
+    description: |
+      Transaction Fee Management APIs.
+
+      Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee)
   - name: External Wallets
     description: |
       Whitelisted External Wallets APIs:
@@ -72,11 +97,17 @@ tags:
 
       Learn more about Whitelisted Smart Contracts [here](https://developers.fireblocks.com/docs/whitelist-addresses#contracts).
   - name: Network Connections
-    description: Fireblocks Network Connections APIs
+    description: |
+      Fireblocks Network Connections APIs.
+
+      Learn more about Fireblocks Network in the following [guide](https://developers.fireblocks.com/docs/connect-to-the-fireblocks-network)
   - name: Network IDs
     description: Fireblocks Network IDs APIs
   - name: Smart Transfers
-    description: Smart Transfers APIs
+    description: |
+      Smart Transfers APIs.
+
+      Learn more about Fireblocks Smart Transfers in the following [guide](https://developers.fireblocks.com/docs/execute-smart-transfers)
   - name: Tokens
     description: Tokenization APIs
   - name: Deployed Contracts
@@ -86,27 +117,59 @@ tags:
   - name: Contract Templates
     description: Smart Contract Templates APIs
   - name: NFTs
-    description: NFTs Management APIs
+    description: |
+      NFTs Management APIs.
+
+      Learn more about Fireblocks NFT management in the following [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection)
   - name: Dapp Connections
-    description: Dapp Connections Management APIs
+    description: |
+      Dapp Connections Management APIs.
+
+      Learn more about Fireblocks Wallet Link in the following [guide](https://developers.fireblocks.com/docs/web3-wallet-link)
   - name: Cosigners (Beta)
     description: Cosigners Management APIs
   - name: Webhooks
-    description: Webhooks Management APIs
+    description: |
+      Webhooks Management APIs.
+
+      Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks)
   - name: Off Exchange
-    description: Off Exchange Management APIs
+    description: |
+      Off Exchange Management APIs.
+
+      Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange)
   - name: Payouts
-    description: Payouts Management APIs
+    description: |
+      Payouts Management APIs.
+
+      Learn more about Fireblocks Payments - Payouts in the following [guide](https://developers.fireblocks.com/docs/create-payouts)
   - name: Flows
-    description: Flows Management APIs
+    description: |
+      Flows Management APIs.
+
+      Learn more about Fireblocks Payments - Flows in the following [guide](https://developers.fireblocks.com/docs/payment-flows-copy)
   - name: Key Link (Beta)
     description: Key Link Management APIs
   - name: Exchange Accounts
-    description: Exchange Accounts Management APIs
+    description: |
+      Exchange Accounts Management APIs.
+
+      Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers)
   - name: FIAT Accounts
-    description: FIAT Accounts Management APIs
+    description: |
+      FIAT Accounts Management APIs.
+
+      Learn more about Fireblocks FIAT Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers)
   - name: Gas Station
-    description: Fireblocks Gas Station Management APIs
+    description: |
+      Fireblocks Gas Station Management APIs.
+
+      Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station)
+  - name: Staking
+    description: |
+      Fireblocks Staking APIs.
+
+      Learn more about Staking in Fireblocks in the following [guide](https://developers.fireblocks.com/docs/stake-assets)
 paths:
   /vault/accounts:
     get:

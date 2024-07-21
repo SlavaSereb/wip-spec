@@ -12387,15 +12387,18 @@ components:
   schemas:
     ErrorSchema:
       type: object
+      description: |
+        Fireblocks Error Response.
+        Learn more in the following [guide](https://developers.fireblocks.com/reference/api-error-codes).
       properties:
         message:
           type: string
-          description: Error Message. Learn more in the following [guide](https://developers.fireblocks.com/reference/api-error-codes).
+          description: Error Message
           example: Invalid signature
         code:
           type: number
           example: -1
-          description: Error Code. Learn more in the following [guide](https://developers.fireblocks.com/reference/api-error-codes).
+          description: Error Code
     RewardsInfo:
       type: object
       properties:

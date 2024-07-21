@@ -31,7 +31,7 @@ tags:
     description: |
       Vault Wallets Management APIs.
 
-      Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet
+      Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet)
   - name: Balances
     description: Vault Wallets' Balances APIs
   - name: Transactions Management

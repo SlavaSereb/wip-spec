@@ -51,17 +51,23 @@ tags:
   - name: External Wallets
     description: |
       Whitelisted External Wallets APIs:
-      External Wallets hold external addresses of your clients' and counterparties' wallets. 
+
+      External Wallets are entities that hold addresses external to your Fireblocks workspace and are not under your ownership. 
       Whitelisted addresses under External Wallets will not display the current on-chain balance of these addresses.
+      Learn more about Whitelisted External Wallet Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#external-wallets)
   - name: Internal Wallets
     description: |
       Whitelisted Internal Wallets APIs:
-      Internal Wallets contain external addresses of wallets you own outside of Fireblocks. 
+
+      Internal Wallets are entities that hold addresses external to your Fireblocks workspace but are under your ownership. 
       Whitelisted addresses under Internal Wallets will also display the current on-chain balance of these addresses.
+      Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)
   - name: Contracts
     description: |
       Whitelisted Contracts APIs:
+
       Whitelisted Contracts contain the addresses of the smart contracts you intend to interact with.
+      Learn more about Whitelisted Smart Contracts [here](https://developers.fireblocks.com/docs/whitelist-addresses#contracts)
   - name: Network Connections
     description: Fireblocks Network Connections APIs
   - name: Network IDs
@@ -98,6 +104,7 @@ tags:
     description: FIAT Accounts Management APIs
   - name: Gas Station
     description: Fireblocks Gas Station Management APIs
+# Groups
 x-tagGroups:
   - name: Workspace Management
     tags:
@@ -19907,20 +19914,30 @@ components:
           $ref: '#/components/schemas/TransferPeerPathSubType'
         id:
           type: string
+          description: Fireblocks' unique identifier for the source
+          example: 0
         name:
           type: string
+          description: The source name if applicable
+          example: Main Vault Account
         walletId:
           type: string
           format: uuid
+          example: a54ae9ab-3e05-4b0b-b664-fe18db5ff0c8
       required:
         - type
     OneTimeAddress:
       type: object
+      description: An object representing the non whitelisted address that you want to interact with. To learn more visit the [following guide](https://developers.fireblocks.com/docs/whitelist-addresses#work-with-one-time-addresses).
       properties:
         address:
+          description: The destination address
           type: string
+          example: "0xb794f5ea0ba39494ce839613fffba74279579268"
         tag:
+          description: Tag only for Tag/Memo supporting assets. XRP for example.
           type: string
+          example: "123456"
       required:
         - address
     DestinationTransferPeerPath:
@@ -19933,11 +19950,16 @@ components:
           $ref: '#/components/schemas/TransferPeerPathSubType'
         id:
           type: string
+          description: The Fireblocks' unique destination identifier
+          example: "1"
         name:
           type: string
+          description: Destination's name if applicable
+          example: My Other Vault Account
         walletId:
           type: string
           format: uuid
+          example: 68fa96a8-12ef-4b2d-bca7-c6d589e161dc
         oneTimeAddress:
           $ref: '#/components/schemas/OneTimeAddress'
       required:
@@ -19946,7 +19968,9 @@ components:
       type: object
       properties:
         amount:
+          description: The transfer's amount
           type: string
+          example: "1.9"
         destination:
           $ref: '#/components/schemas/DestinationTransferPeerPath'
     TravelRuleTransactionBlockchainInfo:
@@ -20066,7 +20090,7 @@ components:
             Internet interruptions, but the transaction was actually sent and
             processed. To validate whether a transaction has been processed,
             [Find a specific transaction by external transaction
-            ID](https://developers.fireblocks.com/reference/get_transactions-external-tx-id-externaltxid).
+            ID](https://developers.fireblocks.com/docs/manage-withdrawals-at-scale#idempotent-transactions).
 
             There is no specific format required for this parameter.
           example: some_unique_external_tx_id

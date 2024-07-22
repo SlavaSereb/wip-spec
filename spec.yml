@@ -271,7 +271,7 @@ paths:
           source: const vaultAccount = await fireblocks.createVaultAccount(name, hiddenOnUI, customerRefId, autoFueling);
   /vault/accounts_paged:
     get:
-      summary: Get vault accounts (Paginated)
+      summary: Get vault accounts
       description: Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time.
       tags:
         - Vault Accounts

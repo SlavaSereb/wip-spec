@@ -6481,7 +6481,7 @@ paths:
       x-codeSamples:
         - lang: javascript
           label: Javascript
-          source: const res = const res = await fireblocks.getUserGroups();
+          source: const res = await fireblocks.getUserGroups();
         - lang: python
           label: Python
           source: res = fireblocks.get_user_groups()

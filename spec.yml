@@ -8765,7 +8765,7 @@ paths:
         Returns minimal representation of all the contract templates available
         for the workspace.
 
-        Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - name: pageCursor
           required: false
@@ -8912,7 +8912,7 @@ paths:
       description: |-
         Returns detailed information about the contract template.
 
-        Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - name: contractTemplateId
           required: true
@@ -9028,7 +9028,7 @@ paths:
       description: |-
         Returns contract template's constructor ABI.
 
-        Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - name: contractTemplateId
           required: true
@@ -9102,7 +9102,7 @@ paths:
       description: |-
         Returns contract template`s function ABI by signature.
 
-        Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - name: contractTemplateId
           required: true
@@ -9157,7 +9157,7 @@ paths:
         token (ERC20, ERC721 etc), and create asset please use POST
         /tokenization.
 
-        Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - name: contractTemplateId
           required: true
@@ -9233,7 +9233,7 @@ paths:
         Return a filtered lean representation of the deployed contracts data on
         all blockchains (paginated).
 
-        Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - name: pageCursor
           required: false
@@ -9326,7 +9326,7 @@ paths:
       description: |-
         Return deployed contract data by id.
 
-        Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - name: id
           required: true
@@ -9385,7 +9385,7 @@ paths:
         Return deployed contract data by blockchain native asset id and contract
         address.
 
-        Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - name: contractAddress
           required: true
@@ -9453,7 +9453,9 @@ paths:
     post:
       operationId: fetchContractAbi
       summary: Fetch the contract ABI
-      description: Fetch the ABI. If not found fetch the ABI from the block explorer
+      description: Fetch the ABI. If not found fetch the ABI from the block explorer.
+        
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -9497,7 +9499,9 @@ paths:
     post:
       operationId: addContractABI
       summary: Save contract ABI
-      description: Save contract ABI for the tenant
+      description: Save contract ABI for the tenant.
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -9550,7 +9554,7 @@ paths:
         "PENDING" until the token is deployed or "SUCCESS" if no deployment is
         needed.
 
-        Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -9676,7 +9680,7 @@ paths:
       description: >-
         Link a contract.
 
-        Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -9737,6 +9741,8 @@ paths:
       operationId: createNewCollection
       summary: Create a new collection
       description: Create a new collection and link it as a token
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
       requestBody:
@@ -9835,6 +9841,8 @@ paths:
       operationId: getCollectionById
       summary: Get a collection by id
       description: Get a collection by id
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - name: id
           required: true
@@ -9916,6 +9924,8 @@ paths:
       operationId: fetchCollectionTokenDetails
       summary: Get collection token details
       description: Get collection token details by id
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - name: id
           required: true
@@ -9965,6 +9975,8 @@ paths:
       operationId: mintCollectionToken
       summary: Mint tokens
       description: Mint tokens and upload metadata
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - name: id
           required: true
@@ -10014,6 +10026,8 @@ paths:
       operationId: burnCollectionToken
       summary: Burn tokens
       description: Burn tokens in a collection
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - name: id
           required: true
@@ -10062,7 +10076,10 @@ paths:
     delete:
       operationId: unlink
       summary: Unlink a token
-      description: Unlink a token. The token will be unlinked from the workspace. The token will not be deleted on chain nor the refId, only the link to the workspace will be removed.
+      description: Unlink a token. The token will be unlinked from the workspace. 
+        The token will not be deleted on chain nor the refId, only the link to the workspace will be removed.
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - name: id
           required: true

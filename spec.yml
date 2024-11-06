@@ -9453,8 +9453,9 @@ paths:
     post:
       operationId: fetchContractAbi
       summary: Fetch the contract ABI
-      description: Fetch the ABI. If not found fetch the ABI from the block explorer.
-        
+      description: >-
+        Fetch the ABI. If not found fetch the ABI from the block explorer.
+
         Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
         - $ref: '#/components/parameters/X-Idempotency-Key'
@@ -9499,7 +9500,8 @@ paths:
     post:
       operationId: addContractABI
       summary: Save contract ABI
-      description: Save contract ABI for the tenant.
+      description: >-
+        Save contract ABI for the tenant.
 
         Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
@@ -9740,7 +9742,8 @@ paths:
     post:
       operationId: createNewCollection
       summary: Create a new collection
-      description: Create a new collection and link it as a token
+      description: >-
+        Create a new collection and link it as a token.
 
         Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
@@ -9840,7 +9843,8 @@ paths:
     get:
       operationId: getCollectionById
       summary: Get a collection by id
-      description: Get a collection by id
+      description: >-
+        Get a collection by id
 
         Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
@@ -9923,7 +9927,8 @@ paths:
     get:
       operationId: fetchCollectionTokenDetails
       summary: Get collection token details
-      description: Get collection token details by id
+      description: >-
+        Get collection token details by id.
 
         Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
@@ -9974,7 +9979,8 @@ paths:
     post:
       operationId: mintCollectionToken
       summary: Mint tokens
-      description: Mint tokens and upload metadata
+      description: >-
+        Mint tokens and upload metadata
 
         Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
@@ -10025,7 +10031,8 @@ paths:
     post:
       operationId: burnCollectionToken
       summary: Burn tokens
-      description: Burn tokens in a collection
+      description: >-
+        Burn tokens in a collection
 
         Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       parameters:
@@ -10076,7 +10083,8 @@ paths:
     delete:
       operationId: unlink
       summary: Unlink a token
-      description: Unlink a token. The token will be unlinked from the workspace. 
+      description: >-
+        Unlink a token. The token will be unlinked from the workspace. 
         The token will not be deleted on chain nor the refId, only the link to the workspace will be removed.
 
         Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.

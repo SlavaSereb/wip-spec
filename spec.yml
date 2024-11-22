@@ -7381,6 +7381,8 @@ paths:
         </ul>
 
         >
+        **Note:** We only support EXCHANGE_ACCOUNT as a valid source type and not other source types.
+        >
           Endpoint Permission: Admin, Non-Signing Admin.
       summary: Create a payout instruction set
       parameters:
@@ -7411,7 +7413,7 @@ paths:
         '200':
           description: >-
             The payout instruction set creation succeeded and returns the
-            generated instruction set with a unique payout IDThe payout ID will
+            generated instruction set with a unique payout ID. The payout ID will
             be used for executing the payout and checking the payout status.
           content:
             application/json:
@@ -19848,9 +19850,7 @@ components:
     PaymentAccountType:
       type: string
       enum:
-        - VAULT_ACCOUNT
         - EXCHANGE_ACCOUNT
-        - FIAT_ACCOUNT
     PaymentAccount:
       type: object
       properties:

@@ -13189,6 +13189,87 @@ paths:
               response =
               fireblocks.aMLPolicy().updateScreeningConfiguration(idempotencyKey);
             name: Fireblocks SDK Java example
+  /screening/travel_rule/vault/{vaultAccountId}/vasp:
+    get:
+      summary: Get assigned VASP to vault
+      description: |
+        Get assigned VASP DID for a specific vault. 
+        Returns empty `vaspDid` string value in response if none assigned.
+      tags:
+          - Travel Rule
+      x-readme:
+          code-samples:
+              - language: javascript
+                code: |
+                    const vaultAsset = await fireblocks.getVaspForVault(vaultAccountId);
+                name: Fireblocks SDK Javascript example
+      parameters:
+          - in: path
+            name: vaultAccountId
+            required: true
+            description: The ID of the vault account
+            example: 1
+            schema:
+                type: string
+                format: numeric
+                x-fb-entity: vault_account
+      responses:
+          "200":
+              description: OK
+              headers:
+                  X-Request-ID:
+                      $ref: '#/components/headers/X-Request-ID'
+              content:
+                  application/json:
+                      schema:
+                          $ref: '#/components/schemas/TravelRuleVaspForVault'
+          default:
+              $ref: '#/components/responses/Error'
+      operationId: getVaspForVault
+
+    post:
+      summary: Assign VASP to vault
+      description: |
+        Sets the VASP DID for a specific vault. 
+        Pass empty string to remove an existing one.
+      tags:
+          - Travel Rule
+      x-readme:
+          code-samples:
+              - language: javascript
+                code: >-
+                    const vaultAsset = await
+                    fireblocks.setVaspForVault(vaultAccountId, vaspDid);
+                name: Fireblocks SDK Javascript example
+      parameters:
+          - in: path
+            name: vaultAccountId
+            required: true
+            description: The ID of the vault account
+            schema:
+                type: string
+                format: numeric
+                x-fb-entity: vault_account
+          - $ref: '#/components/parameters/X-Idempotency-Key'
+      requestBody:
+          required: true
+          content:
+              application/json:
+                  schema:
+                      $ref: '#/components/schemas/TravelRuleVaspForVault'
+      responses:
+          "201":
+              description: OK
+              headers:
+                  X-Request-ID:
+                      $ref: '#/components/headers/X-Request-ID'
+              content:
+                  application/json:
+                      schema:
+                          $ref: '#/components/schemas/TravelRuleVaspForVault'
+          default:
+              $ref: '#/components/responses/Error'
+      operationId: setVaspForVault
   /management/ota:
     put:
       operationId: setOtaStatus
@@ -24689,6 +24770,13 @@ components:
         enabled:
           type: boolean
           description: Set true or false to enable or disable OTA transactions
+    TravelRuleVaspForVault:
+      type: object
+      properties:
+        vaspDid:
+          description: VASP DID
+          type: string
+          example: did:ethr:0x5dddec8dd669c49304ddbcba36ccc6e0798534dc
     SetOtaStatusResponse:
       oneOf:
         - type: object

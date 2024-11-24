@@ -13198,11 +13198,16 @@ paths:
       tags:
           - Travel Rule
       x-readme:
-          code-samples:
-              - language: javascript
-                code: |
-                    const vaultAsset = await fireblocks.getVaspForVault(vaultAccountId);
-                name: Fireblocks SDK Javascript example
+        code-samples:
+            - language: javascript
+              code: |
+                  const vaultAsset = await fireblocks.getVaspForVault(vaultAccountId);
+              name: Fireblocks SDK Javascript example
+      x-codeSamples:
+        - lang: javascript
+          label: Javascript
+          source: |
+            const vaultAsset = await fireblocks.getVaspForVault(vaultAccountId);
       parameters:
           - in: path
             name: vaultAccountId
@@ -13237,10 +13242,14 @@ paths:
       x-readme:
           code-samples:
               - language: javascript
-                code: >-
-                    const vaultAsset = await
-                    fireblocks.setVaspForVault(vaultAccountId, vaspDid);
+                code: |
+                    const vaultAsset = await fireblocks.setVaspForVault(vaultAccountId, vaspDid);
                 name: Fireblocks SDK Javascript example
+      x-codeSamples:
+      - lang: javascript
+        label: Javascript
+        source: |
+          const vaultAsset = await fireblocks.setVaspForVault(vaultAccountId, vaspDid);
       parameters:
           - in: path
             name: vaultAccountId
